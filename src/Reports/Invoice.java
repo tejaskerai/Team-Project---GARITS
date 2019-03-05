@@ -1,10 +1,11 @@
 package Reports;
 
 import Services.*;
+import java.util.Date;
 
 public class Invoice {
 
-	private string invoiceID;
+	private String invoiceID;
 	private CustomerAccount customerAccount;
 	private Date date;
 	private Part parts;
@@ -13,31 +14,31 @@ public class Invoice {
 	private JobSheet jobDetails;
 	private float VAT;
 
-	public string getInvoiceID() {
+	public String getInvoiceID() {
 		return this.invoiceID;
 	}
 
-	public string getPaymentStatus() {
+	public String getPaymentStatus() {
 		// TODO - implement Invoice.getPaymentStatus
 		throw new UnsupportedOperationException();
 	}
 
-	public string getPartName() {
+	public String getPartName() {
 		// TODO - implement Invoice.getPartName
 		throw new UnsupportedOperationException();
 	}
 
-	public string getManufacturer() {
+	public String getManufacturer() {
 		// TODO - implement Invoice.getManufacturer
 		throw new UnsupportedOperationException();
 	}
 
-	public string getVehichleType() {
+	public String getVehichleType() {
 		// TODO - implement Invoice.getVehichleType
 		throw new UnsupportedOperationException();
 	}
 
-	public string getYears() {
+	public String getYears() {
 		// TODO - implement Invoice.getYears
 		throw new UnsupportedOperationException();
 	}
@@ -47,7 +48,7 @@ public class Invoice {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getCustomerDetails() {
+	public String getCustomerDetails() {
 		// TODO - implement Invoice.getCustomerDetails
 		throw new UnsupportedOperationException();
 	}
@@ -56,7 +57,7 @@ public class Invoice {
 	 * 
 	 * @param ID
 	 */
-	public Invoice(string ID) {
+	public Invoice(String ID) {
 		// TODO - implement Invoice.Invoice
 		throw new UnsupportedOperationException();
 	}
@@ -72,7 +73,7 @@ public class Invoice {
 	 * @param jobDetails
 	 * @param VAT
 	 */
-	public static Invoice Invoice(string invoiceID, CustomerAccount customerAccount, Date date, Part parts, float total, Vehicle vehicle, JobSheet jobDetails, float VAT) {
+	public static Invoice Invoice(String invoiceID, CustomerAccount customerAccount, Date date, Part parts, float total, Vehicle vehicle, JobSheet jobDetails, float VAT) {
 		// TODO - implement Invoice.Invoice
 		throw new UnsupportedOperationException();
 	}

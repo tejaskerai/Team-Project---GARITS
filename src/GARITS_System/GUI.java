@@ -7,13 +7,13 @@ import User_Accounts.*;
 public class GUI {
 
 	private int data;
-	private string accountLogin;
+	private String accountLogin;
 
 	/**
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet getJob(string jobNo) {
+	public JobSheet getJob(String jobNo) {
 		// TODO - implement GUI.getJob
 		throw new UnsupportedOperationException();
 	}
@@ -22,7 +22,7 @@ public class GUI {
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet setJob(string jobNo) {
+	public JobSheet setJob(String jobNo) {
 		// TODO - implement GUI.setJob
 		throw new UnsupportedOperationException();
 	}
@@ -52,7 +52,7 @@ public class GUI {
 	 * @param username
 	 * @param password
 	 */
-	public void addMechanic(string username, string password) {
+	public void addMechanic(String username, String password) {
 		// TODO - implement GUI.addMechanic
 		throw new UnsupportedOperationException();
 	}
@@ -62,7 +62,7 @@ public class GUI {
 	 * @param username
 	 * @param password
 	 */
-	public void addForePerson(string username, string password) {
+	public void addForePerson(String username, String password) {
 		// TODO - implement GUI.addForePerson
 		throw new UnsupportedOperationException();
 	}
@@ -72,7 +72,7 @@ public class GUI {
 	 * @param username
 	 * @param password
 	 */
-	public void addReceptionist(string username, string password) {
+	public void addReceptionist(String username, String password) {
 		// TODO - implement GUI.addReceptionist
 		throw new UnsupportedOperationException();
 	}
@@ -82,7 +82,7 @@ public class GUI {
 	 * @param username
 	 * @param password
 	 */
-	public void addFranchisee(string username, string password) {
+	public void addFranchisee(String username, String password) {
 		// TODO - implement GUI.addFranchisee
 		throw new UnsupportedOperationException();
 	}
@@ -91,7 +91,7 @@ public class GUI {
 	 * 
 	 * @param username
 	 */
-	public void removeUser(string username) {
+	public void removeUser(String username) {
 		// TODO - implement GUI.removeUser
 		throw new UnsupportedOperationException();
 	}
@@ -100,7 +100,7 @@ public class GUI {
 	 * 
 	 * @param username
 	 */
-	public User getUser(string username) {
+	public User getUser(String username) {
 		// TODO - implement GUI.getUser
 		throw new UnsupportedOperationException();
 	}
@@ -115,7 +115,7 @@ public class GUI {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getJobStatus() {
+	public String getJobStatus() {
 		// TODO - implement GUI.getJobStatus
 		throw new UnsupportedOperationException();
 	}
@@ -125,7 +125,7 @@ public class GUI {
 	 * @param discountPlan
 	 * @param discountAmount
 	 */
-	public void setDiscount(string discountPlan, float discountAmount) {
+	public void setDiscount(String discountPlan, float discountAmount) {
 		// TODO - implement GUI.setDiscount
 		throw new UnsupportedOperationException();
 	}
@@ -149,7 +149,7 @@ public class GUI {
 	 * 
 	 * @param jobDuration
 	 */
-	public void setJobDuration(string jobDuration) {
+	public void setJobDuration(String jobDuration) {
 		// TODO - implement GUI.setJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -158,7 +158,7 @@ public class GUI {
 	 * 
 	 * @param jobNo
 	 */
-	public string getJobDuration(string jobNo) {
+	public String getJobDuration(String jobNo) {
 		// TODO - implement GUI.getJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -176,7 +176,7 @@ public class GUI {
 	 * 
 	 * @param username
 	 */
-	public void allocateMechanic(string username) {
+	public void allocateMechanic(String username) {
 		// TODO - implement GUI.allocateMechanic
 		throw new UnsupportedOperationException();
 	}

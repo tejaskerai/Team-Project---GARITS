@@ -6,7 +6,7 @@ public class ServicesController implements ServicesInterface {
 	 * 
 	 * @param regNo
 	 */
-	public Vehicle getVehicle(string regNo) {
+	public Vehicle getVehicle(String regNo) {
 		// TODO - implement ServicesController.getVehicle
 		throw new UnsupportedOperationException();
 	}
@@ -33,7 +33,7 @@ public class ServicesController implements ServicesInterface {
 	 * 
 	 * @param CustomerID
 	 */
-	public CustomerAccount getCustomerAccount(string CustomerID) {
+	public CustomerAccount getCustomerAccount(String CustomerID) {
 		// TODO - implement ServicesController.getCustomerAccount
 		throw new UnsupportedOperationException();
 	}
@@ -56,7 +56,7 @@ public class ServicesController implements ServicesInterface {
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet getJobSheet(string jobNo) {
+	public JobSheet getJobSheet(String jobNo) {
 		// TODO - implement ServicesController.getJobSheet
 		throw new UnsupportedOperationException();
 	}
@@ -67,7 +67,7 @@ public class ServicesController implements ServicesInterface {
 	 * @param v
 	 * @param j
 	 */
-	public void createJobSheet(string o, Vehicle v, string j) {
+	public void createJobSheet(String o, Vehicle v, String j) {
 		// TODO - implement ServicesController.createJobSheet
 		throw new UnsupportedOperationException();
 	}
@@ -76,7 +76,7 @@ public class ServicesController implements ServicesInterface {
 	 * 
 	 * @param code
 	 */
-	public Part getPart(string code) {
+	public Part getPart(String code) {
 		// TODO - implement ServicesController.getPart
 		throw new UnsupportedOperationException();
 	}

@@ -2,32 +2,32 @@ package Services;
 
 public class Part {
 
-	private string partName;
-	private string code;
-	private string manufacturer;
-	private string vehicleType;
-	private string year;
+	private String partName;
+	private String code;
+	private String manufacturer;
+	private String vehicleType;
+	private String year;
 	private float price;
 	private int currentStockLevel = 1;
 	private int lowLevelThreshold = 0;
 
-	public string getPartName() {
+	public String getPartName() {
 		return this.partName;
 	}
 
-	public string getCode() {
+	public String getCode() {
 		return this.code;
 	}
 
-	public string getManufacturer() {
+	public String getManufacturer() {
 		return this.manufacturer;
 	}
 
-	public string getVehicleType() {
+	public String getVehicleType() {
 		return this.vehicleType;
 	}
 
-	public string getYear() {
+	public String getYear() {
 		return this.year;
 	}
 
@@ -69,7 +69,7 @@ public class Part {
 	 * @param price
 	 * @param lowLevelThreshold
 	 */
-	public static Part Part(string partName, string code, string manufacturer, string vehicleType, string year, string price, int lowLevelThreshold) {
+	public static Part Part(String partName, String code, String manufacturer, String vehicleType, String year, String price, int lowLevelThreshold) {
 		// TODO - implement Part.Part
 		throw new UnsupportedOperationException();
 	}

@@ -14,7 +14,7 @@ public class DBImplementation implements write {
 	 * @param SQL
 	 * @param conn
 	 */
-	public resultSet read(string SQL, connection conn) {
+	public resultSet read(String SQL, connection conn) {
 		// TODO - implement DBImplementation.read
 		throw new UnsupportedOperationException();
 	}
@@ -24,7 +24,7 @@ public class DBImplementation implements write {
 	 * @param SQL
 	 * @param conn
 	 */
-	public boolean write(string SQL, connection conn) {
+	public boolean write(String SQL, connection conn) {
 		// TODO - implement DBImplementation.write
 		throw new UnsupportedOperationException();
 	}

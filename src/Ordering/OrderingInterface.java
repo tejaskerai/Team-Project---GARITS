@@ -1,6 +1,7 @@
 package Ordering;
 
 import Services.*;
+import java.util.Date;
 
 public abstract interface OrderingInterface {
 
@@ -8,20 +9,20 @@ public abstract interface OrderingInterface {
 	 * 
 	 * @param orderID
 	 */
-	abstract BulkOrder getBulkOrder(string orderID);
+	abstract BulkOrder getBulkOrder(String orderID);
 
 	/**
 	 * 
 	 * @param orderID
 	 * @param date
 	 */
-	abstract void createBulkOrder(string orderID, Date date);
+	abstract void createBulkOrder(String orderID, Date date);
 
 	/**
 	 * 
 	 * @param orderID
 	 */
-	abstract PartOrder getPartOrder(string orderID);
+	abstract PartOrder getPartOrder(String orderID);
 
 	/**
 	 * 
@@ -30,6 +31,6 @@ public abstract interface OrderingInterface {
 	 * @param orderID
 	 * @param date
 	 */
-	abstract void createPartOrder(Part part, int amount, string orderID, Date date);
+	abstract void createPartOrder(Part part, int amount, String orderID, Date date);
 
 }

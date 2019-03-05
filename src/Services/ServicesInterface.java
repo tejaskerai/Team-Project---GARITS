@@ -6,7 +6,7 @@ public abstract interface ServicesInterface {
 	 * 
 	 * @param regNo
 	 */
-	abstract Vehicle getVehicle(string regNo);
+	abstract Vehicle getVehicle(String regNo);
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public abstract interface ServicesInterface {
 	 * 
 	 * @param CustomerID
 	 */
-	abstract CustomerAccount getCustomerAccount(string CustomerID);
+	abstract CustomerAccount getCustomerAccount(String CustomerID);
 
 	abstract void createCustomerAccount();
 
@@ -38,7 +38,7 @@ public abstract interface ServicesInterface {
 	 * 
 	 * @param jobNo
 	 */
-	abstract JobSheet getJobSheet(string jobNo);
+	abstract JobSheet getJobSheet(String jobNo);
 
 	/**
 	 * 
@@ -46,13 +46,13 @@ public abstract interface ServicesInterface {
 	 * @param v
 	 * @param j
 	 */
-	abstract void createJobSheet(string o, Vehicle v, string j);
+	abstract void createJobSheet(String o, Vehicle v, String j);
 
 	/**
 	 * 
 	 * @param code
 	 */
-	abstract Part getPart(string code);
+	abstract Part getPart(String code);
 
 	abstract void addPart();
 

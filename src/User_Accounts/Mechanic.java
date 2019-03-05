@@ -13,7 +13,7 @@ public class Mechanic extends User {
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet getJob(string jobNo) {
+	public JobSheet getJob(String jobNo) {
 		// TODO - implement Mechanic.getJob
 		throw new UnsupportedOperationException();
 	}
@@ -22,7 +22,7 @@ public class Mechanic extends User {
 	 * 
 	 * @param jobDuration
 	 */
-	public void setJobDuration(string jobDuration) {
+	public void setJobDuration(String jobDuration) {
 		// TODO - implement Mechanic.setJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -31,7 +31,7 @@ public class Mechanic extends User {
 	 * 
 	 * @param jobNo
 	 */
-	public string getJobDuration(string jobNo) {
+	public String getJobDuration(String jobNo) {
 		// TODO - implement Mechanic.getJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -50,7 +50,7 @@ public class Mechanic extends User {
 	 * @param username
 	 * @param password
 	 */
-	public static Mechanic Mechanic(string username, string password) {
+	public static Mechanic Mechanic(String username, String password) {
 		// TODO - implement Mechanic.Mechanic
 		throw new UnsupportedOperationException();
 	}

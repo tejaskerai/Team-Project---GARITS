@@ -7,7 +7,7 @@ public class Admin extends User {
 	 * @param username
 	 * @param password
 	 */
-	public void addMechanic(string username, string password) {
+	public void addMechanic(String username, String password) {
 		// TODO - implement Admin.addMechanic
 		throw new UnsupportedOperationException();
 	}
@@ -17,7 +17,7 @@ public class Admin extends User {
 	 * @param username
 	 * @param password
 	 */
-	public void addForePerson(string username, string password) {
+	public void addForePerson(String username, String password) {
 		// TODO - implement Admin.addForePerson
 		throw new UnsupportedOperationException();
 	}
@@ -27,7 +27,7 @@ public class Admin extends User {
 	 * @param username
 	 * @param password
 	 */
-	public void addReceptionist(string username, string password) {
+	public void addReceptionist(String username, String password) {
 		// TODO - implement Admin.addReceptionist
 		throw new UnsupportedOperationException();
 	}
@@ -37,7 +37,7 @@ public class Admin extends User {
 	 * @param username
 	 * @param password
 	 */
-	public void addFranchisee(string username, string password) {
+	public void addFranchisee(String username, String password) {
 		// TODO - implement Admin.addFranchisee
 		throw new UnsupportedOperationException();
 	}
@@ -46,7 +46,7 @@ public class Admin extends User {
 	 * 
 	 * @param username
 	 */
-	public void removeUser(string username) {
+	public void removeUser(String username) {
 		// TODO - implement Admin.removeUser
 		throw new UnsupportedOperationException();
 	}
@@ -55,7 +55,7 @@ public class Admin extends User {
 	 * 
 	 * @param username
 	 */
-	public User getUser(string username) {
+	public User getUser(String username) {
 		// TODO - implement Admin.getUser
 		throw new UnsupportedOperationException();
 	}
@@ -75,7 +75,7 @@ public class Admin extends User {
 	 * @param username
 	 * @param password
 	 */
-	public static Admin Admin(string username, string password) {
+	public static Admin Admin(String username, String password) {
 		// TODO - implement Admin.Admin
 		throw new UnsupportedOperationException();
 	}

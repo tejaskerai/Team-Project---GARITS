@@ -1,20 +1,22 @@
 package Services;
 
+import java.util.Date;
+
 public class Payment {
 
 	private Date date;
-	private string amount;
-	private string paymentType;
+	private String amount;
+	private String paymentType;
 
 	public Date getDate() {
 		return this.date;
 	}
 
-	public string getAmount() {
+	public String getAmount() {
 		return this.amount;
 	}
 
-	public string getPaymentType() {
+	public String getPaymentType() {
 		return this.paymentType;
 	}
 
@@ -24,7 +26,7 @@ public class Payment {
 	 * @param a
 	 * @param paymentType
 	 */
-	public static Payment Payment(Date d, string a, string paymentType) {
+	public static Payment Payment(Date d, String a, String paymentType) {
 		// TODO - implement Payment.Payment
 		throw new UnsupportedOperationException();
 	}

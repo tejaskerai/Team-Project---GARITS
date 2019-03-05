@@ -8,7 +8,7 @@ public class Franchisee extends User {
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet getJob(string jobNo) {
+	public JobSheet getJob(String jobNo) {
 		// TODO - implement Franchisee.getJob
 		throw new UnsupportedOperationException();
 	}
@@ -53,7 +53,7 @@ public class Franchisee extends User {
 	 * @param username
 	 * @param password
 	 */
-	public static Franchisee Franchisee(string username, string password) {
+	public static Franchisee Franchisee(String username, String password) {
 		// TODO - implement Franchisee.Franchisee
 		throw new UnsupportedOperationException();
 	}

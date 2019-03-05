@@ -10,7 +10,7 @@ public class User {
 	 * @param username
 	 * @param password
 	 */
-	public static User User(String username, password password) {
+	public static User User(String username, String password) {
 		// TODO - implement User.User
 		throw new UnsupportedOperationException();
 	}

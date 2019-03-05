@@ -1,5 +1,7 @@
 package Reports;
 
+import java.sql.Time;
+
 public class AverageTimeAndPriceReport extends Report {
 
 	private Time avgTimeTaken;

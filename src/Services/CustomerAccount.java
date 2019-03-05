@@ -2,15 +2,15 @@ package Services;
 
 public class CustomerAccount {
 
-	private string customerID;
-	private string name;
-	private string email;
-	private string mobile;
-	private string paymentStatus;
-	private string discountPlan;
+	private String customerID;
+	private String name;
+	private String email;
+	private String mobile;
+	private String paymentStatus;
+	private String discountPlan;
 	private float discountAmount;
-	private string address;
-	private string postCode;
+	private String address;
+	private String postCode;
 	private int vehicles;
 
 	public void archive() {
@@ -23,7 +23,7 @@ public class CustomerAccount {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getName() {
+	public String getName() {
 		return this.name;
 	}
 
@@ -31,11 +31,11 @@ public class CustomerAccount {
 	 * 
 	 * @param name
 	 */
-	public void setName(string name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
-	public string getEmail() {
+	public String getEmail() {
 		return this.email;
 	}
 
@@ -43,11 +43,11 @@ public class CustomerAccount {
 	 * 
 	 * @param email
 	 */
-	public void setEmail(string email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	public string getMobile() {
+	public String getMobile() {
 		return this.mobile;
 	}
 
@@ -55,11 +55,11 @@ public class CustomerAccount {
 	 * 
 	 * @param mobile
 	 */
-	public void setMobile(string mobile) {
+	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
 
-	public string getPaymentStatus() {
+	public String getPaymentStatus() {
 		return this.paymentStatus;
 	}
 
@@ -67,11 +67,11 @@ public class CustomerAccount {
 	 * 
 	 * @param paymentStatus
 	 */
-	public void setPaymentStatus(string paymentStatus) {
+	public void setPaymentStatus(String paymentStatus) {
 		this.paymentStatus = paymentStatus;
 	}
 
-	public string getDiscountPlan() {
+	public String getDiscountPlan() {
 		return this.discountPlan;
 	}
 
@@ -79,7 +79,7 @@ public class CustomerAccount {
 	 * 
 	 * @param discountPlan
 	 */
-	public void setDiscountPlan(string discountPlan) {
+	public void setDiscountPlan(String discountPlan) {
 		this.discountPlan = discountPlan;
 	}
 
@@ -95,7 +95,7 @@ public class CustomerAccount {
 		this.discountAmount = discountAmount;
 	}
 
-	public string getAddress() {
+	public String getAddress() {
 		return this.address;
 	}
 
@@ -103,11 +103,11 @@ public class CustomerAccount {
 	 * 
 	 * @param address
 	 */
-	public void setAddress(string address) {
+	public void setAddress(String address) {
 		this.address = address;
 	}
 
-	public string getPostCode() {
+	public String getPostCode() {
 		return this.postCode;
 	}
 
@@ -115,7 +115,7 @@ public class CustomerAccount {
 	 * 
 	 * @param postCode
 	 */
-	public void setPostCode(string postCode) {
+	public void setPostCode(String postCode) {
 		this.postCode = postCode;
 	}
 
@@ -142,7 +142,7 @@ public class CustomerAccount {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getCustomerID() {
+	public String getCustomerID() {
 		return this.customerID;
 	}
 
@@ -158,7 +158,7 @@ public class CustomerAccount {
 	 * @param address
 	 * @param postCode
 	 */
-	public static CustomerAccount CustomerAccount(string customerID, string name, string email, string mobile, string paymentStatus, string discountPlan, float discountAmount, string address, string postCode) {
+	public static CustomerAccount CustomerAccount(String customerID, String name, String email, String mobile, String paymentStatus, String discountPlan, float discountAmount, String address, String postCode) {
 		// TODO - implement CustomerAccount.CustomerAccount
 		throw new UnsupportedOperationException();
 	}

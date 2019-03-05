@@ -37,7 +37,7 @@ public class Receptionist extends User {
 	 * @param username
 	 * @param password
 	 */
-	public static Receptionist Receptionist(string username, string password) {
+	public static Receptionist Receptionist(String username, String password) {
 		// TODO - implement Receptionist.Receptionist
 		throw new UnsupportedOperationException();
 	}

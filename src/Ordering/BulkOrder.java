@@ -1,13 +1,14 @@
 package Ordering;
 
 import Reports.*;
+import java.util.Date;
 
 public class BulkOrder {
 
-	private string orderID;
+	private String orderID;
 	private int parts;
 	private float total;
-	private Invoice invoice = empty;
+	private Invoice invoice = null;
 	private Date date;
 
 	public void getParts() {
@@ -23,7 +24,7 @@ public class BulkOrder {
 		return this.invoice;
 	}
 
-	public string getOrderID() {
+	public String getOrderID() {
 		return this.orderID;
 	}
 
@@ -36,7 +37,7 @@ public class BulkOrder {
 	 * @param orderID
 	 * @param date
 	 */
-	public static BulkOrder BulkOrder(string orderID, Date date) {
+	public static BulkOrder BulkOrder(String orderID, Date date) {
 		// TODO - implement BulkOrder.BulkOrder
 		throw new UnsupportedOperationException();
 	}

@@ -2,14 +2,15 @@ package Ordering;
 
 import Services.*;
 import Reports.*;
+import java.util.Date;
 
 public class PartOrder {
 
-	private string orderID;
+	private String orderID;
 	private Part part;
 	private int amount;
 	private float total;
-	private Invoice invoice = empty;
+	private Invoice invoice = null;
 	private Date date;
 
 	public Part getPart() {
@@ -28,7 +29,7 @@ public class PartOrder {
 		return this.invoice;
 	}
 
-	public string getOrderID() {
+	public String getOrderID() {
 		return this.orderID;
 	}
 
@@ -43,7 +44,7 @@ public class PartOrder {
 	 * @param orderID
 	 * @param date
 	 */
-	public static PartOrder PartOrder(Part part, int amount, string orderID, Date date) {
+	public static PartOrder PartOrder(Part part, int amount, String orderID, Date date) {
 		// TODO - implement PartOrder.PartOrder
 		throw new UnsupportedOperationException();
 	}

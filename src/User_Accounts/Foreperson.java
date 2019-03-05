@@ -13,7 +13,7 @@ public class Foreperson extends User {
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet getJob(string jobNo) {
+	public JobSheet getJob(String jobNo) {
 		// TODO - implement Foreperson.getJob
 		throw new UnsupportedOperationException();
 	}
@@ -22,7 +22,7 @@ public class Foreperson extends User {
 	 * 
 	 * @param jobDuration
 	 */
-	public void setJobDuration(string jobDuration) {
+	public void setJobDuration(String jobDuration) {
 		// TODO - implement Foreperson.setJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -31,7 +31,7 @@ public class Foreperson extends User {
 	 * 
 	 * @param jobNo
 	 */
-	public string getJobDuration(string jobNo) {
+	public String getJobDuration(String jobNo) {
 		// TODO - implement Foreperson.getJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -79,7 +79,7 @@ public class Foreperson extends User {
 	 * 
 	 * @param username
 	 */
-	public void allocateMechanic(string username) {
+	public void allocateMechanic(String username) {
 		// TODO - implement Foreperson.allocateMechanic
 		throw new UnsupportedOperationException();
 	}
@@ -89,7 +89,7 @@ public class Foreperson extends User {
 	 * @param username
 	 * @param password
 	 */
-	public static Foreperson Foreperson(string username, string password) {
+	public static Foreperson Foreperson(String username, String password) {
 		// TODO - implement Foreperson.Foreperson
 		throw new UnsupportedOperationException();
 	}

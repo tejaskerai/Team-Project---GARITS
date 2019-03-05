@@ -2,15 +2,15 @@ package Services;
 
 public class JobSheet {
 
-	private string owner;
+	private String owner;
 	private Vehicle vehicle;
-	private string jobDescription = " ";
+	private String jobDescription = " ";
 	private float timeTaken = 0;
-	private string tasksCompleted = " ";
+	private String tasksCompleted = " ";
 	private int sparesUsed;
-	private string status = "Pending";
-	private string estimatedTime = "0 hours";
-	private string jobNo;
+	private String status = "Pending";
+	private String estimatedTime = "0 hours";
+	private String jobNo;
 
 	public void allocateRepairBay() {
 		// TODO - implement JobSheet.allocateRepairBay
@@ -22,7 +22,7 @@ public class JobSheet {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getOwner() {
+	public String getOwner() {
 		return this.owner;
 	}
 
@@ -30,7 +30,7 @@ public class JobSheet {
 		return this.vehicle;
 	}
 
-	public string getJobDescription() {
+	public String getJobDescription() {
 		return this.jobDescription;
 	}
 
@@ -38,7 +38,7 @@ public class JobSheet {
 	 * 
 	 * @param jobDescription
 	 */
-	public void setJobDescription(string jobDescription) {
+	public void setJobDescription(String jobDescription) {
 		this.jobDescription = jobDescription;
 	}
 
@@ -54,7 +54,7 @@ public class JobSheet {
 		this.timeTaken = timeTaken;
 	}
 
-	public string getTasksCompleted() {
+	public String getTasksCompleted() {
 		return this.tasksCompleted;
 	}
 
@@ -62,7 +62,7 @@ public class JobSheet {
 	 * 
 	 * @param tasksCompleted
 	 */
-	public void setTasksCompleted(string tasksCompleted) {
+	public void setTasksCompleted(String tasksCompleted) {
 		this.tasksCompleted = tasksCompleted;
 	}
 
@@ -79,7 +79,7 @@ public class JobSheet {
 		this.sparesUsed = sparesUsed;
 	}
 
-	public string getStatus() {
+	public String getStatus() {
 		return this.status;
 	}
 
@@ -87,11 +87,11 @@ public class JobSheet {
 	 * 
 	 * @param status
 	 */
-	public void setStatus(string status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
-	public string getEstimatedTime() {
+	public String getEstimatedTime() {
 		return this.estimatedTime;
 	}
 
@@ -99,7 +99,7 @@ public class JobSheet {
 	 * 
 	 * @param estimatedTime
 	 */
-	public void setEstimatedTime(string estimatedTime) {
+	public void setEstimatedTime(String estimatedTime) {
 		this.estimatedTime = estimatedTime;
 	}
 
@@ -109,7 +109,7 @@ public class JobSheet {
 	 * @param v
 	 * @param j
 	 */
-	public static JobSheet JobSheet(string o, Vehicle v, string j) {
+	public static JobSheet JobSheet(String o, Vehicle v, String j) {
 		// TODO - implement JobSheet.JobSheet
 		throw new UnsupportedOperationException();
 	}

@@ -15,7 +15,7 @@ public class GARITSController {
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet getJob(string jobNo) {
+	public JobSheet getJob(String jobNo) {
 		// TODO - implement GARITSController.getJob
 		throw new UnsupportedOperationException();
 	}
@@ -24,7 +24,7 @@ public class GARITSController {
 	 * 
 	 * @param jobNo
 	 */
-	public JobSheet setJob(string jobNo) {
+	public JobSheet setJob(String jobNo) {
 		// TODO - implement GARITSController.setJob
 		throw new UnsupportedOperationException();
 	}
@@ -54,7 +54,7 @@ public class GARITSController {
 	 * @param username
 	 * @param password
 	 */
-	public void addMechanic(string username, string password) {
+	public void addMechanic(String username, String password) {
 		// TODO - implement GARITSController.addMechanic
 		throw new UnsupportedOperationException();
 	}
@@ -64,7 +64,7 @@ public class GARITSController {
 	 * @param username
 	 * @param password
 	 */
-	public void addForePerson(string username, string password) {
+	public void addForePerson(String username, String password) {
 		// TODO - implement GARITSController.addForePerson
 		throw new UnsupportedOperationException();
 	}
@@ -74,7 +74,7 @@ public class GARITSController {
 	 * @param username
 	 * @param password
 	 */
-	public void addReceptionist(string username, string password) {
+	public void addReceptionist(String username, String password) {
 		// TODO - implement GARITSController.addReceptionist
 		throw new UnsupportedOperationException();
 	}
@@ -84,7 +84,7 @@ public class GARITSController {
 	 * @param username
 	 * @param password
 	 */
-	public void addFranchisee(string username, string password) {
+	public void addFranchisee(String username, String password) {
 		// TODO - implement GARITSController.addFranchisee
 		throw new UnsupportedOperationException();
 	}
@@ -93,7 +93,7 @@ public class GARITSController {
 	 * 
 	 * @param username
 	 */
-	public void removeUser(string username) {
+	public void removeUser(String username) {
 		// TODO - implement GARITSController.removeUser
 		throw new UnsupportedOperationException();
 	}
@@ -102,7 +102,7 @@ public class GARITSController {
 	 * 
 	 * @param username
 	 */
-	public User getUser(string username) {
+	public User getUser(String username) {
 		// TODO - implement GARITSController.getUser
 		throw new UnsupportedOperationException();
 	}
@@ -117,7 +117,7 @@ public class GARITSController {
 		throw new UnsupportedOperationException();
 	}
 
-	public string getJobStatus() {
+	public String getJobStatus() {
 		// TODO - implement GARITSController.getJobStatus
 		throw new UnsupportedOperationException();
 	}
@@ -127,7 +127,7 @@ public class GARITSController {
 	 * @param discountPlan
 	 * @param discountAmount
 	 */
-	public void setDiscount(string discountPlan, float discountAmount) {
+	public void setDiscount(String discountPlan, float discountAmount) {
 		// TODO - implement GARITSController.setDiscount
 		throw new UnsupportedOperationException();
 	}
@@ -151,7 +151,7 @@ public class GARITSController {
 	 * 
 	 * @param jobDuration
 	 */
-	public void setJobDuration(string jobDuration) {
+	public void setJobDuration(String jobDuration) {
 		// TODO - implement GARITSController.setJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -160,7 +160,7 @@ public class GARITSController {
 	 * 
 	 * @param jobNo
 	 */
-	public string getJobDuration(string jobNo) {
+	public String getJobDuration(String jobNo) {
 		// TODO - implement GARITSController.getJobDuration
 		throw new UnsupportedOperationException();
 	}
@@ -178,7 +178,7 @@ public class GARITSController {
 	 * 
 	 * @param username
 	 */
-	public void allocateMechanic(string username) {
+	public void allocateMechanic(String username) {
 		// TODO - implement GARITSController.allocateMechanic
 		throw new UnsupportedOperationException();
 	}

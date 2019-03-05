@@ -1,24 +1,26 @@
 package Services;
 
+import java.util.Date;
+
 public class Vehicle {
 
-	private string regNo;
-	private string make;
-	private string model;
+	private String regNo;
+	private String make;
+	private String model;
 	private int engSerial;
 	private int chassisNo;
-	private string colour;
-	private date MOTdate = NULL;
+	private String colour;
+	private Date MOTdate = null;
 
-	public string getRegNo() {
+	public String getRegNo() {
 		return this.regNo;
 	}
 
-	public string getMake() {
+	public String getMake() {
 		return this.make;
 	}
 
-	public string getModel() {
+	public String getModel() {
 		return this.model;
 	}
 
@@ -30,7 +32,7 @@ public class Vehicle {
 		return this.chassisNo;
 	}
 
-	public string getColour() {
+	public String getColour() {
 		return this.colour;
 	}
 
@@ -38,11 +40,11 @@ public class Vehicle {
 	 * 
 	 * @param colour
 	 */
-	public void setColour(string colour) {
+	public void setColour(String colour) {
 		this.colour = colour;
 	}
 
-	public date getMOTdate() {
+	public Date getMOTdate() {
 		// TODO - implement Vehicle.getMOTdate
 		throw new UnsupportedOperationException();
 	}
@@ -51,7 +53,7 @@ public class Vehicle {
 	 * 
 	 * @param MOTdate
 	 */
-	public void setMOTdate(date MOTdate) {
+	public void setMOTdate(Date MOTdate) {
 		// TODO - implement Vehicle.setMOTdate
 		throw new UnsupportedOperationException();
 	}
@@ -65,7 +67,7 @@ public class Vehicle {
 	 * @param cNo
 	 * @param col
 	 */
-	public static Vehicle Vehicle(string rNo, string ma, string mo, int eSe, int cNo, string col) {
+	public static Vehicle Vehicle(String rNo, String ma, String mo, int eSe, int cNo, String col) {
 		// TODO - implement Vehicle.Vehicle
 		throw new UnsupportedOperationException();
 	}
