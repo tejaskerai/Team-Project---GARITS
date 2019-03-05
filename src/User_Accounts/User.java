@@ -2,16 +2,13 @@ package User_Accounts;
 
 public class User {
 
-	private String username;
-	private String password;
+	private static String username;
+	private static String password;
 
-	/**
-	 * 
-	 * @param username
-	 * @param password
-	 */
-	public static User User(String username, String password) {
-		// TODO - implement User.User
+        public static User User(String username, String password) {
+		User.username = username;
+                User.password = password;
+                               
 		throw new UnsupportedOperationException();
 	}
 
