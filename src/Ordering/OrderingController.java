@@ -1,5 +1,6 @@
 package Ordering;
 
+import Services.Part;
 import java.util.Date;
 
 public class OrderingController implements OrderingInterface {
@@ -46,5 +47,10 @@ public class OrderingController implements OrderingInterface {
 		// TODO - implement OrderingController.OrderingController
 		throw new UnsupportedOperationException();
 	}
+
+    @Override
+    public void createPartOrder(Part part, int amount, String orderID, Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); 
+    }
 
 }

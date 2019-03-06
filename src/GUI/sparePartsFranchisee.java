@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class sparePartsFranchisee extends javax.swing.JFrame {
 
     /**

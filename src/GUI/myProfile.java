@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class myProfile extends javax.swing.JFrame {
 
     /**

@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class addSparePartToJob extends javax.swing.JFrame {
 
     /**

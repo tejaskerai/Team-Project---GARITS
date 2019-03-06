@@ -24,7 +24,7 @@ public class ServicesController implements ServicesInterface {
 	 * 
 	 * @param vehicle
 	 */
-	public void removeVehicle(regNo vehicle) {
+	public void removeVehicle(/*regNo vehicle*/) {
 		// TODO - implement ServicesController.removeVehicle
 		throw new UnsupportedOperationException();
 	}
@@ -47,7 +47,7 @@ public class ServicesController implements ServicesInterface {
 	 * 
 	 * @param customerAccount
 	 */
-	public void removeCustomerAccount(CustomerID customerAccount) {
+	public void removeCustomerAccount(/*CustomerID customerAccount*/) {
 		// TODO - implement ServicesController.removeCustomerAccount
 		throw new UnsupportedOperationException();
 	}
@@ -90,5 +90,6 @@ public class ServicesController implements ServicesInterface {
 		// TODO - implement ServicesController.ServicesController
 		throw new UnsupportedOperationException();
 	}
+
 
 }

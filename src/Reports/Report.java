@@ -1,10 +1,12 @@
 package Reports;
 
+import java.util.Date;
+
 public class Report {
 
-	private date endDate;
-	private date startDate;
-	private date dateOfReport;
+	private Date endDate;
+	private Date startDate;
+	private Date dateOfReport;
 
 	public void getReport() {
 		// TODO - implement Report.getReport

@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class admin extends javax.swing.JFrame {
 
     /**

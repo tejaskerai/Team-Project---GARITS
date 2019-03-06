@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class newUsers extends javax.swing.JFrame {
 
     /**

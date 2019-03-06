@@ -105,15 +105,15 @@ public class GUI {
 		throw new UnsupportedOperationException();
 	}
 
-	public Database backupDB() {
-		// TODO - implement GUI.backupDB
-		throw new UnsupportedOperationException();
-	}
-
-	public Database restoreDB() {
-		// TODO - implement GUI.restoreDB
-		throw new UnsupportedOperationException();
-	}
+//	public Database backupDB() {
+//		// TODO - implement GUI.backupDB
+//		throw new UnsupportedOperationException();
+//	}
+//
+//	public Database restoreDB() {
+//		// TODO - implement GUI.restoreDB
+//		throw new UnsupportedOperationException();
+//	}
 
 	public String getJobStatus() {
 		// TODO - implement GUI.getJobStatus

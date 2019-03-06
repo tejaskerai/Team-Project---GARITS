@@ -6,10 +6,6 @@
 
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class sparePartsDBMechanic extends javax.swing.JFrame {
 
     /** Creates new form sparePartsDB */

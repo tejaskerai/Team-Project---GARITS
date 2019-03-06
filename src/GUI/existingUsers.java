@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class existingUsers extends javax.swing.JFrame {
 
     /**

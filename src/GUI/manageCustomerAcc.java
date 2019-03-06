@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class manageCustomerAcc extends javax.swing.JFrame {
 
     /**

@@ -18,7 +18,7 @@ public abstract interface ServicesInterface {
 	 * 
 	 * @param vehicle
 	 */
-	abstract void removeVehicle(regNo vehicle);
+	abstract void removeVehicle(/*regNo vehicle*/);
 
 	/**
 	 * 
@@ -32,7 +32,7 @@ public abstract interface ServicesInterface {
 	 * 
 	 * @param customerAccount
 	 */
-	abstract void removeCustomerAccount(CustomerID customerAccount);
+	abstract void removeCustomerAccount(/*CustomerID customerAccount*/);
 
 	/**
 	 * 

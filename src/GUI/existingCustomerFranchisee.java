@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class existingCustomerFranchisee extends javax.swing.JFrame {
 
     /**

@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class newJob extends javax.swing.JFrame {
 
     /**

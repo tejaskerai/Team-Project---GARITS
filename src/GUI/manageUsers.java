@@ -6,10 +6,6 @@
 
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class manageUsers extends javax.swing.JFrame {
 
     /** Creates new form manageUsers */

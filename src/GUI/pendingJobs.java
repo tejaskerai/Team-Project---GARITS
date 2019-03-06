@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class pendingJobs extends javax.swing.JFrame {
 
     /**

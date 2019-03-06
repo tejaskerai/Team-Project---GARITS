@@ -5,9 +5,9 @@ import java.util.Date;
 public class InvoiceReminder {
 
 	private Invoice invoice;
-	private String firstReminder = firstReminder.txt;
-	private String secondReminder = secondReminder.txt;
-	private String finalReminder = finalReminder.txt;
+//	private String firstReminder = firstReminder.txt;
+//	private String secondReminder = secondReminder.txt;
+//	private String finalReminder = finalReminder.txt;
 	private Date date;
 
 	public void getDate() {

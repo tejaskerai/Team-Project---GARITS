@@ -34,9 +34,9 @@ public class VehiclesBookedMonthly extends Report {
 		return this.accountHolder;
 	}
 
-	public static void generate() {
-		// TODO - implement VehiclesBookedMonthly.generate
-		throw new UnsupportedOperationException();
-	}
+//	public static void generate() {
+//		// TODO - implement VehiclesBookedMonthly.generate
+//		throw new UnsupportedOperationException();
+//	}
 
 }

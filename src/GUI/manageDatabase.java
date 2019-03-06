@@ -5,10 +5,6 @@
  */
 package GUI;
 
-/**
- *
- * @author Ruweyda
- */
 public class manageDatabase extends javax.swing.JFrame {
 
     /**

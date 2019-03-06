@@ -2,14 +2,20 @@ package User_Accounts;
 
 public class User {
 
-	private static String username;
-	private static String password;
+        // Variables for username and password
+	private String username;
+	private String password;
 
-        public static User User(String username, String password) {
-		User.username = username;
-                User.password = password;
-                               
-		throw new UnsupportedOperationException();
+        // Constructor for User
+        public User(String username, String password) {
+            this.username = username;
+            this.password = password;
+                              
 	}
+        public User() {
+                              
+	}
+        
+        
 
 }
