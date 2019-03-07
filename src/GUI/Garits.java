@@ -7,6 +7,7 @@ public class Garits {
      */
     public static void main(String[] args) {
         new home().setVisible(true);
+        
     }
     
 }
