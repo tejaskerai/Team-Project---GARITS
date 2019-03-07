@@ -108,6 +108,7 @@ public class home extends javax.swing.JFrame {
         );
 
         jMenu1.setText("Help");
+        jMenu1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
 
         jMenuItem1.setText("jMenuItem1");
         jMenu1.add(jMenuItem1);

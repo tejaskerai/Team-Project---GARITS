@@ -31,12 +31,7 @@ public class Receptionist extends User {
 		// TODO - implement Receptionist.addNoteToPart
 		throw new UnsupportedOperationException();
 	}
-
-	/**
-	 * 
-	 * @param username
-	 * @param password
-	 */
+        
 	public static Receptionist Receptionist(String username, String password) {
 		// TODO - implement Receptionist.Receptionist
 		throw new UnsupportedOperationException();
