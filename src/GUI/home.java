@@ -143,8 +143,8 @@ public class Home extends javax.swing.JFrame {
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         // Need to edit this code to go to other pages once the database
         // has values in it.
-        JFrame admin = new Admin(garits);
-        garits.putOnScreen(admin);
+        JFrame receptionist = new Receptionist(garits);
+        garits.putOnScreen(receptionist);
         // When login button clicked, login page closes and another one opens
         dispose();
     }//GEN-LAST:event_LoginActionPerformed

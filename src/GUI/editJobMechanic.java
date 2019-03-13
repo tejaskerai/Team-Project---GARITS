@@ -87,6 +87,11 @@ public class EditJobMechanic extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTextPane3);
 
         jButton2.setText("ADD NEW PART");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Submit Job");
 
@@ -231,6 +236,11 @@ public class EditJobMechanic extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    // takes mechanic to the adding part to job.
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        garits.openNewScreen(this, new AddSparePartToJob(garits));
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

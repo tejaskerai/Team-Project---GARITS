@@ -104,6 +104,11 @@ public class ExistingCustomerReceptionist extends javax.swing.JFrame {
         jScrollPane10.setViewportView(jTextPane10);
 
         jButton1.setText("NEXT");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("BACK");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -265,6 +270,11 @@ public class ExistingCustomerReceptionist extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         garits.backButton(this);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    // Opens the new job sheet screen.
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        garits.openNewScreen(this, new NewJobSheet(garits));
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments

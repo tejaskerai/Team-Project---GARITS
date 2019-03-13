@@ -27,8 +27,9 @@ public class Garits {
     // on the help button at the top of the screen.
     // If the help file is unavailable, a message box opens.
     public void openHelp(JFrame frame) throws IOException{
-        File file = new File("C:/Users/ccram/Desktop/UniWork/Year2/"
-                + "TeamProject/Team-Project---GARITS-master/src/GUI/help.txt");
+        File file = new File("C:/Users/ccram/Desktop/UniWork/Year2/TeamProject"
+                + "/Team-Project---GARITS-master/Team-Project---GARITS/src/GUI/"
+                + "help.txt");
         Desktop desktop = Desktop.getDesktop();
         
         if (file.exists()){
