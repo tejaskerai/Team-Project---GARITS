@@ -20,7 +20,7 @@ public class User {
 
         private static User user = null;
 
-    // Singlton design pattern to make sure, admin is only created once
+    // Singlton design pattern to make sure, user is only created once
     public static User getUser() {
 
         if (user == null) {
@@ -42,10 +42,20 @@ public class User {
                               
 	}
         
-        public boolean Login(String username, String password) {
+        public boolean loginCheck(String username, String password) {
             //Starting connection with Database
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
             Session session = sessionFactory.getCurrentSession();
+           
+            Employee employee = new Employee();
+            //Query query = session.createQuery("from Employee where username")
+            session.beginTransaction();
+            employee = session.get(Employee.class, 1);
+            session.getTransaction().commit();
+            System.out.println(employee.toString());
+            
+            session.close();
+            return true;
 
 //            try {
 //
@@ -79,7 +89,7 @@ public class User {
 //        catch(Exception e){
 //            System.out.println("Error in user service");
 //        }
-        return false;
+        
     }
         
        public void updatePass(String username, String password, String newPass, String CNewPass) {

@@ -148,8 +148,8 @@ public class Home extends javax.swing.JFrame {
         String employeeUsername = username.getText();
         String userPassword = password.getText();
         
-//        User user = new User();
-//        boolean success = user.Login(employeeUsername, userPassword);
+        User user = new User();
+        user.loginCheck(employeeUsername, userPassword);
 //        if (success){
 //            
 //        }else {
