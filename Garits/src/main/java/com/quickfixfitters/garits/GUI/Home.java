@@ -7,8 +7,10 @@ package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.actors.User;
 import com.quickfixfitters.garits.database.DBConnectivity;
+import com.quickfixfitters.garits.entities.Employee;
 import javax.swing.JFrame;
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.swing.JOptionPane;
@@ -166,31 +168,45 @@ public class Home extends javax.swing.JFrame {
             
             try {
                 session.beginTransaction();
+                
                 Query query = session.createQuery("from Employee where username=:username and password=:password");
                 query.setString("username", employeeUsername);
                 query.setString("password", userPassword);
                 
-                
-               
+                // Create a list of all records
                 List employees = query.list();
                 
-                for (Object o : employees) {
-                    Map m = (Map)o;
-                    System.out.println(m.get("role"));
-                    session.getTransaction().commit();
-                }
+                Iterator it = employees.iterator();
+                Object o = (Object)it.next();
+                Employee e = (Employee)o;
+                
+                String role = e.getRole();
+                
+                switch (role) {
+                    case "admin":
+                        JFrame admin = new Admin(garits);
+                        garits.putOnScreen(admin);
+                        dispose();
+                        break;
+                    case "mechanic":
+                        JFrame mechanic = new Mechanic(garits);
+                        garits.putOnScreen(mechanic);
+                        // When login button clicked, login page closes and another one opens
 
+                        break;
+                    case "receptionist":
+                        JFrame receptionist = new Receptionist(garits);
+                        garits.putOnScreen(receptionist);
+                        dispose();
+                        break;
+                }
             } finally {
                 session.close();
             }
-            
-            JFrame receptionist = new Receptionist(garits);
-            garits.putOnScreen(receptionist);
-            // When login button clicked, login page closes and another one opens
-            dispose();
-            
         } else {
             JOptionPane.showMessageDialog(null, "Inncorrect Credentials");
+            this.username.setText("");
+            this.password.setText("");
         }
         
     }//GEN-LAST:event_loginActionPerformed

@@ -54,5 +54,9 @@ Contributor(s):
  
             <!--Setting Session context model -->
             <property name="current_session_context_class">thread</property>
+            <mapping class="com.quickfixfitters.garits.entities.Employee"/>
+            
+            
+            
   </session-factory>
 </hibernate-configuration>
