@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -47,15 +49,31 @@ public class User {
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
             Session session = sessionFactory.getCurrentSession();
            
-            Employee employee = new Employee();
-            //Query query = session.createQuery("from Employee where username")
-            session.beginTransaction();
-            employee = session.get(Employee.class, 1);
-            session.getTransaction().commit();
-            System.out.println(employee.toString());
+            try{
+                session.beginTransaction();
+                Query query = session.createQuery("from Employee where username=:username and password=:password");
+                // Replace :username with username given in the parameter
+                query.setString("username", username);
+                query.setString("password", password);
+
+                List list = query.list();
+
+                // If list of size 1 (means 1 record is found) a user is matched
+                if (list.size() == 1){
+                    return true;
+                }else{
+                    return false;
+                }
+            }finally{
+                session.close();
+            }
+           
             
-            session.close();
-            return true;
+//            employee = session.get(Employee.class, 1);
+//            session.getTransaction().commit();
+//            System.out.println(employee.toString());
+            
+            //session.close();
 
 //            try {
 //

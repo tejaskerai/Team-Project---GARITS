@@ -6,9 +6,17 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.actors.User;
+import com.quickfixfitters.garits.database.DBConnectivity;
 import javax.swing.JFrame;
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 public class Home extends javax.swing.JFrame {
 
@@ -149,16 +157,42 @@ public class Home extends javax.swing.JFrame {
         String userPassword = password.getText();
         
         User user = new User();
-        user.loginCheck(employeeUsername, userPassword);
-//        if (success){
-//            
-//        }else {
-//                JOptionPane.showMessageDialog(null, "Inncorrect Credentials");
-//            }
-        JFrame receptionist = new Receptionist(garits);
-        garits.putOnScreen(receptionist);
-        // When login button clicked, login page closes and another one opens
-        dispose();
+        boolean success = user.loginCheck(employeeUsername, userPassword);
+        if (success) {
+            
+            SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+            Session session = sessionFactory.getCurrentSession();
+            
+            
+            try {
+                session.beginTransaction();
+                Query query = session.createQuery("from Employee where username=:username and password=:password");
+                query.setString("username", employeeUsername);
+                query.setString("password", userPassword);
+                
+                
+               
+                List employees = query.list();
+                
+                for (Object o : employees) {
+                    Map m = (Map)o;
+                    System.out.println(m.get("role"));
+                    session.getTransaction().commit();
+                }
+
+            } finally {
+                session.close();
+            }
+            
+            JFrame receptionist = new Receptionist(garits);
+            garits.putOnScreen(receptionist);
+            // When login button clicked, login page closes and another one opens
+            dispose();
+            
+        } else {
+            JOptionPane.showMessageDialog(null, "Inncorrect Credentials");
+        }
+        
     }//GEN-LAST:event_loginActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
