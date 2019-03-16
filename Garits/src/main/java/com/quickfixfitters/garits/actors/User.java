@@ -6,9 +6,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -20,7 +22,7 @@ public class User {
 
         private static User user = null;
 
-    // Singlton design pattern to make sure, admin is only created once
+    // Singlton design pattern to make sure, user is only created once
     public static User getUser() {
 
         if (user == null) {
@@ -42,10 +44,36 @@ public class User {
                               
 	}
         
-        public boolean Login(String username, String password) {
+        public boolean loginCheck(String username, String password) {
             //Starting connection with Database
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
             Session session = sessionFactory.getCurrentSession();
+           
+            try{
+                session.beginTransaction();
+                Query query = session.createQuery("from Employee where username=:username and password=:password");
+                // Replace :username with username given in the parameter
+                query.setString("username", username);
+                query.setString("password", password);
+
+                List list = query.list();
+
+                // If list of size 1 (means 1 record is found) a user is matched
+                if (list.size() == 1){
+                    return true;
+                }else{
+                    return false;
+                }
+            }finally{
+                session.close();
+            }
+           
+            
+//            employee = session.get(Employee.class, 1);
+//            session.getTransaction().commit();
+//            System.out.println(employee.toString());
+            
+            //session.close();
 
 //            try {
 //
@@ -79,7 +107,7 @@ public class User {
 //        catch(Exception e){
 //            System.out.println("Error in user service");
 //        }
-        return false;
+        
     }
         
        public void updatePass(String username, String password, String newPass, String CNewPass) {

@@ -6,9 +6,19 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.actors.User;
+import com.quickfixfitters.garits.database.DBConnectivity;
+import com.quickfixfitters.garits.entities.Employee;
 import javax.swing.JFrame;
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import javax.swing.JOptionPane;
+import org.hibernate.Criteria;
+import org.hibernate.Query;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 public class Home extends javax.swing.JFrame {
 
@@ -148,17 +158,57 @@ public class Home extends javax.swing.JFrame {
         String employeeUsername = username.getText();
         String userPassword = password.getText();
         
-//        User user = new User();
-//        boolean success = user.Login(employeeUsername, userPassword);
-//        if (success){
-//            
-//        }else {
-//                JOptionPane.showMessageDialog(null, "Inncorrect Credentials");
-//            }
-        JFrame receptionist = new Receptionist(garits);
-        garits.putOnScreen(receptionist);
-        // When login button clicked, login page closes and another one opens
-        dispose();
+        User user = new User();
+        boolean success = user.loginCheck(employeeUsername, userPassword);
+        if (success) {
+            
+            SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+            Session session = sessionFactory.getCurrentSession();
+            
+            
+            try {
+                session.beginTransaction();
+                
+                Query query = session.createQuery("from Employee where username=:username and password=:password");
+                query.setString("username", employeeUsername);
+                query.setString("password", userPassword);
+                
+                // Create a list of all records
+                List employees = query.list();
+                
+                Iterator it = employees.iterator();
+                Object o = (Object)it.next();
+                Employee e = (Employee)o;
+                
+                String role = e.getRole();
+                
+                switch (role) {
+                    case "admin":
+                        JFrame admin = new Admin(garits);
+                        garits.putOnScreen(admin);
+                        dispose();
+                        break;
+                    case "mechanic":
+                        JFrame mechanic = new Mechanic(garits);
+                        garits.putOnScreen(mechanic);
+                        // When login button clicked, login page closes and another one opens
+
+                        break;
+                    case "receptionist":
+                        JFrame receptionist = new Receptionist(garits);
+                        garits.putOnScreen(receptionist);
+                        dispose();
+                        break;
+                }
+            } finally {
+                session.close();
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Inncorrect Credentials");
+            this.username.setText("");
+            this.password.setText("");
+        }
+        
     }//GEN-LAST:event_loginActionPerformed
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed

@@ -16,6 +16,10 @@ public class Garits {
     private Stack<JFrame> openScreens;
 
     public Garits() {
+        
+        //Starting connection with Database
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        
         openScreens = new Stack<>();
         JFrame home = new Home(this);
         this.putOnScreen(home);
@@ -74,22 +78,6 @@ public class Garits {
     
     public static void main(String[] args){
         new Garits();
-        
-//        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
-//        Session session = sessionFactory.getCurrentSession();
-//
-//        try {
-//
-//            Employee employee = new Employee();
-//            session.beginTransaction();
-//            employee = session.get(Employee.class, 1);
-//            session.getTransaction().commit();
-//            System.out.println(employee.toString());
-//
-//        } finally {
-//            session.close();
-//            sessionFactory.close();
-//        }
     }
     
 }
