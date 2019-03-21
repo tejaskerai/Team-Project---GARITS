@@ -22,21 +22,19 @@ public class Customer {
 
     @Column(name = "CustomerAddress")
     private String customerAddress;
-
+    
     @Column(name = "TelNo")
     private int telNo;
 
     @Column(name = "Email")
     private String email;
 
-    @Column(name = "CustomerAccountId")
-    private int customerAccountId;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CustomerAccountId", insertable = false, updatable = false)
     private CustomerAccount customerAccount;
 
-    public Customer(String forename, String surname, String customerAddress, int telNo, String email) {
+    public Customer(String forename, String surname, String customerAddress,
+            int telNo, String email) {
         this.forename = forename;
         this.surname = surname;
         this.customerAddress = customerAddress;

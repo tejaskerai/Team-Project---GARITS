@@ -5,6 +5,7 @@
  */
 package com.quickfixfitters.garits.GUI;
 
+import com.quickfixfitters.garits.actors.Franchisee;
 import java.io.IOException;
 import javax.swing.JOptionPane;
 
@@ -48,17 +49,17 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextPane1 = new javax.swing.JTextPane();
+        forename = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextPane3 = new javax.swing.JTextPane();
+        surname = new javax.swing.JTextPane();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTextPane4 = new javax.swing.JTextPane();
+        address = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         jTextPane5 = new javax.swing.JTextPane();
         jScrollPane6 = new javax.swing.JScrollPane();
-        jTextPane6 = new javax.swing.JTextPane();
+        telephone = new javax.swing.JTextPane();
         jScrollPane7 = new javax.swing.JScrollPane();
-        jTextPane7 = new javax.swing.JTextPane();
+        email = new javax.swing.JTextPane();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTextPane8 = new javax.swing.JTextPane();
         jScrollPane9 = new javax.swing.JScrollPane();
@@ -118,17 +119,17 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
 
         jLabel14.setText("COLOUR");
 
-        jScrollPane1.setViewportView(jTextPane1);
+        jScrollPane1.setViewportView(forename);
 
-        jScrollPane3.setViewportView(jTextPane3);
+        jScrollPane3.setViewportView(surname);
 
-        jScrollPane4.setViewportView(jTextPane4);
+        jScrollPane4.setViewportView(address);
 
         jScrollPane5.setViewportView(jTextPane5);
 
-        jScrollPane6.setViewportView(jTextPane6);
+        jScrollPane6.setViewportView(telephone);
 
-        jScrollPane7.setViewportView(jTextPane7);
+        jScrollPane7.setViewportView(email);
 
         jScrollPane8.setViewportView(jTextPane8);
 
@@ -333,8 +334,24 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Method is run when the user clicks the save button on this screen.
+    // It attempts to create a new customer and send it off to the database but
+    // if any of the details are incorrect or missing the system tells them that
+    // and lets them try again.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        Franchisee franchisee = new Franchisee(garits.getUsername(), garits.getPassword());
+        
+        // Collect the data from all of the text boxes and puts them into Strings
+        String customerForename = forename.getText().toLowerCase();
+        String customerSurname = surname.getText().toLowerCase();
+        String customerAddress = address.getText().toLowerCase();
+        int customerTelephone = Integer.parseInt(telephone.getText().toLowerCase());
+        String customerEmail = email.getText().toLowerCase();
+        
+        // Calls the method in the franchisee class that creates a new franchisee object and
+        // adds it to the database.
+        franchisee.createCustomerAccount(customerForename, customerSurname, customerAddress,
+                customerTelephone, customerEmail);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Takes user back one screen.
@@ -366,6 +383,9 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextPane address;
+    private javax.swing.JTextPane email;
+    private javax.swing.JTextPane forename;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -403,17 +423,14 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JTextPane jTextPane1;
     private javax.swing.JTextPane jTextPane10;
     private javax.swing.JTextPane jTextPane11;
     private javax.swing.JTextPane jTextPane12;
     private javax.swing.JTextPane jTextPane13;
-    private javax.swing.JTextPane jTextPane3;
-    private javax.swing.JTextPane jTextPane4;
     private javax.swing.JTextPane jTextPane5;
-    private javax.swing.JTextPane jTextPane6;
-    private javax.swing.JTextPane jTextPane7;
     private javax.swing.JTextPane jTextPane8;
     private javax.swing.JTextPane jTextPane9;
+    private javax.swing.JTextPane surname;
+    private javax.swing.JTextPane telephone;
     // End of variables declaration//GEN-END:variables
 }

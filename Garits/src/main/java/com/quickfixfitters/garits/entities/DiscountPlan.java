@@ -1,5 +1,6 @@
 package com.quickfixfitters.garits.entities;
 
+import java.util.ArrayList;
 import javax.persistence.*;
 
 @Entity
@@ -18,7 +19,7 @@ public class DiscountPlan {
     private float variableDiscount;
 
     @Column(name = "FlexibleDiscount")
-    private float flexibleDiscount;
+    private ArrayList<FlexibleBands> flexibleDiscount;
 
     @Column(name = "CustomerAccountId")
     private int customerAccountId;
@@ -28,7 +29,8 @@ public class DiscountPlan {
     private CustomerAccount customerAccount;
 
 
-    public DiscountPlan(float fixedDiscount, float variableDiscount, float flexibleDiscount) {
+    public DiscountPlan(float fixedDiscount, float variableDiscount, 
+            ArrayList<FlexibleBands> flexibleDiscount) {
         this.fixedDiscount = fixedDiscount;
         this.variableDiscount = variableDiscount;
         this.flexibleDiscount = flexibleDiscount;
@@ -53,11 +55,11 @@ public class DiscountPlan {
         this.variableDiscount = variableDiscount;
     }
 
-    public float getFlexibleDiscount() {
+    public ArrayList<FlexibleBands> getFlexibleDiscount() {
         return flexibleDiscount;
     }
 
-    public void setFlexibleDiscount(float flexibleDiscount) {
+    public void setFlexibleDiscount(ArrayList<FlexibleBands> flexibleDiscount) {
         this.flexibleDiscount = flexibleDiscount;
     }
 }

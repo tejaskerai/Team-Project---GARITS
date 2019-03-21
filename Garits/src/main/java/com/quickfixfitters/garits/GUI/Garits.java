@@ -1,7 +1,6 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.database.DBConnectivity;
-import com.quickfixfitters.garits.entities.Employee;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +13,16 @@ import javax.swing.JOptionPane;
 
 import com.quickfixfitters.garits.seeder.EmployeeSeeder;
 import com.quickfixfitters.garits.seeder.SeederInterface;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class Garits {
     
     private Stack<JFrame> openScreens;
+    
+    // Two strings that are initialised to the current user.
+    // Only initialised once the user logs in.
+    private String username;
+    private String password;
 
     public Garits() {
         
@@ -90,6 +93,24 @@ public class Garits {
     public Stack<JFrame> getOpenScreens(){
         return openScreens;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    
     
     public static void main(String[] args){
         new Garits();

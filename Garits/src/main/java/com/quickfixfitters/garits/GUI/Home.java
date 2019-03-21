@@ -196,12 +196,20 @@ public class Home extends javax.swing.JFrame {
                     case "mechanic":
                         JFrame mechanic = new Mechanic(garits);
                         garits.putOnScreen(mechanic);
+                        dispose();
                         // When login button clicked, login page closes and another one opens
 
                         break;
                     case "receptionist":
                         JFrame receptionist = new Receptionist(garits);
                         garits.putOnScreen(receptionist);
+                        dispose();
+                        break;
+                    case "franchisee":
+                        JFrame franchisee = new FranchiseeMain(garits);
+                        garits.setUsername(employeeUsername);
+                        garits.setPassword(userPassword);
+                        garits.putOnScreen(franchisee);
                         dispose();
                         break;
                 }
