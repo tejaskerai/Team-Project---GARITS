@@ -28,7 +28,7 @@ public class Garits {
         
         //Starting connection with Database
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
-        SeedData();
+        //SeedData();
         openScreens = new Stack<>();
         JFrame home = new Home(this);
         this.putOnScreen(home);
