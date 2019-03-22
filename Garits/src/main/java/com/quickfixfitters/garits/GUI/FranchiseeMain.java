@@ -89,7 +89,7 @@ public class FranchiseeMain extends javax.swing.JFrame {
             }
         });
 
-        jButton6.setText("jButton6");
+        jButton6.setText("New Customer");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);

@@ -62,4 +62,30 @@ public class DiscountPlan {
     public void setFlexibleDiscount(ArrayList<FlexibleBands> flexibleDiscount) {
         this.flexibleDiscount = flexibleDiscount;
     }
+
+    public int getDiscountPlanId() {
+        return discountPlanId;
+    }
+
+    public void setDiscountPlanId(int discountPlanId) {
+        this.discountPlanId = discountPlanId;
+    }
+
+    public int getCustomerAccountId() {
+        return customerAccountId;
+    }
+
+    public void setCustomerAccountId(int customerAccountId) {
+        this.customerAccountId = customerAccountId;
+    }
+
+    public CustomerAccount getCustomerAccount() {
+        return customerAccount;
+    }
+
+    public void setCustomerAccount(CustomerAccount customerAccount) {
+        this.customerAccount = customerAccount;
+    }
+    
+    
 }

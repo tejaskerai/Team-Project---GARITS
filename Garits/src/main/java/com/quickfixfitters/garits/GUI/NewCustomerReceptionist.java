@@ -55,7 +55,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         address = new javax.swing.JTextPane();
         jScrollPane5 = new javax.swing.JScrollPane();
-        jTextPane5 = new javax.swing.JTextPane();
+        postcode = new javax.swing.JTextPane();
         jScrollPane6 = new javax.swing.JScrollPane();
         telephone = new javax.swing.JTextPane();
         jScrollPane7 = new javax.swing.JScrollPane();
@@ -77,6 +77,8 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        payment = new javax.swing.JComboBox<>();
+        jLabel16 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -125,7 +127,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
 
         jScrollPane4.setViewportView(address);
 
-        jScrollPane5.setViewportView(jTextPane5);
+        jScrollPane5.setViewportView(postcode);
 
         jScrollPane6.setViewportView(telephone);
 
@@ -154,6 +156,10 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
 
         jButton3.setText("NEXT");
 
+        payment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Card", "Cash", "Either" }));
+
+        jLabel16.setText("Payment");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -172,27 +178,30 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel8)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel6))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(3, 3, 3)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel2)
-                                            .addComponent(jLabel3))))
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel7)
+                                            .addComponent(jLabel6))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                            .addGap(3, 3, 3)
+                                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel5)
+                                                .addComponent(jLabel4)
+                                                .addComponent(jLabel2)
+                                                .addComponent(jLabel3))))
+                                    .addComponent(jLabel16))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(payment, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jScrollPane1)
                                     .addComponent(jScrollPane3)
                                     .addComponent(jScrollPane4)
                                     .addComponent(jScrollPane5)
                                     .addComponent(jScrollPane6)
-                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jLabel8))
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 153, Short.MAX_VALUE))))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(43, 43, 43)
@@ -287,7 +296,11 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane13, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel16))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1)
@@ -345,13 +358,16 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         String customerForename = forename.getText().toLowerCase();
         String customerSurname = surname.getText().toLowerCase();
         String customerAddress = address.getText().toLowerCase();
+        String customerPostcode = postcode.getText().toLowerCase();
         int customerTelephone = Integer.parseInt(telephone.getText().toLowerCase());
         String customerEmail = email.getText().toLowerCase();
+        
+        String customerPayment = payment.getSelectedItem().toString().toLowerCase();
         
         // Calls the method in the franchisee class that creates a new franchisee object and
         // adds it to the database.
         franchisee.createCustomerAccount(customerForename, customerSurname, customerAddress,
-                customerTelephone, customerEmail);
+                customerPostcode, customerTelephone, customerEmail, customerPayment);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Takes user back one screen.
@@ -396,6 +412,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -427,9 +444,10 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
     private javax.swing.JTextPane jTextPane11;
     private javax.swing.JTextPane jTextPane12;
     private javax.swing.JTextPane jTextPane13;
-    private javax.swing.JTextPane jTextPane5;
     private javax.swing.JTextPane jTextPane8;
     private javax.swing.JTextPane jTextPane9;
+    private javax.swing.JComboBox<String> payment;
+    private javax.swing.JTextPane postcode;
     private javax.swing.JTextPane surname;
     private javax.swing.JTextPane telephone;
     // End of variables declaration//GEN-END:variables
