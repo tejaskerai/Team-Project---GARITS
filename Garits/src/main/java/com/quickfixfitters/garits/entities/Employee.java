@@ -9,7 +9,7 @@ public class Employee {
 
     @Id
     @Column(name = "EmployeeNo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int employeeNo;
 
     @Column(name = "Firstname")
