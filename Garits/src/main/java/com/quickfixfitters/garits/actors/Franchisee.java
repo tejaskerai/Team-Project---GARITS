@@ -2,9 +2,13 @@ package com.quickfixfitters.garits.actors;
 
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
+import com.quickfixfitters.garits.entities.CustomerAccount;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 
 public class Franchisee extends User {
@@ -44,7 +48,7 @@ public class Franchisee extends User {
 
     // Method that creates a new customer and adds it to the database.
     public void createCustomerAccount(String forename, String surname, String address,
-            int telephone, String email) {
+            String postcode, int telephone, String email, String payment) {
         
         // Connecting to the database.
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
@@ -56,10 +60,19 @@ public class Franchisee extends User {
         try{
             session.beginTransaction();
             
-            // Puts the newly created user into the database, then saves it, then
-            // tells the user that they succeeded.
-            Customer customer = new Customer(forename, surname, address, telephone, email);
+            // Puts the newly created customer into the database.
+            Customer customer = new Customer(forename, surname, address, postcode, telephone, email);
+            // Puts a newly created customer account into the database
+            CustomerAccount customerAccount = new CustomerAccount(payment);
+            
+            // Gives both objects access to primary key of the other.
+            customer.setCustomerAccount(customerAccount);
+            customerAccount.setCustomer(customer);
+            
             session.save(customer);
+            session.save(customerAccount);
+            
+            // Tells the user that they suceeded.
             JOptionPane.showMessageDialog(null, "Customer added");
         }finally{
             session.getTransaction().commit();

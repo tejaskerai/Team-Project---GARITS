@@ -23,21 +23,25 @@ public class Customer {
     @Column(name = "CustomerAddress")
     private String customerAddress;
     
+    @Column(name = "Postcode")
+    private String postcode;
+    
     @Column(name = "TelNo")
     private int telNo;
 
     @Column(name = "Email")
     private String email;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerAccountId", insertable = false, updatable = false)
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "CustomerAccountId", nullable = false)
     private CustomerAccount customerAccount;
 
     public Customer(String forename, String surname, String customerAddress,
-            int telNo, String email) {
+            String postcode, int telNo, String email) {
         this.forename = forename;
         this.surname = surname;
         this.customerAddress = customerAddress;
+        this.postcode = postcode;
         this.telNo = telNo;
         this.email = email;
     }
@@ -93,4 +97,19 @@ public class Customer {
         this.email = email;
     }
 
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
+    }
+    
+    public CustomerAccount getCustomerAccount() {
+        return customerAccount;
+    }
+
+    public void setCustomerAccount(CustomerAccount customerAccount) {
+        this.customerAccount = customerAccount;
+    }
 }

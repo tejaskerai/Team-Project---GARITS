@@ -15,32 +15,25 @@ public class CustomerAccount {
     @Column(name = "PaymentOption")
     private String paymentOption;
 
-    @Column(name = "DiscountPlanId")
-    private String discountPlanId;
-
-    @Column(name = "CustomerId")
-    private int customerId;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="CustomerId", insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customerAccount")
     private Customer customer;
 
-    @OneToMany(mappedBy = "customerAccount")
-    private List<Vehicle> vehicles;
-
-    @OneToMany(mappedBy = "customerAccount")
-    private List<MOTReminder> motReminders;
-
-    @OneToMany(mappedBy = "customerAccount")
-    private List<DiscountPlan> discountPlans;
+//    @OneToMany(mappedBy = "customeraccount")
+//    private List<Vehicle> vehicles;
+//
+//    @OneToMany(mappedBy = "customeraccount")
+//    private List<MOTReminder> motReminders;
+//    
+//    @OneToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "DiscountPlanId", insertable = false, updatable = false)
+//    private DiscountPlan discountPlan;
 
     public int getCustomerAccountId() {
         return customerAccountId;
     }
 
-    public CustomerAccount(String paymentOption, String discountPlanId) {
+    public CustomerAccount(String paymentOption) {
         this.paymentOption = paymentOption;
-        this.discountPlanId = discountPlanId;
     }
 
     public CustomerAccount() {
@@ -58,20 +51,37 @@ public class CustomerAccount {
         this.paymentOption = paymentOption;
     }
 
-    public String getDiscountPlanId() {
-        return discountPlanId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setDiscountPlanId(String discountPlanId) {
-        this.discountPlanId = discountPlanId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public int getCustomerId() {
-        return customerId;
-    }
+//    public List<Vehicle> getVehicles() {
+//        return vehicles;
+//    }
+//
+//    public void setVehicles(List<Vehicle> vehicles) {
+//        this.vehicles = vehicles;
+//    }
+//
+//    public List<MOTReminder> getMotReminders() {
+//        return motReminders;
+//    }
+//
+//    public void setMotReminders(List<MOTReminder> motReminders) {
+//        this.motReminders = motReminders;
+//    }
+//
+//    public DiscountPlan getDiscountPlan() {
+//        return discountPlan;
+//    }
+//
+//    public void setDiscountPlan(DiscountPlan discountPlan) {
+//        this.discountPlan = discountPlan;
+//    }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
+    
 }
