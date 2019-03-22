@@ -8,6 +8,7 @@ package com.quickfixfitters.garits.GUI;
 import com.quickfixfitters.garits.actors.User;
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Employee;
+import java.awt.event.KeyEvent;
 import javax.swing.JFrame;
 import java.io.IOException;
 import java.util.Iterator;
@@ -25,11 +26,10 @@ public class Home extends javax.swing.JFrame {
     /**
      * Creates new form Home
      */
-    
     // A variable of type Garits is passed to the screen since we need
     // access to its methods.
     Garits garits;
-    
+
     public Home(Garits garits) {
         initComponents();
         this.garits = garits;
@@ -80,6 +80,11 @@ public class Home extends javax.swing.JFrame {
         });
 
         password.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
+        password.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel1.setText("Username:");
@@ -152,40 +157,43 @@ public class Home extends javax.swing.JFrame {
     // Code for the button 'login'. Since the login screen can't be got
     // to using a back button, There is no need to add it to the stack.
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-        // Need to edit this code to go to other pages once the database
-        // has values in it.
-        
+
+
+        loginAction();
+    }//GEN-LAST:event_loginActionPerformed
+
+    private void loginAction() {
+
         String employeeUsername = username.getText();
         String userPassword = password.getText();
-        
+
         User user = new User();
         boolean success = user.loginCheck(employeeUsername, userPassword);
         if (success) {
-            
+
             // Creates connection to DB
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
             Session session = sessionFactory.getCurrentSession();
-            
-            
+
             try {
                 // Begin transaction to DB
                 session.beginTransaction();
-                
+
                 // Query to get all employees with username and password given
                 Query query = session.createQuery("from Employee where username=:username and password=:password");
                 query.setString("username", employeeUsername);
                 query.setString("password", userPassword);
-                
+
                 // Create a list of all records
                 List employees = query.list();
-                
+
                 Iterator it = employees.iterator();
-                Object o = (Object)it.next();
-                Employee e = (Employee)o;
-                
+                Object o = (Object) it.next();
+                Employee e = (Employee) o;
+
                 // Role from login stored here
                 String role = e.getRole();
-                
+
                 // Will show different screens depending on what user role is
                 switch (role) {
                     case "admin":
@@ -223,8 +231,9 @@ public class Home extends javax.swing.JFrame {
             this.username.setText("");
             this.password.setText("");
         }
-        
-    }//GEN-LAST:event_loginActionPerformed
+
+    }
+
 
     private void usernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameActionPerformed
         // TODO add your handling code here:
@@ -234,12 +243,18 @@ public class Home extends javax.swing.JFrame {
     // The system opens the help file and displays it to the user.
     // If help file isn't available, display error message.
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        try{
+        try {
             garits.openHelp(this);
-        } catch (IOException e){
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Help file not availiable");
         }
     }//GEN-LAST:event_jMenu1MouseClicked
+
+    private void passwordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER){
+            loginAction();
+        }
+    }//GEN-LAST:event_passwordKeyPressed
 
     /**
      * @param args the command line arguments
