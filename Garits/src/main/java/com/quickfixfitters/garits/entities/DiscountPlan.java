@@ -1,6 +1,7 @@
 package com.quickfixfitters.garits.entities;
 
 import java.util.ArrayList;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +10,7 @@ public class DiscountPlan {
 
     @Id
     @Column(name = "DiscountPlanId", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int discountPlanId;
 
     @Column(name = "FixedDiscount")
@@ -18,25 +19,22 @@ public class DiscountPlan {
     @Column(name = "VariableDiscount")
     private float variableDiscount;
 
-    @Column(name = "FlexibleDiscount")
-    private ArrayList<FlexibleBands> flexibleDiscount;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "BandId", nullable = false)
+    private Set<FlexibleBands> flexibleDiscount;
 
-    @Column(name = "CustomerAccountId")
-    private int customerAccountId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerAccountId", insertable = false, updatable = false)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "discountPlan")
     private CustomerAccount customerAccount;
 
-
     public DiscountPlan(float fixedDiscount, float variableDiscount, 
-            ArrayList<FlexibleBands> flexibleDiscount) {
+            Set<FlexibleBands> flexibleDiscount) {
         this.fixedDiscount = fixedDiscount;
         this.variableDiscount = variableDiscount;
         this.flexibleDiscount = flexibleDiscount;
     }
 
     public DiscountPlan() {
+        this.fixedDiscount = 10;
     }
 
     public float getFixedDiscount() {
@@ -55,11 +53,11 @@ public class DiscountPlan {
         this.variableDiscount = variableDiscount;
     }
 
-    public ArrayList<FlexibleBands> getFlexibleDiscount() {
+    public Set<FlexibleBands> getFlexibleDiscount() {
         return flexibleDiscount;
     }
 
-    public void setFlexibleDiscount(ArrayList<FlexibleBands> flexibleDiscount) {
+    public void setFlexibleDiscount(Set<FlexibleBands> flexibleDiscount) {
         this.flexibleDiscount = flexibleDiscount;
     }
 
@@ -69,14 +67,6 @@ public class DiscountPlan {
 
     public void setDiscountPlanId(int discountPlanId) {
         this.discountPlanId = discountPlanId;
-    }
-
-    public int getCustomerAccountId() {
-        return customerAccountId;
-    }
-
-    public void setCustomerAccountId(int customerAccountId) {
-        this.customerAccountId = customerAccountId;
     }
 
     public CustomerAccount getCustomerAccount() {

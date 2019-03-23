@@ -5,15 +5,40 @@
  */
 package com.quickfixfitters.garits.entities;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 /**
  *
  * @author ccram
  */
+@Entity
+@Table(name = "FlexibleBands")
 public class FlexibleBands {
     
+    @Id
+    @Column(name = "BandId", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int bandId;
+    
+    @Column(name = "min")
     private float min;
+    
+    @Column(name = "max")
     private float max;
+    
+    @Column(name = "value")
     private float value;
+    
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private DiscountPlan discountPlan;
     
     public FlexibleBands(float min, float max, float value){
         this.min = min;
@@ -44,4 +69,22 @@ public class FlexibleBands {
     public void setValue(float value) {
         this.value = value;
     }
+
+    public int getBandId() {
+        return bandId;
+    }
+
+    public void setBandId(int bandId) {
+        this.bandId = bandId;
+    }
+
+    public DiscountPlan getDiscountPlan() {
+        return discountPlan;
+    }
+
+    public void setDiscountPlan(DiscountPlan discountPlan) {
+        this.discountPlan = discountPlan;
+    }
+    
+    
 }

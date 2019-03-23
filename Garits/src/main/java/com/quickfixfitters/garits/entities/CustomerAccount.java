@@ -9,24 +9,24 @@ public class CustomerAccount {
 
     @Id
     @Column(name = "CustomerAccountId", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerAccountId;
 
     @Column(name = "PaymentOption")
     private String paymentOption;
-
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customerAccount")
-    private Customer customer;
 
 //    @OneToMany(mappedBy = "customeraccount")
 //    private List<Vehicle> vehicles;
 //
 //    @OneToMany(mappedBy = "customeraccount")
 //    private List<MOTReminder> motReminders;
-//    
-//    @OneToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "DiscountPlanId", insertable = false, updatable = false)
-//    private DiscountPlan discountPlan;
+//   
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "customerAccount")
+    private Customer customer;
+    
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "DiscountPlanId", nullable = false)
+    private DiscountPlan discountPlan;
 
     public int getCustomerAccountId() {
         return customerAccountId;
@@ -75,13 +75,13 @@ public class CustomerAccount {
 //        this.motReminders = motReminders;
 //    }
 //
-//    public DiscountPlan getDiscountPlan() {
-//        return discountPlan;
-//    }
-//
-//    public void setDiscountPlan(DiscountPlan discountPlan) {
-//        this.discountPlan = discountPlan;
-//    }
+    public DiscountPlan getDiscountPlan() {
+        return discountPlan;
+    }
+
+    public void setDiscountPlan(DiscountPlan discountPlan) {
+        this.discountPlan = discountPlan;
+    }
 
     
 }

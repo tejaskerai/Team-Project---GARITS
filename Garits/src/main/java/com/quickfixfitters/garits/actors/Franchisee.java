@@ -3,12 +3,10 @@ package com.quickfixfitters.garits.actors;
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
-import java.util.List;
+import com.quickfixfitters.garits.entities.DiscountPlan;
 import javax.swing.JOptionPane;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
 
 
 public class Franchisee extends User {
@@ -60,17 +58,22 @@ public class Franchisee extends User {
         try{
             session.beginTransaction();
             
-            // Puts the newly created customer into the database.
+            // Creates a new customer
             Customer customer = new Customer(forename, surname, address, postcode, telephone, email);
-            // Puts a newly created customer account into the database
+            // Creates a new customer account
             CustomerAccount customerAccount = new CustomerAccount(payment);
+            // Creates a default discount plan
+            DiscountPlan discountPlan = new DiscountPlan();
             
-            // Gives both objects access to primary key of the other.
+            // Gives all objects access to primary key of the other.
             customer.setCustomerAccount(customerAccount);
             customerAccount.setCustomer(customer);
+            customerAccount.setDiscountPlan(discountPlan);
+            discountPlan.setCustomerAccount(customerAccount);
             
             session.save(customer);
             session.save(customerAccount);
+            session.save(discountPlan);
             
             // Tells the user that they suceeded.
             JOptionPane.showMessageDialog(null, "Customer added");
