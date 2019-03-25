@@ -4,7 +4,10 @@ import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
+import com.quickfixfitters.garits.entities.Employee;
+import java.util.List;
 import javax.swing.JOptionPane;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -12,11 +15,42 @@ import org.hibernate.SessionFactory;
 public class Franchisee extends User {
     
     public static Franchisee franchisee = null;
-    private String username;
-    private String password;
+    private String username = "";
+    private String password = "";
     
     public static Franchisee getFranchisee(){
         return franchisee;
+    }
+
+    public static void setFranchisee(Franchisee franchisee) {
+        Franchisee.franchisee = franchisee;
+    }
+    
+    public List<Customer> getCustomers() {
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            Criteria criteria = session.createCriteria(Customer.class);
+            return (List<Customer>) criteria.list();
+        }
+    }
+    
+    public boolean removeCustomer(int id) {
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            Customer customer = session.get(Customer.class, id);
+            session.delete(customer);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return false;
     }
     
     public void JobSheet (String jobNo) {
@@ -45,7 +79,7 @@ public class Franchisee extends User {
     }
 
     // Method that creates a new customer and adds it to the database.
-    public void createCustomerAccount(String forename, String surname, String address,
+    public void createCustomer(String forename, String surname, String address,
             String postcode, int telephone, String email, String payment) {
         
         // Connecting to the database.
@@ -83,19 +117,22 @@ public class Franchisee extends User {
         }
     }
 
-    public void setCustormerAccount() {
-            // TODO - implement Franchisee.setCustormerAccount
+    public void setCustormer() {
+            // TODO - implement Franchisee.setCustormer
             throw new UnsupportedOperationException();
     }
 
-    public void getCustomerAccount() {
-            // TODO - implement Franchisee.getCustomerAccount
+    public void getCustomer() {
+            // TODO - implement Franchisee.getCustomer
             throw new UnsupportedOperationException();
     }
 
     public Franchisee(String username, String password) {
         this.username = username;
         this.password = password;
+        setFranchisee(new Franchisee());
     }
 
+    public Franchisee() {
+    }
 }
