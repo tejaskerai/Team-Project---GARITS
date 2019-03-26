@@ -18,7 +18,15 @@ public class Franchisee extends User {
     private String username = "";
     private String password = "";
     
+    
+    // Singleton for franchisee
     public static Franchisee getFranchisee(){
+        if (franchisee == null) {
+            franchisee = new Franchisee();
+            System.out.println("New Franchisee object created");
+            return franchisee;
+        }
+        System.out.println("Franshisee object already exists");
         return franchisee;
     }
 
