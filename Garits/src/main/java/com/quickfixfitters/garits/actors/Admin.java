@@ -136,6 +136,31 @@ public class Admin extends User {
             session.close();
         }
     }
+    
+    public void updateUser(int employeeNo, String firstname, String lastname, String role){
+        
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            Employee employee = session.get(Employee.class, employeeNo);
+            employee.setFirstname(firstname);
+            employee.setLastname(lastname);
+            employee.setRole(role);
+            session.update(employee);
+            session.getTransaction().commit();
+            
+            
+        }
+        catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+        
+    }
 
 //    public User getUser(String username) {
 //        // TODO - implement Admin.getUser
