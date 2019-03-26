@@ -354,22 +354,28 @@ public class ExistingUsers extends javax.swing.JFrame {
 
     private void updateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUserActionPerformed
         // TODO add your handling code here:
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
-        Admin admin = Admin.getAdmin();
+            Admin admin = Admin.getAdmin();
 
-        int selectedRow = jTable1.getSelectedRow();
-        int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
-        
-        String userFirstname =  firstname.getText();
-        String userLastname = lastname.getText();
-        String userRole = role.getSelectedItem().toString().toLowerCase();
-        
-        admin.updateUser(employeeNo, userFirstname, userLastname, userRole);
-        JOptionPane.showMessageDialog(null, "User Updated");
-        model.setRowCount(0);
-        populateEmployees();
-        
+            int selectedRow = jTable1.getSelectedRow();
+            int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+
+            String userFirstname =  firstname.getText();
+            String userLastname = lastname.getText();
+            String userRole = role.getSelectedItem().toString().toLowerCase();
+
+            admin.updateUser(employeeNo, userFirstname, userLastname, userRole);
+            JOptionPane.showMessageDialog(null, "User Updated");
+            model.setRowCount(0);
+            populateEmployees();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "No account selected");
+        }
+        firstname.setText(null);
+        lastname.setText(null);
+        jTable1.clearSelection();
     }//GEN-LAST:event_updateUserActionPerformed
 
     /**

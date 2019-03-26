@@ -149,8 +149,7 @@ public class Admin extends User {
             employee.setLastname(lastname);
             employee.setRole(role);
             session.update(employee);
-            session.getTransaction().commit();
-            
+            session.getTransaction().commit();     
             
         }
         catch (Exception e) {
