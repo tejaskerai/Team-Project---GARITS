@@ -17,10 +17,9 @@ public class ExistingUsers extends javax.swing.JFrame {
     /**
      * Creates new form existingUsers
      */
-    
     // Field of type Garits so we can access its methods.
     Garits garits;
-    
+
     public ExistingUsers(Garits garits) {
         initComponents();
         populateEmployees();
@@ -46,6 +45,13 @@ public class ExistingUsers extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
+        firstname = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        lastname = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        role = new javax.swing.JComboBox<>();
+        updateUser = new javax.swing.JButton();
         jMenuBar3 = new javax.swing.JMenuBar();
         jMenu5 = new javax.swing.JMenu();
         jMenu6 = new javax.swing.JMenu();
@@ -96,7 +102,39 @@ public class ExistingUsers extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jTable1);
+
+        firstname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                firstnameActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("First name: ");
+
+        jLabel3.setText("Last name: ");
+
+        lastname.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lastnameActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Role: ");
+
+        role.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mechanic", "Receptionist", "Foreperson", "Franchisee", "Admin" }));
+
+        updateUser.setText("UPDATE USER");
+        updateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateUserActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -108,17 +146,32 @@ public class ExistingUsers extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane4)
-                            .addComponent(jLabel6))))
-                .addGap(31, 31, 31))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(267, 267, 267)
-                .addComponent(removeUser, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                .addGap(265, 265, 265))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jButton2)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jLabel6)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 534, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(54, 54, 54)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                        .addGap(33, 33, 33)
+                                        .addComponent(removeUser, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(updateUser, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(firstname, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(lastname, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                                            .addComponent(role, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jButton2)))
+                .addContainerGap(61, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,11 +179,29 @@ public class ExistingUsers extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
-                .addGap(37, 37, 37)
-                .addComponent(removeUser)
-                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 292, Short.MAX_VALUE)
+                        .addGap(101, 101, 101))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(43, 43, 43)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(firstname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(lastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(role, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(removeUser)
+                            .addComponent(updateUser))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(jButton2))
         );
 
@@ -181,9 +252,9 @@ public class ExistingUsers extends javax.swing.JFrame {
 
     // Code that opens the help file.
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
-        try{
+        try {
             garits.openHelp(this);
-        } catch (IOException e){
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Help file not availiable");
         }
     }//GEN-LAST:event_jMenu6MouseClicked
@@ -202,39 +273,116 @@ public class ExistingUsers extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Admin admin = Admin.getAdmin();
         List<Employee> employees = admin.getEmployees();
-        
+
         for (Employee employee : employees) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
-                        employee.getEmployeeNo(),
-                        employee.getFirstname(), 
-                        employee.getLastname(), 
-                        employee.getRole()}
+                employee.getEmployeeNo(),
+                employee.getFirstname(),
+                employee.getLastname(),
+                employee.getRole()}
             );
         }
     }
-    
+
     // Code for when the remove user button is clicked.
     private void removeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserActionPerformed
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Admin admin = Admin.getAdmin();
         int selectedRow = jTable1.getSelectedRow();
-        int employeeNo = (Integer)jTable1.getValueAt(selectedRow, 0);
+        int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
         boolean success = admin.removeUser(employeeNo);
-        if(success) {
+        if (success) {
             model.removeRow(selectedRow);
             JOptionPane.showMessageDialog(this, "User removed successfully");
         }
     }//GEN-LAST:event_removeUserActionPerformed
+
+    private void firstnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstnameActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_firstnameActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        Admin admin = Admin.getAdmin();
+
+        int selectedRow = jTable1.getSelectedRow();
+        int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+
+        String itemText = model.getValueAt(selectedRow, 3).toString().toLowerCase();
+        System.out.println("selected " + itemText);
+
+        switch (itemText) {
+            case "mechanic":
+                role.setSelectedIndex(0);
+                break;
+            case "receptionist":
+                role.setSelectedIndex(1);
+                break;
+            case "foreperson":
+                role.setSelectedIndex(2);
+                break;
+            case "franchisee":
+                role.setSelectedIndex(3);
+                break;
+
+            case "admin":
+                role.setSelectedIndex(4);
+                break;
+
+        }
+
+        firstname.setText(model.getValueAt(selectedRow, 1).toString());
+        lastname.setText(model.getValueAt(selectedRow, 2).toString());
+
+//        boolean success = admin.removeUser(employeeNo);
+//        if(success) {
+//            model.removeRow(selectedRow);
+//            JOptionPane.showMessageDialog(this, "User removed successfully");
+//        }
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void lastnameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lastnameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lastnameActionPerformed
+
+    private void updateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUserActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        Admin admin = Admin.getAdmin();
+
+        int selectedRow = jTable1.getSelectedRow();
+        int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+        
+        String userFirstname =  firstname.getText();
+        String userLastname = lastname.getText();
+        String userRole = role.getSelectedItem().toString().toLowerCase();
+        
+        admin.updateUser(employeeNo, userFirstname, userLastname, userRole);
+        JOptionPane.showMessageDialog(null, "User Updated");
+        model.setRowCount(0);
+        populateEmployees();
+        
+    }//GEN-LAST:event_updateUserActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField firstname;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
@@ -246,6 +394,9 @@ public class ExistingUsers extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTable jTable1;
+    private javax.swing.JTextField lastname;
     private javax.swing.JButton removeUser;
+    private javax.swing.JComboBox<String> role;
+    private javax.swing.JButton updateUser;
     // End of variables declaration//GEN-END:variables
 }
