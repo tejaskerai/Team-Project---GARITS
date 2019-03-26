@@ -35,6 +35,36 @@ public class Franchisee extends User {
         }
     }
     
+    public void updateCustomer(int id, String forename, String surname, 
+                               String address, String postcode, int telephone, 
+                               String email){
+        
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            Customer customer = session.get(Customer.class, id);
+            
+            customer.setForename(forename);
+            customer.setSurname(surname);
+            customer.setCustomerAddress(address);
+            customer.setPostcode(postcode);
+            customer.setTelNo(telephone);
+            customer.setEmail(email);
+            
+            session.update(customer);
+            session.getTransaction().commit();     
+            
+        }
+        catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+    }
+    
     public boolean removeCustomer(int id) {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
