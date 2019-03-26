@@ -11,7 +11,7 @@ public class Vehicle {
 
     @Id
     @Column(name = "RegNo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int regNo;
 
     @Column(name = "Make")

@@ -12,7 +12,7 @@ public class MOTReminder {
 
     @Id
     @Column(name = "DiscountPlanId", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int discountPlanId;
 
     @Column(name = "RenewalTestDate")

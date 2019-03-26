@@ -10,7 +10,7 @@ public class JobSheet {
 
     @Id
     @Column(name = "JobNo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int jobNo;
 
     @Column(name = "DateBookedIn")

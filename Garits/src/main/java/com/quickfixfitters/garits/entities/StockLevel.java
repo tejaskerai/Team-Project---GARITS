@@ -9,7 +9,7 @@ public class StockLevel {
 
     @Id
     @Column(name = "OrderNo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int orderNo;
 
     @Column(name = "InitialStock")

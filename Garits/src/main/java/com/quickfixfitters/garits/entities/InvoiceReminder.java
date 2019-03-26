@@ -9,7 +9,7 @@ public class InvoiceReminder {
 
     @Id
     @Column(name = "InvoiceRNo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int invoiceRNo;
 
     @Column(name = "Forename")

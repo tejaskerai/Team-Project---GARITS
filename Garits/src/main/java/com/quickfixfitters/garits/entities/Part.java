@@ -8,7 +8,7 @@ public class Part {
 
     @Id
     @Column(name = "PartCode", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int partCode;
 
     @Column(name = "PartName")

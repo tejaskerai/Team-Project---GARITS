@@ -9,7 +9,7 @@ public class Invoice {
 
     @Id
     @Column(name = "InvoiceNO", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int InvoiceNo;
 
     @Column(name = "Qty")
