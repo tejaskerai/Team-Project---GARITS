@@ -14,6 +14,9 @@ public class CustomerAccount {
 
     @Column(name = "PaymentOption")
     private String paymentOption;
+    
+    @Column(name = "Useable")
+    private int useable;
 
 //    @OneToMany(mappedBy = "customeraccount")
 //    private List<Vehicle> vehicles;
@@ -32,8 +35,9 @@ public class CustomerAccount {
         return customerAccountId;
     }
 
-    public CustomerAccount(String paymentOption) {
+    public CustomerAccount(String paymentOption, int useable) {
         this.paymentOption = paymentOption;
+        this.useable = useable;
     }
 
     public CustomerAccount() {
@@ -83,5 +87,11 @@ public class CustomerAccount {
         this.discountPlan = discountPlan;
     }
 
-    
+    public int getUsable() {
+        return useable;
+    }
+
+    public void setUsable(int useable) {
+        this.useable = useable;
+    }
 }

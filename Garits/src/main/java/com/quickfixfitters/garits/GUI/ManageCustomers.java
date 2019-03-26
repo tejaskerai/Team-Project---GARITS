@@ -6,12 +6,15 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.actors.Franchisee;
+import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
-import com.quickfixfitters.garits.entities.Employee;
+import com.quickfixfitters.garits.entities.CustomerAccount;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 public class ManageCustomers extends javax.swing.JFrame {
 
@@ -73,16 +76,9 @@ public class ManageCustomers extends javax.swing.JFrame {
             Class[] types = new Class [] {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
             };
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, false
-            };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -138,6 +134,9 @@ public class ManageCustomers extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     public void populateCustomers() {
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Franchisee franchisee = new Franchisee();
         List<Customer> customers = franchisee.getCustomers();

@@ -95,21 +95,24 @@ public class Franchisee extends User {
             // Creates a new customer
             Customer customer = new Customer(forename, surname, address, postcode, telephone, email);
             // Creates a new customer account
-            CustomerAccount customerAccount = new CustomerAccount(payment);
+            CustomerAccount customerAccount;
+            if (payment == null){
+                customerAccount = new CustomerAccount(payment, 0);
+            }else{
+                customerAccount = new CustomerAccount(payment, 1);
+            }
             // Creates a default discount plan
             DiscountPlan discountPlan = new DiscountPlan();
-            
-            // Gives all objects access to primary key of the other.
+                
             customer.setCustomerAccount(customerAccount);
             customerAccount.setCustomer(customer);
             customerAccount.setDiscountPlan(discountPlan);
             discountPlan.setCustomerAccount(customerAccount);
-            
+
             session.save(customer);
             session.save(customerAccount);
             session.save(discountPlan);
-            
-            // Tells the user that they suceeded.
+
             JOptionPane.showMessageDialog(null, "Customer added");
         }finally{
             session.getTransaction().commit();
