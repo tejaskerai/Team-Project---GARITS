@@ -397,6 +397,7 @@ public class PendingJobs extends javax.swing.JFrame {
         DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
         model4.setRowCount(0);
+        //need to fix
         model3.setRowCount(0);
         int selectedRow = jTable1.getSelectedRow();
         int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
@@ -443,6 +444,19 @@ public class PendingJobs extends javax.swing.JFrame {
             }
     }
     
+    private void populateDescAfterTable(List<String> list, DefaultTableModel model3){
+        int counter = 1;
+            for (String str : list) {
+                System.out.println(str);
+                model3.insertRow(
+                    model3.getRowCount(), new Object[]{
+                counter,
+                str}
+            );
+                counter = counter +1;
+            }
+    }
+    
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
         
@@ -456,7 +470,12 @@ public class PendingJobs extends javax.swing.JFrame {
         try {
             session.beginTransaction();
             JobSheet jobSheet = session.get(JobSheet.class, jobNo);
-            jobSheet.setDescriptionAfterWork(desc.getText());
+            
+            String toWrite = desc.getText();
+            String newString = jobSheet.getDescriptionAfterWork() + "," + toWrite;
+            
+            jobSheet.setDescriptionAfterWork(newString);
+            
             session.update(jobSheet);
             session.getTransaction().commit();     
             
