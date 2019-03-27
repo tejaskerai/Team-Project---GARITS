@@ -278,14 +278,18 @@ public class ManageCustomers extends javax.swing.JFrame {
 
     // Removes selected user.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Franchisee franchisee = Franchisee.getFranchisee();
-        int selectedRow = jTable1.getSelectedRow();
-        int customerID = (Integer)jTable1.getValueAt(selectedRow, 0);
-        boolean success = franchisee.removeCustomer(customerID);
-        if(success) {
-            model.removeRow(selectedRow);
-            JOptionPane.showMessageDialog(this, "Customer removed successfully");
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            Franchisee franchisee = Franchisee.getFranchisee();
+            int selectedRow = jTable1.getSelectedRow();
+            int customerID = (Integer)jTable1.getValueAt(selectedRow, 0);
+            boolean success = franchisee.removeCustomer(customerID);
+            if(success) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "Customer removed successfully");
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "No account selected");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -287,15 +287,18 @@ public class ExistingUsers extends javax.swing.JFrame {
 
     // Code for when the remove user button is clicked.
     private void removeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserActionPerformed
-
-        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        Admin admin = Admin.getAdmin();
-        int selectedRow = jTable1.getSelectedRow();
-        int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
-        boolean success = admin.removeUser(employeeNo);
-        if (success) {
-            model.removeRow(selectedRow);
-            JOptionPane.showMessageDialog(this, "User removed successfully");
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            Admin admin = Admin.getAdmin();
+            int selectedRow = jTable1.getSelectedRow();
+            int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+            boolean success = admin.removeUser(employeeNo);
+            if (success) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "User removed successfully");
+            }
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(this, "No account selected");
         }
     }//GEN-LAST:event_removeUserActionPerformed
 
