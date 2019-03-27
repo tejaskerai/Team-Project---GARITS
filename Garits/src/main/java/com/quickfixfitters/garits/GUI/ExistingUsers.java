@@ -317,6 +317,7 @@ public class ExistingUsers extends javax.swing.JFrame {
         String itemText = model.getValueAt(selectedRow, 3).toString().toLowerCase();
         System.out.println("selected " + itemText);
 
+        
         switch (itemText) {
             case "mechanic":
                 role.setSelectedIndex(0);
