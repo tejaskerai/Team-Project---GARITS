@@ -9,24 +9,31 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.quickfixfitters.garits.actors.Mechanic;
+import com.quickfixfitters.garits.database.DBConnectivity;
+import com.quickfixfitters.garits.entities.Employee;
 import com.quickfixfitters.garits.entities.JobSheet;
 import java.util.List;
-
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 
 public class PendingJobs extends javax.swing.JFrame {
 
     /**
      * Creates new form pendingJobs
      */
-    
     // Field of type Garits to access its methods.
     Garits garits;
-    
+
     public PendingJobs(Garits garits) {
         initComponents();
         populateJobs();
         this.garits = garits;
-        
+
         System.out.println(garits.getUsername());
         System.out.println(garits.getPassword());
     }
@@ -60,6 +67,9 @@ public class PendingJobs extends javax.swing.JFrame {
         jTable3 = new javax.swing.JTable();
         jScrollPane7 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
+        desc = new javax.swing.JTextField();
+        add = new javax.swing.JButton();
+        claim = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -110,6 +120,16 @@ public class PendingJobs extends javax.swing.JFrame {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jTable1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTable1KeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(jTable1);
@@ -189,6 +209,20 @@ public class PendingJobs extends javax.swing.JFrame {
         });
         jScrollPane7.setViewportView(jTable4);
 
+        add.setText("Add");
+        add.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addActionPerformed(evt);
+            }
+        });
+
+        claim.setText("Claim Job");
+        claim.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                claimActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -201,13 +235,25 @@ public class PendingJobs extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 507, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(208, 208, 208))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(73, 73, 73)
+                                .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(48, 48, 48)
+                                .addComponent(add))
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(208, 208, 208))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(270, 270, 270)
+                        .addComponent(claim)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -223,8 +269,17 @@ public class PendingJobs extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 287, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 286, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(58, 58, 58)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(claim)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 354, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(43, 43, 43)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(add))))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jButton1))
         );
@@ -276,28 +331,27 @@ public class PendingJobs extends javax.swing.JFrame {
 
     // Opens help file.
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        try{
+        try {
             garits.openHelp(this);
-        } catch (IOException e){
+        } catch (IOException e) {
             JOptionPane.showMessageDialog(this, "Help file not availiable");
         }
     }//GEN-LAST:event_jMenu2MouseClicked
 
-    private void populateJobs(){
+    private void populateJobs() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Mechanic mechanic = Mechanic.getMechanic();
         List<JobSheet> jobs = mechanic.getJobs();
 
         JobSheet jobSheet = new JobSheet();
-        
+
         String status;
-        if (jobSheet.getMechanic() == null){
+        if (jobSheet.getMechanic() == null) {
             status = "No mechanic";
-        }
-        else{
+        } else {
             status = "Allocated";
         }
-        
+
         for (JobSheet jobSheets : jobs) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -305,13 +359,11 @@ public class PendingJobs extends javax.swing.JFrame {
                 jobSheets.getDateBookedIn(),
                 jobSheets.getEstimatedTime(),
                 status
-                    }
+            }
             );
         }
     }
-    
-    
-    
+
     // Logs out user
     private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
         garits.logout(this);
@@ -334,11 +386,114 @@ public class PendingJobs extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTable4MouseClicked
 
+    private void jTable1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable1KeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTable1KeyPressed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+
+        
+        DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
+        DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+        model4.setRowCount(0);
+        model3.setRowCount(0);
+        int selectedRow = jTable1.getSelectedRow();
+        int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+        System.out.println(jobNo);
+        
+        //
+        //Starting connection with Database
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            // Checking whether user exists
+
+            JobSheet jobSheet = session.get(JobSheet.class, jobNo);
+            String descOfWork = jobSheet.getDescriptionOfWork();
+            
+            // Converts the string from DB to a list
+            List<String> list = Stream.of(descOfWork.split(",")).collect(Collectors.toList());
+            // converting input to integer
+            
+            populateDescTable(list, model4);
+          
+
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+        //
+
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void populateDescTable(List<String> list, DefaultTableModel model4){
+        int counter = 1;
+            for (String str : list) {
+                System.out.println(str);
+                model4.insertRow(
+                    model4.getRowCount(), new Object[]{
+                counter,
+                str}
+            );
+                counter = counter +1;
+            }
+    }
+    
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        // TODO add your handling code here:
+        
+        int selectedRow = jTable1.getSelectedRow();
+        int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+        System.out.println(desc.getText());
+        
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try {
+            session.beginTransaction();
+            JobSheet jobSheet = session.get(JobSheet.class, jobNo);
+            jobSheet.setDescriptionAfterWork(desc.getText());
+            session.update(jobSheet);
+            session.getTransaction().commit();     
+            
+        }
+        catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+        
+        DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+
+        int counter = 1;
+        model3.insertRow(model3.getRowCount(), new Object[]{counter,desc.getText()});
+        counter = counter+1;
+    }//GEN-LAST:event_addActionPerformed
+
+    private void claimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claimActionPerformed
+        // TODO add your handling code here:
+        
+        JobSheet jobSheet = new JobSheet();
+
+        // Need to do
+        //jobSheet.setMechanic(mech);
+        
+        
+    }//GEN-LAST:event_claimActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton add;
+    private javax.swing.JButton claim;
+    private javax.swing.JTextField desc;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
