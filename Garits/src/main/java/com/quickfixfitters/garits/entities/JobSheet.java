@@ -16,26 +16,20 @@ public class JobSheet {
     @Column(name = "DateBookedIn")
     private Date dateBookedIn;
 
-    @Column(name = "JobType")
-    private String jobType;
-
     @Column(name = "DescriptionOfWork")
     private String descriptionOfWork;
+    
+    @Column(name = "DescriptionAfterWork")
+    private String descriptionAfterWork;
 
     @Column(name = "EstimatedTime")
-    private int estimatedTime;
+    private String estimatedTime;
 
     @Column(name = "DateCompleted")
     private Date dateCompleted;
 
-    @Column(name = "Price")
-    private float price;
-
-    @Column(name = "CustomerType")
-    private String customerType;
-
     @Column(name = "RegNo")
-    private int regNo;
+    private String regNo;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "VehicleId", insertable = false, updatable = false)
@@ -52,19 +46,19 @@ public class JobSheet {
     @OneToMany(mappedBy = "jobSheet")
     private List<Part> parts;
 
-    public JobSheet(Date dateBookedIn, String jobType, String descriptionOfWork, int estimatedTime, Date dateCompleted, float price, String customerType, int regNo) {
+    public JobSheet(Date dateBookedIn, String descriptionOfWork, String descriptionAfterWork, String estimatedTime, Date dateCompleted, String regNo) {
         this.dateBookedIn = dateBookedIn;
-        this.jobType = jobType;
         this.descriptionOfWork = descriptionOfWork;
+        this.descriptionAfterWork = descriptionAfterWork;
         this.estimatedTime = estimatedTime;
         this.dateCompleted = dateCompleted;
-        this.price = price;
-        this.customerType = customerType;
         this.regNo = regNo;
     }
 
     public JobSheet() {
     }
+    
+    
 
     public int getJobNo() {
         return jobNo;
@@ -82,14 +76,6 @@ public class JobSheet {
         this.dateBookedIn = dateBookedIn;
     }
 
-    public String getJobType() {
-        return jobType;
-    }
-
-    public void setJobType(String jobType) {
-        this.jobType = jobType;
-    }
-
     public String getDescriptionOfWork() {
         return descriptionOfWork;
     }
@@ -98,11 +84,19 @@ public class JobSheet {
         this.descriptionOfWork = descriptionOfWork;
     }
 
-    public int getEstimatedTime() {
+    public String getDescriptionAfterWork() {
+        return descriptionAfterWork;
+    }
+
+    public void setDescriptionAfterWork(String descriptionAfterWork) {
+        this.descriptionAfterWork = descriptionAfterWork;
+    }
+
+    public String getEstimatedTime() {
         return estimatedTime;
     }
 
-    public void setEstimatedTime(int estimatedTime) {
+    public void setEstimatedTime(String estimatedTime) {
         this.estimatedTime = estimatedTime;
     }
 
@@ -114,28 +108,46 @@ public class JobSheet {
         this.dateCompleted = dateCompleted;
     }
 
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public String getCustomerType() {
-        return customerType;
-    }
-
-    public void setCustomerType(String customerType) {
-        this.customerType = customerType;
-    }
-
-    public int getRegNo() {
+    public String getRegNo() {
         return regNo;
     }
 
-    public void setRegNo(int regNo) {
+    public void setRegNo(String regNo) {
         this.regNo = regNo;
     }
 
+    public Vehicle getVehicle() {
+        return vehicle;
+    }
+
+    public void setVehicle(Vehicle vehicle) {
+        this.vehicle = vehicle;
+    }
+
+    public Mechanic getMechanic() {
+        return mechanic;
+    }
+
+    public void setMechanic(Mechanic mechanic) {
+        this.mechanic = mechanic;
+    }
+
+    public List<Invoice> getInvoices() {
+        return invoices;
+    }
+
+    public void setInvoices(List<Invoice> invoices) {
+        this.invoices = invoices;
+    }
+
+    public List<Part> getParts() {
+        return parts;
+    }
+
+    public void setParts(List<Part> parts) {
+        this.parts = parts;
+    }
+
+    
+    
 }

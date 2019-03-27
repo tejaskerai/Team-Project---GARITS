@@ -198,11 +198,15 @@ public class Home extends javax.swing.JFrame {
                 switch (role) {
                     case "admin":
                         JFrame admin = new Admin(garits);
+                        garits.setUsername(employeeUsername);
+                        garits.setPassword(userPassword);
                         garits.putOnScreen(admin);
                         dispose();
                         break;
                     case "mechanic":
                         JFrame mechanic = new Mechanic(garits);
+                        garits.setUsername(employeeUsername);
+                        garits.setPassword(userPassword);
                         garits.putOnScreen(mechanic);
                         dispose();
                         // When login button clicked, login page closes and another one opens
@@ -210,6 +214,8 @@ public class Home extends javax.swing.JFrame {
                         break;
                     case "receptionist":
                         JFrame receptionist = new Receptionist(garits);
+                        garits.setUsername(employeeUsername);
+                        garits.setPassword(userPassword);
                         garits.putOnScreen(receptionist);
                         dispose();
                         break;
