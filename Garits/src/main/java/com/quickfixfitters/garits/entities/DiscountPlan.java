@@ -20,7 +20,6 @@ public class DiscountPlan {
     private float variableDiscount;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "BandId", nullable = false)
     private Set<FlexibleBands> flexibleDiscount;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "discountPlan")

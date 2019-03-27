@@ -28,6 +28,9 @@ public class Customer {
     
     @Column(name = "TelNo")
     private int telNo;
+    
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Vehicle> vehicles;
 
     @Column(name = "Email")
     private String email;
@@ -111,5 +114,13 @@ public class Customer {
 
     public void setCustomerAccount(CustomerAccount customerAccount) {
         this.customerAccount = customerAccount;
+    }
+
+    public List<Vehicle> getVehicles() {
+        return vehicles;
+    }
+
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 }

@@ -17,10 +17,7 @@ public class CustomerAccount {
     
     @Column(name = "Useable")
     private int useable;
-
-//    @OneToMany(mappedBy = "customeraccount")
-//    private List<Vehicle> vehicles;
-//
+    
 //    @OneToMany(mappedBy = "customeraccount")
 //    private List<MOTReminder> motReminders;
 //   
@@ -62,15 +59,6 @@ public class CustomerAccount {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-
-//    public List<Vehicle> getVehicles() {
-//        return vehicles;
-//    }
-//
-//    public void setVehicles(List<Vehicle> vehicles) {
-//        this.vehicles = vehicles;
-//    }
-//
 //    public List<MOTReminder> getMotReminders() {
 //        return motReminders;
 //    }

@@ -29,24 +29,19 @@ public class Vehicle {
     @Column(name = "Color")
     private String color;
 
-    @Column(name = "CustomerAccountId")
-    private int customerAccountId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerAccountId", insertable = false, updatable = false)
-    private CustomerAccount customerAccount;
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Customer customer;
 
     @OneToMany(mappedBy = "vehicle")
     private List<JobSheet> jobSheets;
 
 
-    public Vehicle(String make, String model, String engSerial, String chassisNo, String color, int customerAccountId) {
+    public Vehicle(String make, String model, String engSerial, String chassisNo, String color) {
         this.make = make;
         this.model = model;
         this.engSerial = engSerial;
         this.chassisNo = chassisNo;
         this.color = color;
-        this.customerAccountId = customerAccountId;
     }
 
     public Vehicle() {
@@ -100,11 +95,20 @@ public class Vehicle {
         this.color = color;
     }
 
-    public int getCustomerAccountId() {
-        return customerAccountId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerAccountId(int customerAccountId) {
-        this.customerAccountId = customerAccountId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
+
+    public List<JobSheet> getJobSheets() {
+        return jobSheets;
+    }
+
+    public void setJobSheets(List<JobSheet> jobSheets) {
+        this.jobSheets = jobSheets;
+    }
+    
 }
