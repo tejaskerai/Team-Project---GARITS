@@ -164,11 +164,11 @@ public class PendingJobs extends javax.swing.JFrame {
 
             },
             new String [] {
-                "No", "Description of work carried out "
+                "Description of work carried out "
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false
+                false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -181,9 +181,6 @@ public class PendingJobs extends javax.swing.JFrame {
             }
         });
         jScrollPane6.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setMaxWidth(30);
-        }
 
         jTable4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
@@ -414,12 +411,20 @@ public class PendingJobs extends javax.swing.JFrame {
 
             JobSheet jobSheet = session.get(JobSheet.class, jobNo);
             String descOfWork = jobSheet.getDescriptionOfWork();
+            String descAfterWork = jobSheet.getDescriptionAfterWork();
             
-            // Converts the string from DB to a list
+            if (descAfterWork == null){
+                model3.setRowCount(0);
+            } else {
+                // Converts the string from DB to a list for Desc after work 
+                List<String> listAfterWork = Stream.of(descAfterWork.split(",")).collect(Collectors.toList());
+                populateDescAfterTable(listAfterWork, model3);
+            }
+            
+            // Converts the string from DB to a list for jobsheet table
             List<String> list = Stream.of(descOfWork.split(",")).collect(Collectors.toList());
-            // converting input to integer
-            
             populateDescTable(list, model4);
+            
           
 
         } finally {
@@ -445,15 +450,14 @@ public class PendingJobs extends javax.swing.JFrame {
     }
     
     private void populateDescAfterTable(List<String> list, DefaultTableModel model3){
-        int counter = 1;
+      
             for (String str : list) {
                 System.out.println(str);
                 model3.insertRow(
                     model3.getRowCount(), new Object[]{
-                counter,
                 str}
             );
-                counter = counter +1;
+                
             }
     }
     
@@ -472,9 +476,13 @@ public class PendingJobs extends javax.swing.JFrame {
             JobSheet jobSheet = session.get(JobSheet.class, jobNo);
             
             String toWrite = desc.getText();
-            String newString = jobSheet.getDescriptionAfterWork() + "," + toWrite;
             
-            jobSheet.setDescriptionAfterWork(newString);
+            if (jobSheet.getDescriptionAfterWork() == null){
+                jobSheet.setDescriptionAfterWork(toWrite);
+            }else{
+                String newString = jobSheet.getDescriptionAfterWork() + "," + toWrite;
+                jobSheet.setDescriptionAfterWork(newString);
+            }
             
             session.update(jobSheet);
             session.getTransaction().commit();     
@@ -489,9 +497,7 @@ public class PendingJobs extends javax.swing.JFrame {
         
         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
 
-        int counter = 1;
-        model3.insertRow(model3.getRowCount(), new Object[]{counter,desc.getText()});
-        counter = counter+1;
+        model3.insertRow(model3.getRowCount(), new Object[]{desc.getText()});
     }//GEN-LAST:event_addActionPerformed
 
     private void claimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claimActionPerformed
