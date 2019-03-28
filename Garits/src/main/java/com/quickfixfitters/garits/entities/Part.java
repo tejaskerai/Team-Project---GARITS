@@ -7,10 +7,13 @@ import javax.persistence.*;
 public class Part {
 
     @Id
-    @Column(name = "PartCode", unique = true, nullable = false)
+    @Column(name = "Id", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int partCode;
-
+    private int id;
+    
+    @Column(name = "PartCode")
+    private String partCode;
+    
     @Column(name = "PartName")
     private String partName;
 
@@ -37,16 +40,20 @@ public class Part {
 
     @Column(name = "OrderNo")
     private int orderNo;
+    
+    @Column(name = "StockLevel")
+    private int stockLevel;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "JobNo", insertable = false, updatable = false)
     private JobSheet jobSheet;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="OrderNo", insertable = false, updatable = false)
-    private StockLevel stockLevel;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name="OrderNo", insertable = false, updatable = false)
+//    private StockLevel stockLevel;
 
-    public Part(String partName, String manufacturer, String vehicleType, String year, String description, float unitPrice, int lowLevelThreshold, int jobNo, int orderNo) {
+    public Part(String partCode, String partName, String manufacturer, String vehicleType, String year, String description, float unitPrice, int lowLevelThreshold, int jobNo, int orderNo, int stockLevel) {
+        this.partCode = partCode;
         this.partName = partName;
         this.manufacturer = manufacturer;
         this.vehicleType = vehicleType;
@@ -56,16 +63,27 @@ public class Part {
         this.lowLevelThreshold = lowLevelThreshold;
         this.jobNo = jobNo;
         this.orderNo = orderNo;
+        this.stockLevel = stockLevel;
     }
+   
+    
 
     public Part() {
+    } 
+
+    public int getId() {
+        return id;
     }
 
-    public int getPartCode() {
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPartCode() {
         return partCode;
     }
 
-    public void setPartCode(int partCode) {
+    public void setPartCode(String partCode) {
         this.partCode = partCode;
     }
 
@@ -140,5 +158,24 @@ public class Part {
     public void setOrderNo(int orderNo) {
         this.orderNo = orderNo;
     }
+
+    public int getStockLevel() {
+        return stockLevel;
+    }
+
+    public void setStockLevel(int stockLevel) {
+        this.stockLevel = stockLevel;
+    }
+
+    public JobSheet getJobSheet() {
+        return jobSheet;
+    }
+
+    public void setJobSheet(JobSheet jobSheet) {
+        this.jobSheet = jobSheet;
+    }
+    
+    
+    
 
 }
