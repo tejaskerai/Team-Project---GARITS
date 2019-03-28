@@ -1,11 +1,13 @@
 package com.quickfixfitters.garits.actors;
 
+import com.quickfixfitters.garits.GUI.Garits;
+import com.quickfixfitters.garits.GUI.ViewCustomerAccount;
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
-import com.quickfixfitters.garits.entities.Employee;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -32,6 +34,29 @@ public class Franchisee extends User {
 
     public static void setFranchisee(Franchisee franchisee) {
         Franchisee.franchisee = franchisee;
+    }
+    
+    public void showCustomerAccount(int id, Garits garits, JFrame frame){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
+            CustomerAccount ca = session.get(CustomerAccount.class, id);
+            if (ca.getUsable() == 0){
+                JOptionPane.showMessageDialog(null, "Customer account does not exist");
+            }else{
+                garits.openNewScreen(frame, new ViewCustomerAccount(garits,
+                                                    ca.getCustomer().getForename(),
+                                                    ca.getCustomer().getSurname(),
+                                                    ca.getPaymentOption(), id));
+            }
+        }catch(Exception e){
+            
+        }finally{
+            session.getTransaction().commit();
+            session.close();
+        }
     }
     
     public List<Customer> getCustomers() {
@@ -69,6 +94,25 @@ public class Franchisee extends User {
             session.getTransaction().rollback();
         }
         finally {
+            session.close();
+        }
+    }
+    
+    public void updateCustomerAccount(String payment, int id){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
+            CustomerAccount ca = session.get(CustomerAccount.class, id);
+            
+            ca.setPaymentOption(payment);
+            
+            session.update(ca);
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+        }finally{
             session.close();
         }
     }
