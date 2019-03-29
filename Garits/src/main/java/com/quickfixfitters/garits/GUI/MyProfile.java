@@ -36,13 +36,11 @@ public class MyProfile extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         CNewPass = new javax.swing.JPasswordField();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         changePass = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
         currentPass = new javax.swing.JPasswordField();
         newPass = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -55,8 +53,6 @@ public class MyProfile extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jLabel2.setText("Username");
 
         jLabel3.setText("New Password");
 
@@ -90,7 +86,6 @@ public class MyProfile extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(162, 162, 162)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
                     .addComponent(jLabel8)
                     .addComponent(jLabel3)
                     .addComponent(jLabel9))
@@ -98,8 +93,7 @@ public class MyProfile extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(CNewPass)
                     .addComponent(newPass)
-                    .addComponent(currentPass)
-                    .addComponent(username, javax.swing.GroupLayout.Alignment.TRAILING))
+                    .addComponent(currentPass))
                 .addGap(129, 129, 129))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -110,11 +104,7 @@ public class MyProfile extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(44, 44, 44)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(86, 86, 86)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(currentPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -177,7 +167,8 @@ public class MyProfile extends javax.swing.JFrame {
             
         // Not implemented yet
         User user = new User();
-        String userName = username.getText().toLowerCase();
+        String userName = garits.getUsername();
+        System.out.println(userName);
         String userPass = currentPass.getText();
         String newUserPass = newPass.getText();
         String confirmPass = CNewPass.getText();
@@ -219,7 +210,6 @@ public class MyProfile extends javax.swing.JFrame {
     private javax.swing.JPasswordField currentPass;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
@@ -230,6 +220,5 @@ public class MyProfile extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField newPass;
-    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 }

@@ -66,8 +66,10 @@ public class User {
 
             // If list of size 1 (means 1 record is found) a user is matched
             if (details.size() <= 0) {
+
                 return false;
             } else {
+
                 return true;
             }
         } finally {
@@ -79,35 +81,60 @@ public class User {
 
     public void updatePass(String username, String password, String newPass, String CNewPass) {
 
+        int id = getID(username);
+        boolean success = loginCheck(username, password);
+
+        // Checking whether user exists
+        if (success) {
+
+            if (newPass.compareTo(CNewPass) == 0) {
+                String newPassword = newPass;
+
+                SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+                Session session = sessionFactory.getCurrentSession();
+                try {
+
+                    session.beginTransaction();
+                    System.out.println(id);
+                    // Updating password
+                    Employee employee = session.get(Employee.class, id);
+                    employee.setPassword(newPassword);
+                    session.update(employee);
+                    session.getTransaction().commit();
+                    JOptionPane.showMessageDialog(null, "Password Updated");
+
+                } finally {
+
+                    session.close();
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(null, "Passwords do not match");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Incorrect login details entered");
+        }
+
+    }
+
+    public int getID(String username) {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
         try {
             session.beginTransaction();
-            // Checking whether user exists
-            boolean success = loginCheck(username, password);
-            if (success){
-                
-            }
+            // Making criteria to get record id
             Criteria criteria = session.createCriteria(Employee.class);
-            Criterion name = Restrictions.eq("username", username);
-            Criterion forename = Restrictions.eq("password", password);
-            criteria.add(Restrictions.and(name, forename));
+            criteria.add(Restrictions.eq("username", username)).uniqueResult();
 
-            // A list of employees
+            //Gets the id of the record
             List<Employee> details = (List<Employee>) criteria.list();
+            int id = details.get(0).getEmployeeNo();
+            return id;
 
-            // If list of size 1 (means 1 record is found) a user is matched
-//            if (details.size() <= 0) {
-//                return false;
-//            } else {
-//                return true;
-//            }
         } finally {
             session.getTransaction().commit();
             session.close();
         }
-        
-        
     }
 }

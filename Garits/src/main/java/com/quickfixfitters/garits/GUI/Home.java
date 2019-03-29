@@ -32,6 +32,7 @@ public class Home extends javax.swing.JFrame {
 
     public Home(Garits garits) {
         initComponents();
+        
         this.garits = garits;
     }
 
