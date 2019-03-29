@@ -12,6 +12,7 @@ import com.quickfixfitters.garits.actors.Mechanic;
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Employee;
 import com.quickfixfitters.garits.entities.JobSheet;
+import java.awt.Font;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -158,7 +159,6 @@ public class PendingJobs extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jTable2);
 
-        jTable3.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -182,7 +182,6 @@ public class PendingJobs extends javax.swing.JFrame {
         });
         jScrollPane6.setViewportView(jTable3);
 
-        jTable4.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jTable4.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -205,6 +204,9 @@ public class PendingJobs extends javax.swing.JFrame {
             }
         });
         jScrollPane7.setViewportView(jTable4);
+        if (jTable4.getColumnModel().getColumnCount() > 0) {
+            jTable4.getColumnModel().getColumn(0).setMaxWidth(30);
+        }
 
         add.setText("Add");
         add.addActionListener(new java.awt.event.ActionListener() {
@@ -390,16 +392,16 @@ public class PendingJobs extends javax.swing.JFrame {
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
 
-        
         DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+
         model4.setRowCount(0);
         //need to fix
         model3.setRowCount(0);
         int selectedRow = jTable1.getSelectedRow();
         int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
         System.out.println(jobNo);
-        
+
         //
         //Starting connection with Database
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
@@ -412,20 +414,18 @@ public class PendingJobs extends javax.swing.JFrame {
             JobSheet jobSheet = session.get(JobSheet.class, jobNo);
             String descOfWork = jobSheet.getDescriptionOfWork();
             String descAfterWork = jobSheet.getDescriptionAfterWork();
-            
-            if (descAfterWork == null){
+
+            if (descAfterWork == null) {
                 model3.setRowCount(0);
             } else {
                 // Converts the string from DB to a list for Desc after work 
                 List<String> listAfterWork = Stream.of(descAfterWork.split(",")).collect(Collectors.toList());
                 populateDescAfterTable(listAfterWork, model3);
             }
-            
+
             // Converts the string from DB to a list for jobsheet table
             List<String> list = Stream.of(descOfWork.split(",")).collect(Collectors.toList());
             populateDescTable(list, model4);
-            
-          
 
         } finally {
             session.getTransaction().commit();
@@ -436,79 +436,81 @@ public class PendingJobs extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
-    private void populateDescTable(List<String> list, DefaultTableModel model4){
+    private void populateDescTable(List<String> list, DefaultTableModel model4) {
         int counter = 1;
-            for (String str : list) {
-                System.out.println(str);
-                model4.insertRow(
+        for (String str : list) {
+            System.out.println(str);
+            model4.insertRow(
                     model4.getRowCount(), new Object[]{
                 counter,
                 str}
             );
-                counter = counter +1;
-            }
+            counter = counter + 1;
+        }
     }
-    
-    private void populateDescAfterTable(List<String> list, DefaultTableModel model3){
-      
-            for (String str : list) {
-                System.out.println(str);
-                model3.insertRow(
+
+    private void populateDescAfterTable(List<String> list, DefaultTableModel model3) {
+
+        for (String str : list) {
+            System.out.println(str);
+            model3.insertRow(
                     model3.getRowCount(), new Object[]{
                 str}
             );
-                
-            }
+
+        }
     }
-    
+
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
-        
+
         int selectedRow = jTable1.getSelectedRow();
         int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
         System.out.println(desc.getText());
-        
-        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
-        Session session = sessionFactory.getCurrentSession();
-        
-        try {
-            session.beginTransaction();
-            JobSheet jobSheet = session.get(JobSheet.class, jobNo);
-            
-            String toWrite = desc.getText();
-            
-            if (jobSheet.getDescriptionAfterWork() == null){
-                jobSheet.setDescriptionAfterWork(toWrite);
-            }else{
-                String newString = jobSheet.getDescriptionAfterWork() + "," + toWrite;
-                jobSheet.setDescriptionAfterWork(newString);
-            }
-            
-            session.update(jobSheet);
-            session.getTransaction().commit();     
-            
-        }
-        catch (Exception e) {
-            session.getTransaction().rollback();
-        }
-        finally {
-            session.close();
-        }
-        
-        DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
 
-        model3.insertRow(model3.getRowCount(), new Object[]{desc.getText()});
+        if (desc.getText() == null || desc.getText().compareTo("")==0) {
+            JOptionPane.showMessageDialog(null, "Description is empty");
+        } else {
+            SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+            Session session = sessionFactory.getCurrentSession();
+
+            try {
+                session.beginTransaction();
+                JobSheet jobSheet = session.get(JobSheet.class, jobNo);
+
+                String toWrite = desc.getText();
+
+                if (jobSheet.getDescriptionAfterWork() == null) {
+                    jobSheet.setDescriptionAfterWork(toWrite);
+                } else {
+                    String newString = jobSheet.getDescriptionAfterWork() + "," + toWrite;
+                    jobSheet.setDescriptionAfterWork(newString);
+                }
+
+                session.update(jobSheet);
+                session.getTransaction().commit();
+
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
+            }
+
+            DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+
+            model3.insertRow(model3.getRowCount(), new Object[]{desc.getText()});
+        }
+
     }//GEN-LAST:event_addActionPerformed
 
     private void claimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claimActionPerformed
         // TODO add your handling code here:
-        
+
         JobSheet jobSheet = new JobSheet();
 
-        // Need to do
-        //jobSheet.setMechanic(mech);
-        
-        
+        // TODO: Assign mechanic to job
+        //jobSheet.set;
+
     }//GEN-LAST:event_claimActionPerformed
 
     /**
