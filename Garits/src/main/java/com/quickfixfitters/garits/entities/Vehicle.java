@@ -35,12 +35,14 @@ public class Vehicle {
     private List<JobSheet> jobSheets;
 
 
-    public Vehicle(String make, String model, String engSerial, String chassisNo, String color) {
+    public Vehicle(String regNo, String chassisNo, String colour, String engSerial, 
+                   String make, String model) {
+        this.regNo = regNo;
         this.make = make;
         this.model = model;
         this.engSerial = engSerial;
         this.chassisNo = chassisNo;
-        this.color = color;
+        this.color = colour;
     }
 
     public Vehicle() {
