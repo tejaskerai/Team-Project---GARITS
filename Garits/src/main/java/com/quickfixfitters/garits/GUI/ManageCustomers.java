@@ -61,6 +61,7 @@ public class ManageCustomers extends javax.swing.JFrame {
         jTable1 = new javax.swing.JTable();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -169,6 +170,13 @@ public class ManageCustomers extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("VIEW VEHICLES");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("My Profile");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -232,7 +240,8 @@ public class ManageCustomers extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(214, 214, 214))
         );
         layout.setVerticalGroup(
@@ -276,7 +285,9 @@ public class ManageCustomers extends javax.swing.JFrame {
                     .addComponent(jButton4)
                     .addComponent(jButton5))
                 .addGap(18, 18, 18)
-                .addComponent(jButton6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton6)
+                    .addComponent(jButton7))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -340,6 +351,7 @@ public class ManageCustomers extends javax.swing.JFrame {
             if(success) {
                 model.removeRow(selectedRow);
                 JOptionPane.showMessageDialog(this, "Customer removed successfully");
+                clearBoxes();
             }
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "No account selected");
@@ -459,6 +471,19 @@ public class ManageCustomers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        try{
+            Franchisee franchisee = Franchisee.getFranchisee();
+            int row = jTable1.getSelectedRow();
+            int customerId = (Integer) jTable1.getValueAt(row, 0);
+            
+            garits.openNewScreen(this, new ViewVehicles(garits, customerId));
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No customer selected");
+        }
+        clearBoxes();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -473,6 +498,7 @@ public class ManageCustomers extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

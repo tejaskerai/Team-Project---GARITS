@@ -11,8 +11,7 @@ public class Vehicle {
 
     @Id
     @Column(name = "RegNo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int regNo;
+    private String regNo;
 
     @Column(name = "Make")
     private String make;
@@ -47,11 +46,11 @@ public class Vehicle {
     public Vehicle() {
     }
 
-    public int getRegNo() {
+    public String getRegNo() {
         return regNo;
     }
 
-    public void setRegNo(int regNo) {
+    public void setRegNo(String regNo) {
         this.regNo = regNo;
     }
 

@@ -57,7 +57,6 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         email = new javax.swing.JTextPane();
         jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         payment = new javax.swing.JComboBox<>();
@@ -113,8 +112,6 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("NEXT");
-
         payment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Card", "Cash", "Either" }));
 
         paymentText.setText("Payment");
@@ -136,8 +133,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                 .addComponent(jButton2)
                 .addGap(195, 195, 195)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton3))
+                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,8 +228,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)))
+                    .addComponent(jButton1)))
         );
 
         jMenu1.setText("My Profile");
@@ -326,6 +321,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         // adds it to the database.
         franchisee.createCustomer(customerForename, customerSurname, customerAddress,
             customerPostcode, customerTelephone, customerEmail, customerPayment);
+        garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void customerAccountCheckItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_customerAccountCheckItemStateChanged
@@ -349,7 +345,6 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
     private javax.swing.JTextPane forename;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

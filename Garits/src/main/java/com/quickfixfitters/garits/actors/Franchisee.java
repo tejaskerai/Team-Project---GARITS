@@ -6,6 +6,7 @@ import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
+import com.quickfixfitters.garits.entities.Vehicle;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -51,10 +52,10 @@ public class Franchisee extends User {
                                                     ca.getCustomer().getSurname(),
                                                     ca.getPaymentOption(), id));
             }
+            session.getTransaction().commit();
         }catch(Exception e){
             
         }finally{
-            session.getTransaction().commit();
             session.close();
         }
     }
@@ -117,6 +118,31 @@ public class Franchisee extends User {
         }
     }
     
+    public void updateVehicle(String regNo, String chassisNo, String colour, 
+                              String engSerial, String make, String model){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
+            Vehicle vehicle = session.get(Vehicle.class, regNo);
+            
+            vehicle.setRegNo(regNo);
+            vehicle.setChassisNo(chassisNo);
+            vehicle.setColor(colour);
+            vehicle.setEngSerial(engSerial);
+            vehicle.setMake(make);
+            vehicle.setModel(model);
+            
+            session.update(vehicle);
+            session.getTransaction().commit();
+        }catch(Exception e){
+            session.getTransaction().rollback();
+        }finally{
+            session.close();
+        }
+    }
+    
     public boolean removeCustomer(int id) {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -130,6 +156,25 @@ public class Franchisee extends User {
         } catch (Exception e) {
             session.getTransaction().rollback();
         } finally {
+            session.close();
+        }
+        return false;
+    }
+    
+    public boolean removeVehicle(int id, String regNo){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
+            Customer customer = session.get(Customer.class, id);
+            Vehicle vehicle = session.get(Vehicle.class, regNo);
+            customer.getVehicles().remove(vehicle);
+            session.getTransaction().commit();
+            return true;
+        }catch(Exception e){
+            session.getTransaction().rollback();
+        }finally{
             session.close();
         }
         return false;
