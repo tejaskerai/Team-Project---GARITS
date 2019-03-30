@@ -1,5 +1,6 @@
 package com.quickfixfitters.garits.entities;
 
+import java.util.Date;
 import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
@@ -28,12 +29,17 @@ public class Vehicle {
     @Column(name = "Color")
     private String color;
 
+    @Column(name = "RenewalTestDate")
+    private Date renewalTestDate;
+    
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Customer customer;
 
     @OneToMany(mappedBy = "vehicle")
     private List<JobSheet> jobSheets;
-
+    
+    @OneToMany(mappedBy = "motVehicle")
+    private List<MOTReminder> motReminders;
 
     public Vehicle(String regNo, String chassisNo, String colour, String engSerial, 
                    String make, String model) {
@@ -110,6 +116,22 @@ public class Vehicle {
 
     public void setJobSheets(List<JobSheet> jobSheets) {
         this.jobSheets = jobSheets;
+    }
+
+    public List<MOTReminder> getMotReminders() {
+        return motReminders;
+    }
+
+    public void setMotReminders(List<MOTReminder> motReminders) {
+        this.motReminders = motReminders;
+    }
+
+    public Date getRenewalTestDate() {
+        return renewalTestDate;
+    }
+
+    public void setRenewalTestDate(Date renewalTestDate) {
+        this.renewalTestDate = renewalTestDate;
     }
     
 }

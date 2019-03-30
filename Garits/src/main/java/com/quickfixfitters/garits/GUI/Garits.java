@@ -1,6 +1,7 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.database.DBConnectivity;
+import com.quickfixfitters.garits.entities.Vehicle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,8 @@ public class Garits {
     // Only initialised once the user logs in.
     private String username;
     private String password;
+    
+    private boolean primedNotification;
 
     public Garits() {
         
@@ -87,6 +90,12 @@ public class Garits {
             seeder.seed();
         }
     }
+    
+    public void generateAlert(String type, Vehicle vehicle){
+        if (type.equals("MOT")){
+            
+        }
+    }
 
     // Getter for the stack of sceens that the user could go back to.
     public Stack<JFrame> getOpenScreens(){
@@ -107,6 +116,14 @@ public class Garits {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isPrimedNotification() {
+        return primedNotification;
+    }
+
+    public void setPrimedNotification(boolean primedNotification) {
+        this.primedNotification = primedNotification;
     }
 
     

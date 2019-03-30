@@ -11,51 +11,29 @@ import javax.persistence.*;
 public class MOTReminder {
 
     @Id
-    @Column(name = "DiscountPlanId", unique = true, nullable = false)
+    @Column(name = "MOTReminderID", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int discountPlanId;
+    private int motReminderId;
 
-    @Column(name = "RenewalTestDate")
-    private Date renewalTestDate;
-
-    @Column(name = "CustomerAccountId")
-    private int customerAccountId;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "CustomerAccountId", insertable = false, updatable = false)
-    private CustomerAccount customerAccount;
-
-
-    public MOTReminder(Date renewalTestDate, int customerId) {
-        this.renewalTestDate = renewalTestDate;
-        this.customerAccountId = customerId;
-    }
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Vehicle motVehicle;
 
     public MOTReminder() {
     }
 
-    public int getDiscountPlanId() {
-        return discountPlanId;
+    public int getMotReminderId() {
+        return motReminderId;
     }
 
-    public void setDiscountPlanId(int discountPlanId) {
-        this.discountPlanId = discountPlanId;
+    public void setMotReminderId(int motReminderId) {
+        this.motReminderId = motReminderId;
     }
 
-    public Date getRenewalTestDate() {
-        return renewalTestDate;
+    public Vehicle getMotVehicle() {
+        return motVehicle;
     }
 
-    public void setRenewalTestDate(Date renewalTestDate) {
-        this.renewalTestDate = renewalTestDate;
+    public void setMotVehicle(Vehicle motVehicle) {
+        this.motVehicle = motVehicle;
     }
-
-    public int getCustomerAccountId() {
-        return customerAccountId;
-    }
-
-    public void setCustomerAccountId(int customerId) {
-        this.customerAccountId = customerId;
-    }
-
 }
