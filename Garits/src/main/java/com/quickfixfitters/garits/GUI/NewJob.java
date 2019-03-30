@@ -150,7 +150,7 @@ public class NewJob extends javax.swing.JFrame {
 
     // Opens the find existing customer screen.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        garits.openNewScreen(this, new ExistingCustomerReceptionist(garits));
+        garits.openNewScreen(this, new ExistingCustomerFranchisee(garits));
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Takes user back one screen.
