@@ -1,7 +1,8 @@
 package com.quickfixfitters.garits.entities;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import java.util.List;
@@ -49,6 +50,7 @@ public class Vehicle {
         this.engSerial = engSerial;
         this.chassisNo = chassisNo;
         this.color = colour;
+        this.renewalTestDate = new Date();
     }
 
     public Vehicle() {

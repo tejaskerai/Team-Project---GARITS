@@ -15,6 +15,8 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import com.quickfixfitters.garits.seeder.EmployeeSeeder;
 import com.quickfixfitters.garits.seeder.SeederInterface;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -26,7 +28,6 @@ public class Garits {
     // Only initialised once the user logs in.
     private String username;
     private String password;
-    
     private boolean primedNotification;
 
     public Garits() {
@@ -140,7 +141,7 @@ public class Garits {
     public void setPrimedNotification(boolean primedNotification) {
         this.primedNotification = primedNotification;
     }
-
+    
     
     
     public static void main(String[] args){

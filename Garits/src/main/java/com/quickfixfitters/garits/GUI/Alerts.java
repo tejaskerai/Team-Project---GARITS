@@ -6,6 +6,7 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.actors.Franchisee;
+import com.quickfixfitters.garits.actors.Receptionist;
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.MOTReminder;
 import java.io.IOException;
@@ -221,6 +222,8 @@ public class Alerts extends javax.swing.JFrame {
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
             Session session = sessionFactory.getCurrentSession();
             
+            Receptionist receptionist = Receptionist.getReceptionist();
+            
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             int row = jTable1.getSelectedRow();
             String type = (String) jTable1.getValueAt(row, 0);
@@ -231,6 +234,7 @@ public class Alerts extends javax.swing.JFrame {
             if (type.equals("MOT")){
                 MOTReminder reminder = session.get(MOTReminder.class, id);
                 reminder.setPrinted(1);
+                receptionist.generateMOTReminder(reminder, session);
                 session.update(reminder);
             }
             session.getTransaction().commit();
@@ -240,6 +244,7 @@ public class Alerts extends javax.swing.JFrame {
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No alert selected");
         }
+        jTable1.clearSelection();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
