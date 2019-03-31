@@ -1,6 +1,8 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.database.DBConnectivity;
+import com.quickfixfitters.garits.entities.Customer;
+import com.quickfixfitters.garits.entities.MOTReminder;
 import com.quickfixfitters.garits.entities.Vehicle;
 
 import java.util.ArrayList;
@@ -13,6 +15,7 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import com.quickfixfitters.garits.seeder.EmployeeSeeder;
 import com.quickfixfitters.garits.seeder.SeederInterface;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 public class Garits {
@@ -91,9 +94,21 @@ public class Garits {
         }
     }
     
-    public void generateAlert(String type, Vehicle vehicle){
-        if (type.equals("MOT")){
+    public void generateAlert(String type, Vehicle vehicle, Customer customer){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
             
+            if (type.equals("MOT")){
+                vehicle.getMotReminders().add(new MOTReminder());
+                session.update(vehicle);
+            }
+            
+            session.getTransaction().commit();
+        }finally{
+            session.close();
         }
     }
 

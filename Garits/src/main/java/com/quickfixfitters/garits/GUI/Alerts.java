@@ -5,8 +5,15 @@
  */
 package com.quickfixfitters.garits.GUI;
 
+import com.quickfixfitters.garits.actors.Franchisee;
+import com.quickfixfitters.garits.database.DBConnectivity;
+import com.quickfixfitters.garits.entities.MOTReminder;
 import java.io.IOException;
+import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -24,10 +31,33 @@ public class Alerts extends javax.swing.JFrame {
     public Alerts(Garits garits) {
         initComponents();
         this.garits = garits;
+        populateTable();
     }
 
-    public void populateTable(){
+    public void populateTable(){    
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
         
+        Franchisee franchisee = Franchisee.getFranchisee();
+        session.beginTransaction();
+        List<MOTReminder> motReminders = franchisee.getMOTReminders(session);
+        
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        for (MOTReminder motReminder : motReminders){
+            if (motReminder.getPrinted() == 0){
+                model.insertRow(
+                        model.getRowCount(), new Object[] {
+                            "MOT",
+                            motReminder.getMotVehicle().getCustomer().getForename(),
+                            motReminder.getMotVehicle().getCustomer().getSurname(),
+                            motReminder.getMotVehicle().getRegNo(),
+                            motReminder.getMotReminderId()
+                        });
+            }
+        }
+        session.getTransaction().commit();
+        session.close();
     }
     
     /**
@@ -86,6 +116,11 @@ public class Alerts extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton2.setText("GENERATE");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,6 +215,32 @@ public class Alerts extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+            Session session = sessionFactory.getCurrentSession();
+            
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            int row = jTable1.getSelectedRow();
+            String type = (String) jTable1.getValueAt(row, 0);
+            int id = (Integer) jTable1.getValueAt(row, 4);
+            
+            session.beginTransaction();
+            
+            if (type.equals("MOT")){
+                MOTReminder reminder = session.get(MOTReminder.class, id);
+                reminder.setPrinted(1);
+                session.update(reminder);
+            }
+            session.getTransaction().commit();
+            session.close();
+            model.setRowCount(0);
+            populateTable();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No alert selected");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments

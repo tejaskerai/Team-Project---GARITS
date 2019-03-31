@@ -236,8 +236,10 @@ public class AddVehicle extends javax.swing.JFrame {
         session.beginTransaction();
         Customer c = session.get(Customer.class, customerId);
         c.getVehicles().add(vehicle);
+        vehicle.setCustomer(c);
         
         session.update(c);
+        session.save(vehicle);
         session.getTransaction().commit();
         session.close();
         
