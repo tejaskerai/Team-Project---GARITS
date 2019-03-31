@@ -60,11 +60,16 @@ public class JobSheet {
         this.regNo = regNo;
     }
 
-    public JobSheet(Date dateBookedIn, String descriptionOfWork, String estimatedTime) {
+    
+
+    public JobSheet(Date dateBookedIn, String descriptionOfWork, String estimatedTime, String regNo) {
         this.dateBookedIn = dateBookedIn;
         this.descriptionOfWork = descriptionOfWork;
         this.estimatedTime = estimatedTime;
+        this.regNo = regNo;
     }
+    
+    
     
     
 
