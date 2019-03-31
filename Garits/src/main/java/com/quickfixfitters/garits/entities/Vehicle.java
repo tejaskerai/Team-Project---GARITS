@@ -34,6 +34,11 @@ public class Vehicle {
     
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Customer customer;
+    
+    // Using this one
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<JobSheet> jobSheet;
+
 
     @OneToMany(mappedBy = "vehicle")
     private List<JobSheet> jobSheets;
@@ -133,5 +138,14 @@ public class Vehicle {
     public void setRenewalTestDate(Date renewalTestDate) {
         this.renewalTestDate = renewalTestDate;
     }
+
+    public List<JobSheet> getJobSheet() {
+        return jobSheet;
+    }
+
+    public void setJobSheet(List<JobSheet> jobSheet) {
+        this.jobSheet = jobSheet;
+    }
+    
     
 }
