@@ -13,6 +13,8 @@ import com.quickfixfitters.garits.entities.Vehicle;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
@@ -25,6 +27,8 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
      */
     // Field of type Garits so we can access its methods.
     Garits garits;
+
+    String accDesc = "";
 
     public ExistingCustomerFranchisee(Garits garits) {
         initComponents();
@@ -93,7 +97,6 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         session.beginTransaction();
 
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
-        //Customer c = session.get(Customer.class, customerId);
         int selectedRow = jTable2.getSelectedRow();
         String vehicleId = jTable2.getValueAt(selectedRow, 0).toString();
 
@@ -106,7 +109,6 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
             model.insertRow(
                     model.getRowCount(), new Object[]{
                 jobSheet.getJobNo(),
-                jobSheet.getDescriptionOfWork(),
                 jobSheet.getEstimatedTime()}
             );
         }
@@ -147,7 +149,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         desc = new javax.swing.JTextField();
         eta = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        addDesc = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable4 = new javax.swing.JTable();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -230,21 +232,23 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
             },
             new String [] {
-                "JobNo", "Description", "Estimated Time"
+                "JobNo", "Estimated Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable3MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable3);
-        if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(0).setHeaderValue("JobNo");
-        }
 
         jLabel2.setText("Standard jobs: ");
 
@@ -275,10 +279,10 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         jLabel4.setText("Estimated Time: ");
 
-        jButton1.setText("Add description");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        addDesc.setText("Add description");
+        addDesc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                addDescActionPerformed(evt);
             }
         });
 
@@ -312,42 +316,46 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(38, 38, 38)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGap(56, 56, 56)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(532, 532, 532)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(standardJob)
-                                    .addComponent(jLabel2))
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 492, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(standardJob)
+                                            .addComponent(jLabel2))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(18, 18, 18)
+                                                .addComponent(newJob))
+                                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(27, 27, 27)
+                                                .addComponent(sJob, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(jLabel3)
+                                            .addComponent(jLabel4))
                                         .addGap(18, 18, 18)
-                                        .addComponent(newJob))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(27, 27, 27)
-                                        .addComponent(sJob, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(eta, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(addJob)
+                                            .addComponent(addDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel4))
+                                .addGap(26, 26, 26)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(eta, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(addJob)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(28, 28, 28)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 438, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel9))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 421, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(166, 200, Short.MAX_VALUE))
+                .addGap(40, 40, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -357,37 +365,32 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
                 .addComponent(jLabel9)
                 .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 248, Short.MAX_VALUE)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(standardJob)
-                            .addComponent(newJob))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(sJob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(eta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addGap(70, 70, 70)
-                        .addComponent(addJob)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(standardJob)
+                    .addComponent(newJob))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(sJob, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(addDesc))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(eta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addGap(70, 70, 70)
+                .addComponent(addJob)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
                 .addComponent(jButton2))
         );
 
@@ -421,7 +424,9 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -458,8 +463,12 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+        DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
         model3.setRowCount(0);
+        model4.setRowCount(0);
+
         populateJobs();
+
 
     }//GEN-LAST:event_jTable2MouseClicked
 
@@ -473,6 +482,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         model3.setRowCount(0);
         model4.setRowCount(0);
         populateVehicles();
+
 
     }//GEN-LAST:event_jTable1MouseClicked
 
@@ -489,55 +499,70 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_newJobActionPerformed
 
+
     private void addJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addJobActionPerformed
         // TODO add your handling code here:
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
-        if (newJob.isSelected()) {
-            int selectedRow = jTable2.getSelectedRow();
-            String vehicleId = jTable2.getValueAt(selectedRow, 0).toString();
-            try {
+        try {
+            if (newJob.isSelected()) {
 
-                session.beginTransaction();
-                java.util.Date uDate = new java.util.Date();
-                java.sql.Date sDate = convertUtilToSql(uDate);
+                if (accDesc.isEmpty() || eta.getText().isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Job has no description or estimated time");
+                } else {
+                    int selectedRow = jTable2.getSelectedRow();
+                    String vehicleId = jTable2.getValueAt(selectedRow, 0).toString();
+                    try {
 
-                String description = desc.getText();
-                String estimatedTime = eta.getText();
+                        session.beginTransaction();
+                        java.util.Date uDate = new java.util.Date();
+                        java.sql.Date sDate = convertUtilToSql(uDate);
 
-                JobSheet jobSheet = new JobSheet(sDate, description, estimatedTime, vehicleId);
+                        String description = accDesc;
+                        String estimatedTime = eta.getText();
 
-                Vehicle v = session.get(Vehicle.class, vehicleId);
-                v.getJobSheet().add(jobSheet);
-                session.update(v);
+                        JobSheet jobSheet = new JobSheet(sDate, description, estimatedTime, vehicleId);
 
-                DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+                        Vehicle v = session.get(Vehicle.class, vehicleId);
+                        v.getJobSheet().add(jobSheet);
+                        session.update(v);
+                        JOptionPane.showMessageDialog(null, "Job added");
 
-                model3.insertRow(model3.getRowCount(), new Object[]{2, description, estimatedTime});
-            } finally {
-                session.getTransaction().commit();
-                session.close();
+                        DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+
+                        int row = jTable3.getRowCount() - 1;
+                        int jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+                        System.out.println(jobNo);
+                        model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
+
+                    } finally {
+                        session.getTransaction().commit();
+                        session.close();
+                    }
+                }
+
+            } else if (standardJob.isSelected()) {
+                System.out.println("Standard job is selected");
+
+                // getting item of drop down
+                String job = sJob.getSelectedItem().toString().toLowerCase();
+                System.out.println(job);
+
+                if (job.compareTo("annual service") == 0) {
+                    addAnnual();
+                } else if (job.compareTo("mot") == 0) {
+                    addMot();
+                }
+
             }
-        } else if (standardJob.isSelected()) {
-            System.out.println("Standard job is selected");
-
-            // getting item of drop down
-            String job = sJob.getSelectedItem().toString().toLowerCase();
-            System.out.println(job);
-
-            if (job.compareTo("annual service") == 0) {
-                addAnnual();
-            } else if (job.compareTo("mot") == 0) {
-                addMot();
-            }
-
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Vehicle not selected");
         }
 
     }//GEN-LAST:event_addJobActionPerformed
 
-    
-    private void addMot(){
+    private void addMot() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
@@ -557,7 +582,10 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
             v.getJobSheet().add(jobSheet);
             session.update(v);
             DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
-            model3.insertRow(model3.getRowCount(), new Object[]{2, motDesc, estimatedTime});
+
+            int row = jTable3.getRowCount() - 1;
+            int jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+            model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
             JOptionPane.showMessageDialog(this, "Job added");
 
         } finally {
@@ -565,7 +593,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
             session.close();
         }
     }
-    
+
     private void addAnnual() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -585,7 +613,10 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
             v.getJobSheet().add(jobSheet);
             session.update(v);
             DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
-            model3.insertRow(model3.getRowCount(), new Object[]{2, annualDesc, estimatedTime});
+
+            int row = jTable3.getRowCount() - 1;
+            int jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+            model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
             JOptionPane.showMessageDialog(this, "Job added");
         } finally {
             session.getTransaction().commit();
@@ -593,13 +624,67 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         }
     }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void addDescActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDescActionPerformed
         // TODO add your handling code here:
         DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
 
-        String description = desc.getText();
-        model4.insertRow(model4.getRowCount(), new Object[]{description});
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String toWrite = desc.getText();
+
+        if (desc.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Description is empty");
+        } else {
+            if (model4.getRowCount() == 0) {
+                accDesc = accDesc + toWrite;
+            } else {
+                accDesc = accDesc + "," + toWrite;
+            }
+            model4.insertRow(model4.getRowCount(), new Object[]{desc.getText()});
+            desc.setText("");
+        }
+
+    }//GEN-LAST:event_addDescActionPerformed
+
+    private void jTable3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable3MouseClicked
+        // TODO add your handling code here:
+
+        DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
+        model4.setRowCount(0);
+        int selectedRow = jTable3.getSelectedRow();
+        int jobNo = (int) jTable3.getValueAt(selectedRow, 0);
+
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+
+            JobSheet jobSheet = session.get(JobSheet.class, jobNo);
+
+            String descOfWork = jobSheet.getDescriptionOfWork();
+
+            // Converts the string from DB to a list for jobsheet table
+            List<String> list = Stream.of(descOfWork.split(",")).collect(Collectors.toList());
+
+            populateDesc(list, model4);
+            //model4.insertRow(model4.getRowCount(), new Object[]{descOfWork});
+
+        } finally {
+
+            session.close();
+        }
+
+    }//GEN-LAST:event_jTable3MouseClicked
+
+    private void populateDesc(List<String> list, DefaultTableModel model4) {
+
+        for (String str : list) {
+            System.out.println(str);
+            model4.insertRow(
+                    model4.getRowCount(), new Object[]{
+                str}
+            );
+        }
+    }
 
     private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
         java.sql.Date sDate = new java.sql.Date(uDate.getTime());
@@ -610,11 +695,11 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton addDesc;
     private javax.swing.JButton addJob;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JTextField desc;
     private javax.swing.JTextField eta;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
