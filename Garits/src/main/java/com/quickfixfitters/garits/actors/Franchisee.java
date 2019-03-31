@@ -7,6 +7,7 @@ import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
 import com.quickfixfitters.garits.entities.JobSheet;
+import com.quickfixfitters.garits.entities.MOTReminder;
 import com.quickfixfitters.garits.entities.Vehicle;
 import java.util.Date;
 import java.util.List;
@@ -69,6 +70,11 @@ public class Franchisee extends User {
             Criteria criteria = session.createCriteria(Customer.class);
             return (List<Customer>) criteria.list();
         }
+    }
+    
+    public List<MOTReminder> getMOTReminders(Session session){
+        Criteria criteria = session.createCriteria(MOTReminder.class);
+        return (List<MOTReminder>) criteria.list();
     }
     
     public void updateCustomer(int id, String forename, String surname, 
@@ -264,6 +270,26 @@ public class Franchisee extends User {
         }
     }
 
+    public void createMOTReminder(String vehicleId){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
+            
+            Vehicle vehicle = session.get(Vehicle.class, vehicleId);
+            MOTReminder reminder = new MOTReminder();
+            vehicle.getMotReminders().add(reminder);
+            reminder.setMotVehicle(vehicle);
+            session.update(vehicle);
+            session.save(reminder);
+            
+            session.getTransaction().commit();
+        }finally{
+            session.close();
+        }
+    }
+    
     public void setCustormer() {
             // TODO - implement Franchisee.setCustormer
             throw new UnsupportedOperationException();

@@ -15,10 +15,14 @@ public class MOTReminder {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int motReminderId;
 
+    @Column(name = "Printed")
+    private int printed;
+    
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Vehicle motVehicle;
 
     public MOTReminder() {
+        printed = 0;
     }
 
     public int getMotReminderId() {
@@ -35,5 +39,13 @@ public class MOTReminder {
 
     public void setMotVehicle(Vehicle motVehicle) {
         this.motVehicle = motVehicle;
+    }
+
+    public int getPrinted() {
+        return printed;
+    }
+
+    public void setPrinted(int printed) {
+        this.printed = printed;
     }
 }
