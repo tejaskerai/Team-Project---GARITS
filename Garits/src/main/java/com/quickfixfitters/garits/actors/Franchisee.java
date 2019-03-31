@@ -6,8 +6,10 @@ import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
+import com.quickfixfitters.garits.entities.JobSheet;
 import com.quickfixfitters.garits.entities.MOTReminder;
 import com.quickfixfitters.garits.entities.Vehicle;
+import java.util.Date;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -184,6 +186,21 @@ public class Franchisee extends User {
             session.close();
         }
         return false;
+    }
+    
+    public void addJob(Date dateBookedIn, String descriptionOfWork, String estimatedTime, String regNo){
+        
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
+            JobSheet jobSheet = new JobSheet(dateBookedIn, descriptionOfWork, estimatedTime, regNo);
+            session.save(jobSheet);
+        }finally{
+            session.getTransaction().commit();
+            session.close();
+        }
     }
     
     public void JobSheet (String jobNo) {

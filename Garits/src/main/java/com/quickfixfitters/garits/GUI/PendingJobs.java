@@ -409,7 +409,6 @@ public class PendingJobs extends javax.swing.JFrame {
 
         try {
             session.beginTransaction();
-            // Checking whether user exists
 
             JobSheet jobSheet = session.get(JobSheet.class, jobNo);
             String descOfWork = jobSheet.getDescriptionOfWork();
@@ -468,7 +467,7 @@ public class PendingJobs extends javax.swing.JFrame {
         int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
         System.out.println(desc.getText());
 
-        if (desc.getText() == null || desc.getText().compareTo("")==0) {
+        if (desc.getText() == null || desc.getText().compareTo("")==0 || desc.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Description is empty");
         } else {
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
