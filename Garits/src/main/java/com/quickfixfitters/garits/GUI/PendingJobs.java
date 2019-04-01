@@ -353,7 +353,7 @@ public class PendingJobs extends javax.swing.JFrame {
                     model.getRowCount(), new Object[]{
                 jobSheets.getJobNo(),
                 jobSheets.getDateBookedIn(),
-                jobSheets.getEstimatedTime(),
+                jobSheets.getEstimatedTime() + " minutes",
                 status
             }
             );

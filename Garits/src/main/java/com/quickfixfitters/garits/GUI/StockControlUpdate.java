@@ -12,7 +12,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class StockControl extends javax.swing.JFrame {
+public class StockControlUpdate extends javax.swing.JFrame {
 
     /**
      * Creates new form sparePartsDB
@@ -20,7 +20,7 @@ public class StockControl extends javax.swing.JFrame {
     // Field of type Garits so we use its methods.
     Garits garits;
 
-    public StockControl(Garits garits) {
+    public StockControlUpdate(Garits garits) {
         initComponents();
         populateStock();
         this.garits = garits;
@@ -39,7 +39,7 @@ public class StockControl extends javax.swing.JFrame {
                 part.getPartCode(),
                 part.getManufacturer(),
                 part.getVehicleType(),
-                "£ " + part.getUnitPrice(),
+                part.getUnitPrice(),
                 part.getLowLevelThreshold(),
                 part.getStockLevel()
             }
@@ -76,11 +76,10 @@ public class StockControl extends javax.swing.JFrame {
         stockLevel = new javax.swing.JTextField();
         vehicleType = new javax.swing.JTextField();
         price = new javax.swing.JTextField();
-        add = new javax.swing.JButton();
+        update = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         threshold = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        remove = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -117,6 +116,11 @@ public class StockControl extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane9.setViewportView(jTable1);
         if (jTable1.getColumnModel().getColumnCount() > 0) {
             jTable1.getColumnModel().getColumn(0).setMaxWidth(35);
@@ -140,26 +144,19 @@ public class StockControl extends javax.swing.JFrame {
             }
         });
 
-        add.setText("Add");
-        add.addActionListener(new java.awt.event.ActionListener() {
+        update.setText("Update");
+        update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addActionPerformed(evt);
+                updateActionPerformed(evt);
             }
         });
 
         jLabel9.setText("Threshold: ");
 
-        jButton2.setText("Update stock");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        remove.setText("Remove part");
+        remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Refresh");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                removeActionPerformed(evt);
             }
         });
 
@@ -196,18 +193,17 @@ public class StockControl extends javax.swing.JFrame {
                                     .addComponent(jLabel8))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(threshold, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(manufacturer, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(vehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(threshold, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(manufacturer, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(stockLevel, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jButton3))))))
+                                        .addComponent(remove)))))
+                        .addGap(93, 93, 93))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 1202, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -221,7 +217,7 @@ public class StockControl extends javax.swing.JFrame {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(partName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -233,7 +229,7 @@ public class StockControl extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(manufacturer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(22, 22, 22)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(vehicleType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -249,10 +245,9 @@ public class StockControl extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(stockLevel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(add)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                    .addComponent(update)
+                    .addComponent(remove))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 66, Short.MAX_VALUE)
                 .addComponent(jButton1))
         );
 
@@ -324,7 +319,7 @@ public class StockControl extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codeActionPerformed
 
-    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+    private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
         String part_name = partName.getText();
         String part_code = code.getText();
@@ -334,61 +329,82 @@ public class StockControl extends javax.swing.JFrame {
         String part_threshold = threshold.getText();
         String part_stockLevel = stockLevel.getText();
 
-        if (part_name.isEmpty() || part_code.isEmpty() || part_name.isEmpty() || part_vehicleType.isEmpty() || part_price.isEmpty() || part_threshold.isEmpty() || part_stockLevel.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "One or more fields are empty");
-
-        } else {
-            Franchisee franchisee = Franchisee.getFranchisee();
-
-            franchisee.addPart(part_name, part_code, part_man, part_vehicleType, part_price, part_stockLevel, part_threshold);
-
+        try {
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
-            int id;
-            if (jTable1.getRowCount() == 0) {
-                id = 1;
-            } else {
-                int row = jTable1.getRowCount() - 1;
-                id = ((int) jTable1.getValueAt(row, 0)) + 1;
-            }
+            Franchisee franchisee = Franchisee.getFranchisee();
 
-            model.insertRow(
-                    model.getRowCount(), new Object[]{
-                id,
-                part_name,
-                part_code,
-                part_man,
-                part_vehicleType,
-                "£ " + part_price,
-                part_threshold,
-                part_stockLevel
-            }
-            );
+            int selectedRow = jTable1.getSelectedRow();
+            int id = (Integer) jTable1.getValueAt(selectedRow, 0);
 
+            franchisee.updateStock(id, part_name, part_code, part_man, part_vehicleType, part_price, part_threshold, part_stockLevel);
+
+            JOptionPane.showMessageDialog(null, "Part Updated");
+            model.setRowCount(0);
+            populateStock();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "No part selected");
         }
-    }//GEN-LAST:event_addActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        garits.openNewScreen(this, new StockControlUpdate(garits));
-    }//GEN-LAST:event_jButton2ActionPerformed
+        partName.setText("");
+        code.setText("");
+        manufacturer.setText("");
+        vehicleType.setText("");
+        price.setText("");
+        threshold.setText("");
+        stockLevel.setText("");
+        jTable1.clearSelection();
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+    }//GEN-LAST:event_updateActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-        model.setRowCount(0);
-        populateStock();
-    }//GEN-LAST:event_jButton3ActionPerformed
+
+        int selectedRow = jTable1.getSelectedRow();
+        partName.setText(model.getValueAt(selectedRow, 1).toString());
+        code.setText(model.getValueAt(selectedRow, 2).toString());
+        manufacturer.setText(model.getValueAt(selectedRow, 3).toString());
+        vehicleType.setText(model.getValueAt(selectedRow, 4).toString());
+        price.setText(model.getValueAt(selectedRow, 5).toString());
+        threshold.setText(model.getValueAt(selectedRow, 6).toString());
+        stockLevel.setText(model.getValueAt(selectedRow, 7).toString());
+
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
+        // TODO add your handling code here:
+
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            Franchisee franchisee = Franchisee.getFranchisee();
+            int selectedRow = jTable1.getSelectedRow();
+            int id = (Integer) jTable1.getValueAt(selectedRow, 0);
+            boolean success = franchisee.removePart(id);
+            if (success) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "User removed successfully");
+                partName.setText("");
+                code.setText("");
+                manufacturer.setText("");
+                vehicleType.setText("");
+                price.setText("");
+                threshold.setText("");
+                stockLevel.setText("");
+                jTable1.clearSelection();
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "No account selected");
+        }
+    }//GEN-LAST:event_removeActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton add;
     private javax.swing.JTextField code;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -409,8 +425,10 @@ public class StockControl extends javax.swing.JFrame {
     private javax.swing.JTextField manufacturer;
     private javax.swing.JTextField partName;
     private javax.swing.JTextField price;
+    private javax.swing.JButton remove;
     private javax.swing.JTextField stockLevel;
     private javax.swing.JTextField threshold;
+    private javax.swing.JButton update;
     private javax.swing.JTextField vehicleType;
     // End of variables declaration//GEN-END:variables
 

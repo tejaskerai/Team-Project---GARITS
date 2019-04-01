@@ -102,14 +102,13 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         Vehicle v = session.get(Vehicle.class, vehicleId);
 
-        //List<Vehicle> vehicles = c.getVehicles();
         List<JobSheet> jobSheets = v.getJobSheet();
 
         for (JobSheet jobSheet : jobSheets) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
                 jobSheet.getJobNo(),
-                jobSheet.getEstimatedTime()}
+                jobSheet.getEstimatedTime()+ " minutes"}
             );
         }
 
