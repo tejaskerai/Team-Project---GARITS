@@ -44,9 +44,14 @@ public class Part {
     @Column(name = "StockLevel")
     private int stockLevel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "JobNo", insertable = false, updatable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "JobNo", insertable = false, updatable = false)
+//    private JobSheet jobSheet;
+    
+    // Using this relation
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private JobSheet jobSheet;
+
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="OrderNo", insertable = false, updatable = false)
@@ -174,8 +179,6 @@ public class Part {
     public void setJobSheet(JobSheet jobSheet) {
         this.jobSheet = jobSheet;
     }
-    
-    
     
 
 }

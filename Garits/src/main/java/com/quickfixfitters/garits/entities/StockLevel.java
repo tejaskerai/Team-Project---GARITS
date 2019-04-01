@@ -24,8 +24,8 @@ public class StockLevel {
     @Column(name = "DeliveryStock")
     private int deliveryStock;
 
-    @OneToMany(mappedBy = "stockLevel")
-    private List<Part> parts;
+//    @OneToMany(mappedBy = "stockLevel")
+//    private List<Part> parts;
 
     public StockLevel(int initialStock, int stockUnit, int usedStock, int deliveryStock) {
         this.initialStock = initialStock;
