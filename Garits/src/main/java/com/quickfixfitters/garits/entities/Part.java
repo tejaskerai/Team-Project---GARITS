@@ -23,23 +23,11 @@ public class Part {
     @Column(name = "VehicleType")
     private String vehicleType;
 
-    @Column(name = "Year")
-    private String year;
-
-    @Column(name = "Description")
-    private String description;
-
     @Column(name = "UnitPrice")
     private float unitPrice;
 
     @Column(name = "LowLevelThreshold")
     private int lowLevelThreshold;
-
-    @Column(name = "JobNo")
-    private int jobNo;
-
-    @Column(name = "OrderNo")
-    private int orderNo;
     
     @Column(name = "StockLevel")
     private int stockLevel;
@@ -57,29 +45,6 @@ public class Part {
 //    @JoinColumn(name="OrderNo", insertable = false, updatable = false)
 //    private StockLevel stockLevel;
 
-    public Part(String partCode, String partName, String manufacturer, String vehicleType, String year, String description, float unitPrice, int lowLevelThreshold, int jobNo, int orderNo, int stockLevel) {
-        this.partCode = partCode;
-        this.partName = partName;
-        this.manufacturer = manufacturer;
-        this.vehicleType = vehicleType;
-        this.year = year;
-        this.description = description;
-        this.unitPrice = unitPrice;
-        this.lowLevelThreshold = lowLevelThreshold;
-        this.jobNo = jobNo;
-        this.orderNo = orderNo;
-        this.stockLevel = stockLevel;
-    }
-
-    public Part(String partCode, String partName, String manufacturer, String vehicleType, float unitPrice, int stockLevel) {
-        this.partCode = partCode;
-        this.partName = partName;
-        this.manufacturer = manufacturer;
-        this.vehicleType = vehicleType;
-        this.unitPrice = unitPrice;
-        this.stockLevel = stockLevel;
-    }
-
     public Part(String partCode, String partName, String manufacturer, String vehicleType, float unitPrice, int lowLevelThreshold, int stockLevel) {
         this.partCode = partCode;
         this.partName = partName;
@@ -89,15 +54,10 @@ public class Part {
         this.lowLevelThreshold = lowLevelThreshold;
         this.stockLevel = stockLevel;
     }
-    
-    
-    
-    
-   
-    
 
     public Part() {
-    } 
+    }
+    
 
     public int getId() {
         return id;
@@ -139,22 +99,6 @@ public class Part {
         this.vehicleType = vehicleType;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public float getUnitPrice() {
         return unitPrice;
     }
@@ -169,22 +113,6 @@ public class Part {
 
     public void setLowLevelThreshold(int lowLevelThreshold) {
         this.lowLevelThreshold = lowLevelThreshold;
-    }
-
-    public int getJobNo() {
-        return jobNo;
-    }
-
-    public void setJobNo(int jobNo) {
-        this.jobNo = jobNo;
-    }
-
-    public int getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(int orderNo) {
-        this.orderNo = orderNo;
     }
 
     public int getStockLevel() {
@@ -203,5 +131,5 @@ public class Part {
         this.jobSheet = jobSheet;
     }
     
-
+    
 }
