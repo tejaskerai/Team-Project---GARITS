@@ -39,8 +39,8 @@ public class Receptionist extends User {
     
     public void generateMOTReminder(MOTReminder reminder, Session session){
         try{
-            String fileName = "motReminders/" + reminder.getMotVehicle().getRegNo() + 
-                    "---" + dateFormat.format(new Date()) + ".txt";
+            String fileName = "files/motReminders/" + reminder.getMotVehicle().getRegNo() + 
+                    "---" + dateFormat.format(new Date()) + "---MOT" + ".txt";
             
             File newReminder = new File(fileName);
             newReminder.createNewFile();
@@ -58,7 +58,7 @@ public class Receptionist extends User {
             
             writer.println("REMINDER - MoT TEST DUE");
             writer.println("Vehicle Registration No: " + reminder.getMotVehicle().getRegNo() + 
-                    "Renewal Test Date: " + dateFormat.format(reminder.getMotVehicle().getRenewalTestDate()));
+                    "       Renewal Test Date: " + dateFormat.format(reminder.getMotVehicle().getRenewalTestDate()));
             writer.println("");
             
             writer.println("The above vehicle is due to have its MoT certificate renewed on the date shown.");

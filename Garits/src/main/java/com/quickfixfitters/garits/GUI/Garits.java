@@ -15,8 +15,8 @@ import java.io.IOException;
 import javax.swing.JOptionPane;
 import com.quickfixfitters.garits.seeder.EmployeeSeeder;
 import com.quickfixfitters.garits.seeder.SeederInterface;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.util.Date;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -29,15 +29,56 @@ public class Garits {
     private String username;
     private String password;
     private boolean primedNotification;
+    
+    private int mechanicRate = 105;
+    private int forepersonRate = 125;
 
     public Garits() {
+        
         
         //Starting connection with Database
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         SeedData();
+        
+        checkForAlerts();
+        
         openScreens = new Stack<>();
         JFrame home = new Home(this);
         this.putOnScreen(home);
+    }
+    
+    public void checkForAlerts(){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try{
+            session.beginTransaction();
+            Criteria criteria = session.createCriteria(Vehicle.class);
+            List<Vehicle> vehicles = (List<Vehicle>) criteria.list();
+            
+            for (Vehicle vehicle : vehicles){
+                if (vehicle.getRenewalReminderDate().equals(new Date()) || 
+                        vehicle.getRenewalReminderDate().before(new Date())){
+                    MOTReminder reminder = new MOTReminder();
+                    
+                    reminder.setMotVehicle(vehicle);
+                    session.save(reminder);
+                    
+                    vehicle.getRenewalTestDate().setYear(vehicle.getRenewalTestDate().getYear() + 1);
+                    vehicle.getRenewalReminderDate().setYear(vehicle.getRenewalReminderDate().getYear() + 1);
+                    vehicle.getMotReminders().add(reminder);
+                    session.update(vehicle);
+                    
+                    this.setPrimedNotification(true);
+                }
+            }
+            
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Checking for new alerts failed");
+        }finally{
+            session.getTransaction().commit();
+            session.close();
+        }
     }
     
     // Puts the parameter 'frame' on the screen maximised.
@@ -50,9 +91,7 @@ public class Garits {
     // on the help button at the top of the screen.
     // If the help file is unavailable, a message box opens.
     public void openHelp(JFrame frame) throws IOException{
-        File file = new File("C:/Users/ccram/Desktop/UniWork/Year2/TeamProject"
-                + "/Team-Project---GARITS-master/Team-Project---GARITS/src/GUI/"
-                + "help.txt");
+        File file = new File("help.txt");
         Desktop desktop = Desktop.getDesktop();
         
         if (file.exists()){

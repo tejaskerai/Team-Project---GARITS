@@ -33,6 +33,9 @@ public class Vehicle {
     @Column(name = "RenewalTestDate")
     private Date renewalTestDate;
     
+    @Column(name = "RenewalReminderDate")
+    private Date renewalReminderDate;
+    
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Customer customer;
     
@@ -48,14 +51,17 @@ public class Vehicle {
     private List<MOTReminder> motReminders;
 
     public Vehicle(String regNo, String chassisNo, String colour, String engSerial, 
-                   String make, String model) {
+                   String make, String model, Date renewalDate, Date reminderDate) {
         this.regNo = regNo;
         this.make = make;
         this.model = model;
         this.engSerial = engSerial;
         this.chassisNo = chassisNo;
         this.color = colour;
-        this.renewalTestDate = new Date();
+        this.renewalTestDate = renewalDate;
+        this.renewalReminderDate = reminderDate;
+        
+        
     }
 
     public Vehicle() {
@@ -148,6 +154,13 @@ public class Vehicle {
     public void setJobSheet(List<JobSheet> jobSheet) {
         this.jobSheet = jobSheet;
     }
-    
+
+    public Date getRenewalReminderDate() {
+        return renewalReminderDate;
+    }
+
+    public void setRenewalReminderDate(Date renewalReminderDate) {
+        this.renewalReminderDate = renewalReminderDate;
+    }
     
 }
