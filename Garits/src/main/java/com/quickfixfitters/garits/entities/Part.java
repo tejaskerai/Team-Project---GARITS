@@ -70,6 +70,29 @@ public class Part {
         this.orderNo = orderNo;
         this.stockLevel = stockLevel;
     }
+
+    public Part(String partCode, String partName, String manufacturer, String vehicleType, float unitPrice, int stockLevel) {
+        this.partCode = partCode;
+        this.partName = partName;
+        this.manufacturer = manufacturer;
+        this.vehicleType = vehicleType;
+        this.unitPrice = unitPrice;
+        this.stockLevel = stockLevel;
+    }
+
+    public Part(String partCode, String partName, String manufacturer, String vehicleType, float unitPrice, int lowLevelThreshold, int stockLevel) {
+        this.partCode = partCode;
+        this.partName = partName;
+        this.manufacturer = manufacturer;
+        this.vehicleType = vehicleType;
+        this.unitPrice = unitPrice;
+        this.lowLevelThreshold = lowLevelThreshold;
+        this.stockLevel = stockLevel;
+    }
+    
+    
+    
+    
    
     
 
