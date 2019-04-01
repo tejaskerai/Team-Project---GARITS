@@ -8,6 +8,7 @@ import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
 import com.quickfixfitters.garits.entities.JobSheet;
 import com.quickfixfitters.garits.entities.MOTReminder;
+import com.quickfixfitters.garits.entities.Part;
 import com.quickfixfitters.garits.entities.Vehicle;
 import java.util.Date;
 import java.util.List;
@@ -148,6 +149,42 @@ public class Franchisee extends User {
             session.getTransaction().rollback();
         }finally{
             session.close();
+        }
+    }
+    
+    
+    public void addPart(String partName, String code, String manufacturer, String vehicleType, String price, String stockLevel, String threshold){
+        
+        float unitPrice = Float.parseFloat(price);
+        int thresh = Integer.parseInt(threshold);
+        int level = Integer.parseInt(stockLevel);	
+        //Starting connection with Database
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        
+        try {
+            session.beginTransaction();
+            
+            Part part = new Part(code, partName, manufacturer, vehicleType, unitPrice, thresh, level);
+
+            session.save(part);
+            System.out.println("Row added");
+            JOptionPane.showMessageDialog(null, "Part added");
+
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+        
+        
+    }
+    
+     public List<Part> getStock() {
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        try (Session session = sessionFactory.getCurrentSession()) {
+            session.beginTransaction();
+            Criteria criteria = session.createCriteria(Part.class);
+            return (List<Part>) criteria.list();
         }
     }
     

@@ -531,8 +531,14 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
                         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
 
-                        int row = jTable3.getRowCount() - 1;
-                        int jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+                        int jobNo;
+                        if (jTable3.getRowCount() == 0) {
+                            jobNo = 1;
+                        } else {
+                            int row = jTable3.getRowCount() - 1;
+                            jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+                        }
+
                         System.out.println(jobNo);
                         model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
 
@@ -583,8 +589,15 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
             session.update(v);
             DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
 
-            int row = jTable3.getRowCount() - 1;
-            int jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+            int jobNo;
+            if (jTable3.getRowCount() == 0) {
+                jobNo = 1;
+            } else {
+                int row = jTable3.getRowCount() - 1;
+                jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+            }
+            
+            
             model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
             JOptionPane.showMessageDialog(this, "Job added");
 
@@ -614,8 +627,15 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
             session.update(v);
             DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
 
-            int row = jTable3.getRowCount() - 1;
-            int jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+           
+            int jobNo;
+            if (jTable3.getRowCount() == 0) {
+                jobNo = 1;
+            } else {
+                int row = jTable3.getRowCount() - 1;
+                jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+            }
+            
             model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
             JOptionPane.showMessageDialog(this, "Job added");
         } finally {

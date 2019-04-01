@@ -44,12 +44,16 @@ public class JobSheet {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<JobSheet> jobSheet;
 
+    // Using this relation 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Part> part;
+
     
     @OneToMany(mappedBy = "jobSheet")
     private List<Invoice> invoices;
 
-    @OneToMany(mappedBy = "jobSheet")
-    private List<Part> parts;
+//    @OneToMany(mappedBy = "jobSheet")
+//    private List<Part> parts;
 
     public JobSheet(Date dateBookedIn, String descriptionOfWork, String descriptionAfterWork, String estimatedTime, Date dateCompleted, String regNo) {
         this.dateBookedIn = dateBookedIn;
@@ -158,20 +162,20 @@ public class JobSheet {
         this.invoices = invoices;
     }
 
-    public List<Part> getParts() {
-        return parts;
-    }
-
-    public void setParts(List<Part> parts) {
-        this.parts = parts;
-    }
-
     public List<JobSheet> getJobSheet() {
         return jobSheet;
     }
 
     public void setJobSheet(List<JobSheet> jobSheet) {
         this.jobSheet = jobSheet;
+    }
+
+    public List<Part> getPart() {
+        return part;
+    }
+
+    public void setPart(List<Part> part) {
+        this.part = part;
     }
 
     

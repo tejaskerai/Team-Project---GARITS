@@ -23,53 +23,41 @@ public class Part {
     @Column(name = "VehicleType")
     private String vehicleType;
 
-    @Column(name = "Year")
-    private String year;
-
-    @Column(name = "Description")
-    private String description;
-
     @Column(name = "UnitPrice")
     private float unitPrice;
 
     @Column(name = "LowLevelThreshold")
     private int lowLevelThreshold;
-
-    @Column(name = "JobNo")
-    private int jobNo;
-
-    @Column(name = "OrderNo")
-    private int orderNo;
     
     @Column(name = "StockLevel")
     private int stockLevel;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "JobNo", insertable = false, updatable = false)
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "JobNo", insertable = false, updatable = false)
+//    private JobSheet jobSheet;
+    
+    // Using this relation
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private JobSheet jobSheet;
+
 
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="OrderNo", insertable = false, updatable = false)
 //    private StockLevel stockLevel;
 
-    public Part(String partCode, String partName, String manufacturer, String vehicleType, String year, String description, float unitPrice, int lowLevelThreshold, int jobNo, int orderNo, int stockLevel) {
+    public Part(String partCode, String partName, String manufacturer, String vehicleType, float unitPrice, int lowLevelThreshold, int stockLevel) {
         this.partCode = partCode;
         this.partName = partName;
         this.manufacturer = manufacturer;
         this.vehicleType = vehicleType;
-        this.year = year;
-        this.description = description;
         this.unitPrice = unitPrice;
         this.lowLevelThreshold = lowLevelThreshold;
-        this.jobNo = jobNo;
-        this.orderNo = orderNo;
         this.stockLevel = stockLevel;
     }
-   
-    
 
     public Part() {
-    } 
+    }
+    
 
     public int getId() {
         return id;
@@ -111,22 +99,6 @@ public class Part {
         this.vehicleType = vehicleType;
     }
 
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public float getUnitPrice() {
         return unitPrice;
     }
@@ -141,22 +113,6 @@ public class Part {
 
     public void setLowLevelThreshold(int lowLevelThreshold) {
         this.lowLevelThreshold = lowLevelThreshold;
-    }
-
-    public int getJobNo() {
-        return jobNo;
-    }
-
-    public void setJobNo(int jobNo) {
-        this.jobNo = jobNo;
-    }
-
-    public int getOrderNo() {
-        return orderNo;
-    }
-
-    public void setOrderNo(int orderNo) {
-        this.orderNo = orderNo;
     }
 
     public int getStockLevel() {
@@ -176,6 +132,4 @@ public class Part {
     }
     
     
-    
-
 }
