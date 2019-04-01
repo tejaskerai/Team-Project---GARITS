@@ -6,6 +6,7 @@ import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
+import com.quickfixfitters.garits.entities.Employee;
 import com.quickfixfitters.garits.entities.JobSheet;
 import com.quickfixfitters.garits.entities.MOTReminder;
 import com.quickfixfitters.garits.entities.Part;
@@ -39,6 +40,56 @@ public class Franchisee extends User {
 
     public static void setFranchisee(Franchisee franchisee) {
         Franchisee.franchisee = franchisee;
+    }
+    
+    public boolean removePart(int id){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            Part part = session.get(Part.class, id);
+            session.delete(part);
+            session.getTransaction().commit();
+            return true;
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        } finally {
+            session.close();
+        }
+        return false;
+    }
+    
+    public void updateStock(int id, String partName, String code, String manufacturer, String vehicleType, String price, String threshold, String stockLevel){
+        
+        float unitPrice = Float.parseFloat(price);
+        int thresh = Integer.parseInt(threshold);
+        int level = Integer.parseInt(stockLevel);
+        
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        try {
+            session.beginTransaction();
+            Part part = session.get(Part.class, id);
+            part.setPartName(partName);
+            part.setPartCode(code);
+            part.setManufacturer(manufacturer);
+            part.setVehicleType(vehicleType);
+            part.setUnitPrice(unitPrice);
+            part.setLowLevelThreshold(thresh);
+            part.setStockLevel(level);
+            
+            session.update(part);
+            session.getTransaction().commit();     
+            
+        }
+        catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
     }
     
     public void showCustomerAccount(int id, Garits garits, JFrame frame){
