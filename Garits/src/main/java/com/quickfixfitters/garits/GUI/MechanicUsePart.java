@@ -285,6 +285,7 @@ public class MechanicUsePart extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
 
+        
         try {
             if (quantity.getText().isEmpty()) {
 
@@ -297,6 +298,7 @@ public class MechanicUsePart extends javax.swing.JFrame {
                 int selectedRow = jTable1.getSelectedRow();
 
                 String partName = model1.getValueAt(selectedRow, 1).toString();
+                int partId = (int)model1.getValueAt(selectedRow, 0);
                 String quant = quantity.getText();
 
                 model2.insertRow(
@@ -309,7 +311,8 @@ public class MechanicUsePart extends javax.swing.JFrame {
                 Session session = sessionFactory.getCurrentSession();
                 try {
                     session.beginTransaction();
-                    Part part = new Part();
+                    //Part part = new Part();
+                    Part part = session.get(Part.class, partId);
                     JobSheet j = session.get(JobSheet.class, jobId);
                     j.getPart().add(part);
                     session.update(j);
