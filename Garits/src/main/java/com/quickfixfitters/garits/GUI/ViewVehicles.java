@@ -25,8 +25,9 @@ public class ViewVehicles extends javax.swing.JFrame {
     /**
      * Creates new form ViewVehicles
      */
-    
+    // Field of type Garits so that we can access it's methods 
     Garits garits;
+    // CustomerId so we can access the customer that this vehicle belongs to.
     int customerId;
     
     public ViewVehicles(Garits garits, int customerId) {
@@ -36,6 +37,7 @@ public class ViewVehicles extends javax.swing.JFrame {
         populateTable();
     }
 
+    // Fills table with info on the specified customer's vehicles.
     public void populateTable(){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -62,6 +64,7 @@ public class ViewVehicles extends javax.swing.JFrame {
         session.close();
     }
     
+    // Clears all the boxes on screen.
     public void clearBoxes(){
         regNo.setText(null);
         chassisNo.setText(null);
@@ -377,6 +380,15 @@ public class ViewVehicles extends javax.swing.JFrame {
         garits.logout(this);
     }//GEN-LAST:event_jMenu3MouseClicked
 
+
+    // Takes the user back one page
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        garits.backButton(this);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    // Attempts to delete the vehicle and displays a message to the user if
+    // they haven't selected a vehicle.
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -396,6 +408,8 @@ public class ViewVehicles extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Attempts to update the vehicle using the information in the text boxes
+    // and displays a message to the user if they haven't selected a vehicle.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -423,16 +437,19 @@ public class ViewVehicles extends javax.swing.JFrame {
         clearBoxes();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    // Opens the screen for a new vehicle
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         garits.openNewScreen(this, new AddVehicle(garits, customerId));
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    // Repopulate the table when this screen regains focus
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         populateTable();
     }//GEN-LAST:event_formWindowGainedFocus
 
+    // Fills on screen text boxes with info from the selected vehicle.
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.getSelectedRow();
         

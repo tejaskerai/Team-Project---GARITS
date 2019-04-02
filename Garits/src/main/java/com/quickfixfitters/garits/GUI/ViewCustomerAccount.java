@@ -201,6 +201,13 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
         garits.logout(this);
     }//GEN-LAST:event_jMenu3MouseClicked
 
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        garits.backButton(this);
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    // Updates the customer account
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String newPayment = payment.getSelectedItem().toString();
         

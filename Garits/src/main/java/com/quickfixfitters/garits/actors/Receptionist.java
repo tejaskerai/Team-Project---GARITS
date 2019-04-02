@@ -70,6 +70,10 @@ public class Receptionist extends User {
             writer.println("G. Lancaster");
             
             writer.close();
+            
+            reminder.getMotVehicle().getRenewalTestDate().setYear(reminder.getMotVehicle().getRenewalTestDate().getYear() + 1);
+            reminder.getMotVehicle().getRenewalReminderDate().setYear(reminder.getMotVehicle().getRenewalReminderDate().getYear() + 1);
+            
             JOptionPane.showMessageDialog(null, "File created");
         }catch(IOException e){
             JOptionPane.showMessageDialog(null, "Printing failed");

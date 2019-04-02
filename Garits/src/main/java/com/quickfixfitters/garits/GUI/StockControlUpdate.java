@@ -26,6 +26,7 @@ public class StockControlUpdate extends javax.swing.JFrame {
         this.garits = garits;
     }
 
+    // Populates the table with the parts and their quantities
     private void populateStock() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Franchisee franchisee = Franchisee.getFranchisee();
@@ -319,6 +320,8 @@ public class StockControlUpdate extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codeActionPerformed
 
+    // Attempts to update the part in the database, but if it cant, displays
+    // an error message
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
         String part_name = partName.getText();
@@ -357,6 +360,7 @@ public class StockControlUpdate extends javax.swing.JFrame {
 
     }//GEN-LAST:event_updateActionPerformed
 
+    // Fills the screens text boxes with the info of the part selected
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -372,6 +376,8 @@ public class StockControlUpdate extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
+    // Attempts to delete the selected part from the database. If no part
+    // is selected, an error message is shown to the user.
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         // TODO add your handling code here:
 
@@ -383,7 +389,7 @@ public class StockControlUpdate extends javax.swing.JFrame {
             boolean success = franchisee.removePart(id);
             if (success) {
                 model.removeRow(selectedRow);
-                JOptionPane.showMessageDialog(this, "User removed successfully");
+                JOptionPane.showMessageDialog(this, "Part removed successfully");
                 partName.setText("");
                 code.setText("");
                 manufacturer.setText("");
@@ -394,7 +400,7 @@ public class StockControlUpdate extends javax.swing.JFrame {
                 jTable1.clearSelection();
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "No account selected");
+            JOptionPane.showMessageDialog(this, "No part selected");
         }
     }//GEN-LAST:event_removeActionPerformed
 

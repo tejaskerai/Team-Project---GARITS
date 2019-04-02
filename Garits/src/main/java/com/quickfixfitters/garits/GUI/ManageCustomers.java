@@ -21,10 +21,10 @@ public class ManageCustomers extends javax.swing.JFrame {
     /**
      * Creates new form manageCustomerAcc
      */
-    
+
     // Field of type Garits, so we can access its methods.
     Garits garits;
-    
+
     public ManageCustomers(Garits garits) {
         initComponents();
         populateCustomers();
@@ -345,15 +345,17 @@ public class ManageCustomers extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Fills the table with info on each customer.
     public void populateCustomers() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
-        
+
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         // Using an already created object of franchisee instead of creating one for every function
         Franchisee franchisee = Franchisee.getFranchisee();
         List<Customer> customers = franchisee.getCustomers();
-        
+
+        // Inserts info about each customer into the table.
         for (Customer customer : customers) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -367,7 +369,7 @@ public class ManageCustomers extends javax.swing.JFrame {
             );
         }
     }
-    
+
     // Opens the profile screen.
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         garits.openNewScreen(this, new MyProfile(garits));
@@ -387,6 +389,75 @@ public class ManageCustomers extends javax.swing.JFrame {
         garits.logout(this);
     }//GEN-LAST:event_jMenu3MouseClicked
 
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        garits.backButton(this);
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    
+
+
+    // Clears all on screen boxes.
+    public void clearBoxes(){
+        forename.setText(null);
+        surname.setText(null);
+        address.setText(null);
+        postcode.setText(null);
+        telephone.setText(null);
+        email.setText(null);
+        jTable1.clearSelection();
+    }
+
+    
+
+    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
+        // TODO add your handling code here:
+        garits.backButton(this);
+    }//GEN-LAST:event_jLabel9MouseClicked
+
+                                      
+
+    
+    
+    
+    
+    // Opens the view vehicles page for the specified customer. Or a message
+    // appears if no account was selected.                                       
+
+    // Removes selected user.
+    // Fills the text boxes with info on the customer that the user clicked.
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        
+        int row = jTable1.getSelectedRow();
+
+        forename.setText(jTable1.getValueAt(row, 1).toString());
+        surname.setText(jTable1.getValueAt(row, 2).toString());
+        address.setText(jTable1.getValueAt(row, 3).toString());
+        postcode.setText(jTable1.getValueAt(row, 4).toString());
+        telephone.setText(jTable1.getValueAt(row, 5).toString());
+        email.setText(jTable1.getValueAt(row, 6).toString());
+        
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            Franchisee franchisee = Franchisee.getFranchisee();
+            int selectedRow = jTable1.getSelectedRow();
+            int customerID = (Integer)jTable1.getValueAt(selectedRow, 0);
+            boolean success = franchisee.removeCustomer(customerID);
+            if(success) {
+                model.removeRow(selectedRow);
+                JOptionPane.showMessageDialog(this, "Customer removed successfully");
+                clearBoxes();
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(this, "No account selected");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    // Tries to update the selected user by taking in what data the user
+    // entered.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -415,7 +486,31 @@ public class ManageCustomers extends javax.swing.JFrame {
         clearBoxes();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    
+    // Sends the user to the view customer account screen if the selected
+    // user has a customer account. otherwise it displays a message saying that
+    // an account doesnt exist.
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        try{
+            Franchisee franchisee = Franchisee.getFranchisee();
+            int selectedRow = jTable1.getSelectedRow();
+            int customerId = (Integer) jTable1.getValueAt(selectedRow, 0);
+
+            franchisee.showCustomerAccount(customerId, garits, this);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "No customer selected");
+        }
+        clearBoxes();
+        
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    
+    // Tries to create a customer account for the selected user, if the
+    // customer already has one, the system tells that to the user. If the user
+    // failed to select a customer, they are told so. Otherwise, an account
+    // is created.
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
@@ -439,9 +534,11 @@ public class ManageCustomers extends javax.swing.JFrame {
             clearBoxes();
             session.close();
         }
+        
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        
         try{
             Franchisee franchisee = Franchisee.getFranchisee();
             int row = jTable1.getSelectedRow();
@@ -452,9 +549,15 @@ public class ManageCustomers extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No customer selected");
         }
         clearBoxes();
+        
     }//GEN-LAST:event_jButton7ActionPerformed
 
+    // Tries to remove the customer account of the selected customer. If the
+    // customer doesn't have a customer acccount that is pointed out to the
+    // admin. If the admin hasn't selected an account, this too is mentioned.
+    // Otherwise the customer account is deleted.
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
@@ -478,64 +581,10 @@ public class ManageCustomers extends javax.swing.JFrame {
             session.close();
         }
     }//GEN-LAST:event_jButton6ActionPerformed
+                                    
+                                                                           
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        try{
-            Franchisee franchisee = Franchisee.getFranchisee();
-            int selectedRow = jTable1.getSelectedRow();
-            int customerId = (Integer) jTable1.getValueAt(selectedRow, 0);
 
-            franchisee.showCustomerAccount(customerId, garits, this);
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "No customer selected");
-        }
-        clearBoxes();
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    // Removes selected user.
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try{
-            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            Franchisee franchisee = Franchisee.getFranchisee();
-            int selectedRow = jTable1.getSelectedRow();
-            int customerID = (Integer)jTable1.getValueAt(selectedRow, 0);
-            boolean success = franchisee.removeCustomer(customerID);
-            if(success) {
-                model.removeRow(selectedRow);
-                JOptionPane.showMessageDialog(this, "Customer removed successfully");
-                clearBoxes();
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(this, "No account selected");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        int row = jTable1.getSelectedRow();
-
-        forename.setText(jTable1.getValueAt(row, 1).toString());
-        surname.setText(jTable1.getValueAt(row, 2).toString());
-        address.setText(jTable1.getValueAt(row, 3).toString());
-        postcode.setText(jTable1.getValueAt(row, 4).toString());
-        telephone.setText(jTable1.getValueAt(row, 5).toString());
-        email.setText(jTable1.getValueAt(row, 6).toString());
-    }//GEN-LAST:event_jTable1MouseClicked
-
-    private void jLabel9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel9MouseClicked
-        // TODO add your handling code here:
-        garits.backButton(this);
-    }//GEN-LAST:event_jLabel9MouseClicked
-
-    public void clearBoxes(){
-        forename.setText(null);
-        surname.setText(null);
-        address.setText(null);
-        postcode.setText(null);
-        telephone.setText(null);
-        email.setText(null);
-        jTable1.clearSelection();
-    }
-    
     /**
      * @param args the command line arguments
      */

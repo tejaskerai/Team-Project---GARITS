@@ -100,22 +100,22 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("CUSTOMER DETAILS");
 
-        forename.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        forename.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jScrollPane1.setViewportView(forename);
 
-        surname.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        surname.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jScrollPane3.setViewportView(surname);
 
-        address.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        address.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jScrollPane4.setViewportView(address);
 
-        postcode.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        postcode.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jScrollPane5.setViewportView(postcode);
 
-        telephone.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        telephone.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jScrollPane6.setViewportView(telephone);
 
-        email.setFont(new java.awt.Font("Agency FB", 0, 18)); // NOI18N
+        email.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jScrollPane7.setViewportView(email);
 
         payment.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -149,13 +149,10 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel10)))
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10))
                 .addGap(0, 1607, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,15 +211,13 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel6)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel7)))
+                    .addComponent(jScrollPane7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(customerAccountCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -233,7 +228,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                     .addComponent(paymentText))
                 .addGap(38, 38, 38)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addContainerGap())
         );
@@ -326,6 +321,9 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Run when the user changes the drop down menu for create account. If
+    // the new item selected is yes, make options for account creation available
+    // , otherwise set them to be invisible.
     private void customerAccountCheckItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_customerAccountCheckItemStateChanged
         if (customerAccountCheck.getSelectedItem().equals("Yes")){
             payment.setVisible(true);

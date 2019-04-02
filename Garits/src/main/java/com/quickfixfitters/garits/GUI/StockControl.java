@@ -26,6 +26,8 @@ public class StockControl extends javax.swing.JFrame {
         this.garits = garits;
     }
 
+    // Gets all parts in the data base and displays relevent information
+    // about them on the table.
     private void populateStock() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Franchisee franchisee = Franchisee.getFranchisee();
@@ -350,6 +352,8 @@ public class StockControl extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_codeActionPerformed
 
+    // Tries to add the part typed in by the user. Displaying an error if any of
+    // the fields are empty
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
         String part_name = partName.getText();

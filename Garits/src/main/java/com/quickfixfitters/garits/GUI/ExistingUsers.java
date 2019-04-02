@@ -269,11 +269,16 @@ public class ExistingUsers extends javax.swing.JFrame {
         garits.backButton(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    // Puts all employees into a table.
     private void populateEmployees() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        // Gets an Admin object uses it to call the getEmployees method to get
+        // a list of all employees.
         Admin admin = Admin.getAdmin();
         List<Employee> employees = admin.getEmployees();
 
+        // Puts all important information about an employee into the table.
         for (Employee employee : employees) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -287,11 +292,19 @@ public class ExistingUsers extends javax.swing.JFrame {
 
     // Code for when the remove user button is clicked.
     private void removeUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeUserActionPerformed
+        // All in a try/catch in case the user doesn't select a row of the table
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             Admin admin = Admin.getAdmin();
+            
+            // Gets the row selected by the user and uses that to get an
+            // employee ID.
             int selectedRow = jTable1.getSelectedRow();
             int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+            
+            // Tries to remove a user, the method that does this returns whether
+            // or not it was successful, before infoming the admin one way
+            // or the other.
             boolean success = admin.removeUser(employeeNo);
             if (success) {
                 model.removeRow(selectedRow);
@@ -307,9 +320,9 @@ public class ExistingUsers extends javax.swing.JFrame {
 
     }//GEN-LAST:event_firstnameActionPerformed
 
+    // Run when the user clicks on the table. Fills in the text boxes on screen
+    // with the information from the just selected user.
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
-        // TODO add your handling code here:
-
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
         Admin admin = Admin.getAdmin();
@@ -356,8 +369,10 @@ public class ExistingUsers extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_lastnameActionPerformed
 
+    // Run when the user presses the update user button
     private void updateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateUserActionPerformed
-        // TODO add your handling code here:
+        // Tries to update the user, otherwise tells them they haven't
+        // selected an account.
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
@@ -366,10 +381,12 @@ public class ExistingUsers extends javax.swing.JFrame {
             int selectedRow = jTable1.getSelectedRow();
             int employeeNo = (Integer) jTable1.getValueAt(selectedRow, 0);
 
+            // Gets text from the text boxes on screen.
             String userFirstname =  firstname.getText();
             String userLastname = lastname.getText();
             String userRole = role.getSelectedItem().toString().toLowerCase();
 
+            // Updates the user in the database.
             admin.updateUser(employeeNo, userFirstname, userLastname, userRole);
             JOptionPane.showMessageDialog(null, "User Updated");
             model.setRowCount(0);
