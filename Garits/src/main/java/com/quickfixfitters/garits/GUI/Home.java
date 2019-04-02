@@ -159,7 +159,6 @@ public class Home extends javax.swing.JFrame {
     // to using a back button, There is no need to add it to the stack.
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
 
-
         loginAction();
     }//GEN-LAST:event_loginActionPerformed
 
@@ -196,6 +195,9 @@ public class Home extends javax.swing.JFrame {
 
                 // Role from login stored here
                 String role = e.getRole();
+                
+                session.getTransaction().commit();
+                session.close();
 
                 // Will show different screens depending on what user role is
                 switch (role) {
@@ -207,7 +209,7 @@ public class Home extends javax.swing.JFrame {
                         dispose();
                         break;
                     case "mechanic":
-                        JFrame mechanic = new Mechanic(garits);
+                        JFrame mechanic = new PendingJobs(garits);                        
                         garits.setUsername(employeeUsername);
                         garits.setPassword(userPassword);
                         garits.putOnScreen(mechanic);
@@ -229,10 +231,16 @@ public class Home extends javax.swing.JFrame {
                         garits.putOnScreen(franchisee);
                         dispose();
                         break;
+                    case "foreperson":
+                        JFrame foreperson = new FranchiseeMain(garits);
+                        garits.setUsername(employeeUsername);
+                        garits.setPassword(userPassword);
+                        garits.putOnScreen(foreperson);
+                        dispose();
+                        break;
                 }
             } finally {
-                session.getTransaction().commit();
-                session.close();
+                System.out.println("Changed screen");
             }
         } else {
             // Clear text fields when wrong credentials are entered

@@ -251,7 +251,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         jLabel2.setText("Standard jobs: ");
 
-        sJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MOT", "Annual service" }));
+        sJob.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "MOT", "Annual service", "Standard service" }));
 
         standardJob.setText("Standard job");
         standardJob.addActionListener(new java.awt.event.ActionListener() {
@@ -558,6 +558,8 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
                     addAnnual();
                 } else if (job.compareTo("mot") == 0) {
                     addMot();
+                }else if(job.compareTo("standard service") == 0){
+                    addStandard();
                 }
 
             }
@@ -579,7 +581,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         try {
             session.beginTransaction();
-            String motDesc = "MOT";
+            String motDesc = "Check lamps. Reflectors and electrical equipment,Check steering and suspension,Check brakes,Check tyres and road wheels,Check seat belts and restraint systems,Check body structure and general items,Check drivers view of the road";
             String estimatedTime = "60";
             JobSheet jobSheet = new JobSheet(sDate, motDesc, estimatedTime, vehicleId);
 
@@ -618,9 +620,46 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         try {
             session.beginTransaction();
-            String annualDesc = "Annual Service";
+            String annualDesc = "An engine oil change,An engine oil filter replacement,The checking of lights and tyres, exhaust and operation of brakes and steering,Checking hydraulic fluid and coolant levels,Suspensions checks,Testing battery condition";
             String estimatedTime = "180";
             JobSheet jobSheet = new JobSheet(sDate, annualDesc, estimatedTime, vehicleId);
+            Vehicle v = session.get(Vehicle.class, vehicleId);
+            v.getJobSheet().add(jobSheet);
+            session.update(v);
+            DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+
+           
+            int jobNo;
+            if (jTable3.getRowCount() == 0) {
+                jobNo = 1;
+            } else {
+                int row = jTable3.getRowCount() - 1;
+                jobNo = ((int) jTable3.getValueAt(row, 0)) + 1;
+            }
+            
+            model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
+            JOptionPane.showMessageDialog(this, "Job added");
+        } finally {
+            session.getTransaction().commit();
+            session.close();
+        }
+    }
+    
+    private void addStandard() {
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        System.out.println("standard job func goes here");
+        java.util.Date uDate = new java.util.Date();
+        java.sql.Date sDate = convertUtilToSql(uDate);
+        int selectedRow = jTable2.getSelectedRow();
+        String vehicleId = jTable2.getValueAt(selectedRow, 0).toString();
+
+        try {
+            session.beginTransaction();
+            String standardDesc = "Fuel filter change,Air filter change,Four standard spark plugs,Wheel balancing & alignment check";
+            String estimatedTime = "180";
+            JobSheet jobSheet = new JobSheet(sDate, standardDesc, estimatedTime, vehicleId);
             Vehicle v = session.get(Vehicle.class, vehicleId);
             v.getJobSheet().add(jobSheet);
             session.update(v);

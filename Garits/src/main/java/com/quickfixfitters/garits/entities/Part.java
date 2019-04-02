@@ -32,6 +32,8 @@ public class Part {
     @Column(name = "StockLevel")
     private int stockLevel;
 
+//    @Column(name = "VariableDiscount", nullable = true)
+//    private float variableDiscount;
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name = "JobNo", insertable = false, updatable = false)
 //    private JobSheet jobSheet;
@@ -130,6 +132,15 @@ public class Part {
     public void setJobSheet(JobSheet jobSheet) {
         this.jobSheet = jobSheet;
     }
+
+//    public float getVariableDiscount() {
+//        return variableDiscount;
+//    }
+//
+//    public void setVariableDiscount(float variableDiscount) {
+//        this.variableDiscount = variableDiscount;
+//    }
+    
     
     
 }
