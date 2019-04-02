@@ -174,6 +174,7 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
         garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Updates the customer account
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         String newPayment = payment.getSelectedItem().toString();
         

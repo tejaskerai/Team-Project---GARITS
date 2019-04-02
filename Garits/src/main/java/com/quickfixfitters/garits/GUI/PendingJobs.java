@@ -334,6 +334,7 @@ public class PendingJobs extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    // Fills the jobs table with all non-completed jobs
     private void populateJobs() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Mechanic mechanic = Mechanic.getMechanic();
@@ -348,6 +349,7 @@ public class PendingJobs extends javax.swing.JFrame {
             status = "Allocated";
         }
 
+        // Fills each row with relevent information about the job on that row
         for (JobSheet jobSheets : jobs) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -432,6 +434,7 @@ public class PendingJobs extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable1MouseClicked
 
+    // Fills the description table for a job.
     private void populateDescTable(List<String> list, DefaultTableModel model4) {
         int counter = 1;
         for (String str : list) {
@@ -445,6 +448,7 @@ public class PendingJobs extends javax.swing.JFrame {
         }
     }
 
+    // Fills the table that displays work already done on a job.
     private void populateDescAfterTable(List<String> list, DefaultTableModel model3) {
 
         for (String str : list) {
@@ -457,6 +461,8 @@ public class PendingJobs extends javax.swing.JFrame {
         }
     }
 
+    // Adds the contents of the text box next to the button to the work
+    // already carried out table.
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:
 

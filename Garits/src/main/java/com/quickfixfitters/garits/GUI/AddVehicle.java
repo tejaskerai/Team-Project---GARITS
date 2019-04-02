@@ -26,8 +26,10 @@ public class AddVehicle extends javax.swing.JFrame {
     
     // Field of type Garits so we can access its methods.
     Garits garits;
+    
+    // Field for the customerId of the customer that the new vehicle is being 
+    // added to.
     int customerId;
-    private int months[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31}; 
     
     public AddVehicle(Garits garits, int customerId) {
         initComponents();
@@ -320,54 +322,71 @@ public class AddVehicle extends javax.swing.JFrame {
         garits.logout(this);
     }//GEN-LAST:event_jMenu3MouseClicked
 
+    // Takes the user back one screen.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         garits.backButton(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    // Code to create a vehicle using the data entered using boxes on the screen
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // All code is in a try/catch statement so if any invalid data is
+        // entered, a JOptionPane appears telling the user that they entered
+        // invalid data.
         try{
+            // Read data from all drop-down menus and text fields.
             String vehicleRegNo = regNo.getText();
             String vehicleChassisNo = chassisNo.getText();
             String vehicleColour = colour.getText();
             String vehicleEngSerial = engSerial.getText();
             String vehicleMake = make.getText();
-            String vehicleModel = model.getText();
-            
+            String vehicleModel = model.getText();       
             int vehicleDay = Integer.parseInt(day.getSelectedItem().toString());
             int vehicleMonth = Integer.parseInt(month.getSelectedItem().toString()) - 1;
-            int vehicleYear = Integer.parseInt(year.getText());
-            
+            int vehicleYear = Integer.parseInt(year.getText());     
             int vehicleReminderDay = Integer.parseInt(reminderDay.getSelectedItem().toString());
             int vehicleReminderMonth = Integer.parseInt(reminderMonth.getSelectedItem().toString()) - 1;
             int vehicleReminderYear = Integer.parseInt(reminderYear.getText());
             
+            // Creates a new date and changes day, month and year to create the
+            // MOT date as a variable of type Date.
             Date MOTdate = new Date();
             MOTdate.setDate(vehicleDay);
             MOTdate.setMonth(vehicleMonth);
             MOTdate.setYear(vehicleYear - 1900);
             
+            // Creates a new date and changes day, month and year to create the
+            // MOT reminder date as a varibale of type Date.
             Date MOTReminderDate = new Date();
             MOTReminderDate.setDate(vehicleReminderDay);
             MOTReminderDate.setMonth(vehicleReminderMonth);
             MOTReminderDate.setYear(vehicleReminderYear - 1900);
             
+            // Creates a new vehicle enitity
             Vehicle vehicle = new Vehicle(vehicleRegNo, vehicleChassisNo, vehicleColour, 
                                           vehicleEngSerial, vehicleMake,
                                           vehicleModel, MOTdate, MOTReminderDate);
+            
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
             Session session = sessionFactory.getCurrentSession();
-
+            
             session.beginTransaction();
+            
+            // Finds the customer with an ID = customerId
             Customer c = session.get(Customer.class, customerId);
+            // Adds the vehicle to the customer's vehicle list
             c.getVehicles().add(vehicle);
+            // Sets the vehicle's linked customer to the retreived customer
             vehicle.setCustomer(c);
 
+            // Finishes the session
             session.update(c);
             session.save(vehicle);
             session.getTransaction().commit();
             session.close();
 
+            // Tells the user that they added the vehicle successfully
             JOptionPane.showMessageDialog(null, "Vehicle added successfully");
+            garits.checkForAlerts();
             garits.backButton(this);
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Incorrect data");

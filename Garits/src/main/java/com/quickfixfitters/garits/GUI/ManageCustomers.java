@@ -297,6 +297,7 @@ public class ManageCustomers extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Fills the table with info on each customer.
     public void populateCustomers() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -306,6 +307,7 @@ public class ManageCustomers extends javax.swing.JFrame {
         Franchisee franchisee = Franchisee.getFranchisee();
         List<Customer> customers = franchisee.getCustomers();
         
+        // Inserts info about each customer into the table.
         for (Customer customer : customers) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -361,6 +363,8 @@ public class ManageCustomers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Tries to update the selected user by taking in what data the user
+    // entered.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -389,6 +393,7 @@ public class ManageCustomers extends javax.swing.JFrame {
         clearBoxes();
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    // Clears all on screen boxes.
     public void clearBoxes(){
         forename.setText(null);
         surname.setText(null);
@@ -399,6 +404,9 @@ public class ManageCustomers extends javax.swing.JFrame {
         jTable1.clearSelection();
     }
     
+    // Sends the user to the view customer account screen if the selected
+    // user has a customer account. otherwise it displays a message saying that
+    // an account doesnt exist.
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try{
             Franchisee franchisee = Franchisee.getFranchisee();
@@ -412,6 +420,7 @@ public class ManageCustomers extends javax.swing.JFrame {
         clearBoxes();
     }//GEN-LAST:event_jButton4ActionPerformed
 
+    // Fills the text boxes with info on the customer that the user clicked.
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         int row = jTable1.getSelectedRow();
 
@@ -423,6 +432,10 @@ public class ManageCustomers extends javax.swing.JFrame {
         email.setText(jTable1.getValueAt(row, 6).toString());
     }//GEN-LAST:event_jTable1MouseClicked
 
+    // Tries to create a customer account for the selected user, if the
+    // customer already has one, the system tells that to the user. If the user
+    // failed to select a customer, they are told so. Otherwise, an account
+    // is created.
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -449,6 +462,10 @@ public class ManageCustomers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    // Tries to remove the customer account of the selected customer. If the
+    // customer doesn't have a customer acccount that is pointed out to the
+    // admin. If the admin hasn't selected an account, this too is mentioned.
+    // Otherwise the customer account is deleted.
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -474,6 +491,8 @@ public class ManageCustomers extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    // Opens the view vehicles page for the specified customer. Or a message
+    // appears if no account was selected.
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         try{
             Franchisee franchisee = Franchisee.getFranchisee();

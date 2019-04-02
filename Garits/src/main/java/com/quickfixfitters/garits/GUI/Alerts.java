@@ -35,16 +35,21 @@ public class Alerts extends javax.swing.JFrame {
         populateTable();
     }
 
+    // Popultes this screen's table with the appropriate data.
     public void populateTable(){    
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
+        // Gets an object of type Franchisee so we can use it's methods
         Franchisee franchisee = Franchisee.getFranchisee();
         session.beginTransaction();
+        
+        // Retrieves all MOT reminders
         List<MOTReminder> motReminders = franchisee.getMOTReminders(session);
         
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         
+        // Puts required data from all MOT reminders onto the table
         for (MOTReminder motReminder : motReminders){
             if (motReminder.getPrinted() == 0){
                 model.insertRow(
@@ -224,13 +229,18 @@ public class Alerts extends javax.swing.JFrame {
         garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Generates an mot reminder for the selected alert as a .txt file
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // All in a try/catch statement so that we can show the user a 
+        // JOptionPane if they fail to specify an alert.
         try{
             SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
             Session session = sessionFactory.getCurrentSession();
             
+            // Gets an object of type Receptionist so we can access its methods
             Receptionist receptionist = Receptionist.getReceptionist();
             
+            // Get the type of alert and its Id.
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
             int row = jTable1.getSelectedRow();
             String type = (String) jTable1.getValueAt(row, 0);
@@ -238,12 +248,15 @@ public class Alerts extends javax.swing.JFrame {
             
             session.beginTransaction();
             
+            // Checks if the alert is for an MoT and if so calls the methods to
+            // generate it.
             if (type.equals("MOT")){
                 MOTReminder reminder = session.get(MOTReminder.class, id);
                 reminder.setPrinted(1);
                 receptionist.generateMOTReminder(reminder, session);
                 session.update(reminder);
             }
+            
             session.getTransaction().commit();
             session.close();
             model.setRowCount(0);

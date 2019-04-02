@@ -163,6 +163,8 @@ public class Home extends javax.swing.JFrame {
         loginAction();
     }//GEN-LAST:event_loginActionPerformed
 
+    // Checks if the user logged in with valid data, if yes, it opens the correct
+    // screen, otherwise it tells the user to try again.
     private void loginAction() {
 
         String employeeUsername = username.getText();

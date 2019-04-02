@@ -323,6 +323,9 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    // Run when the user changes the drop down menu for create account. If
+    // the new item selected is yes, make options for account creation available
+    // , otherwise set them to be invisible.
     private void customerAccountCheckItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_customerAccountCheckItemStateChanged
         if (customerAccountCheck.getSelectedItem().equals("Yes")){
             payment.setVisible(true);

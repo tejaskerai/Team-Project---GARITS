@@ -28,8 +28,13 @@ public class Garits {
     // Only initialised once the user logs in.
     private String username;
     private String password;
+    
+    // Whether or not there are notifications to display once a receptionist
+    // logs in.
     private boolean primedNotification;
     
+    // Represents the standard rate for both mechanics and the foreperson in
+    // pounds per hour.
     private int mechanicRate = 105;
     private int forepersonRate = 125;
 
@@ -40,22 +45,31 @@ public class Garits {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         SeedData();
         
+        // Checks if any new alerts need to be dislayed to a receptionist.
         checkForAlerts();
         
         openScreens = new Stack<>();
+        
+        // Opens the login screen
         JFrame home = new Home(this);
         this.putOnScreen(home);
     }
     
+    // Tries to find all reminders that need creating. Provided that it finds
+    // one, it will set primedNotification to true
     public void checkForAlerts(){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
         try{
             session.beginTransaction();
+            
+            // Gets all vehicles
             Criteria criteria = session.createCriteria(Vehicle.class);
             List<Vehicle> vehicles = (List<Vehicle>) criteria.list();
             
+            // Checks each vehicle to see if the day when an MOT reminder
+            // should be sent has passed. If yes, create the reminder.
             for (Vehicle vehicle : vehicles){
                 if (vehicle.getRenewalReminderDate().equals(new Date()) || 
                         vehicle.getRenewalReminderDate().before(new Date())){
@@ -64,8 +78,6 @@ public class Garits {
                     reminder.setMotVehicle(vehicle);
                     session.save(reminder);
                     
-                    vehicle.getRenewalTestDate().setYear(vehicle.getRenewalTestDate().getYear() + 1);
-                    vehicle.getRenewalReminderDate().setYear(vehicle.getRenewalReminderDate().getYear() + 1);
                     vehicle.getMotReminders().add(reminder);
                     session.update(vehicle);
                     
@@ -134,6 +146,7 @@ public class Garits {
         }
     }
     
+    // Adds an mot reminder to a vehicle.
     public void generateAlert(String type, Vehicle vehicle, Customer customer){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
