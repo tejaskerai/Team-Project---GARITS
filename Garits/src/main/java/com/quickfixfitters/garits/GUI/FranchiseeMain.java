@@ -215,7 +215,7 @@ public class FranchiseeMain extends javax.swing.JFrame {
 
     // Takes franchisee to the new job screen.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        garits.openNewScreen(this, new NewJob(garits));
+        garits.openNewScreen(this, new ExistingCustomerFranchisee(garits));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Takes user to the spare parts screen.
