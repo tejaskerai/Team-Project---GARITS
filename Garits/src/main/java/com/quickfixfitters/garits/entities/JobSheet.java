@@ -55,14 +55,14 @@ public class JobSheet {
 //    @OneToMany(mappedBy = "jobSheet")
 //    private List<Part> parts;
 
-    public JobSheet(Date dateBookedIn, String descriptionOfWork, String descriptionAfterWork, String estimatedTime, Date dateCompleted, String regNo) {
-        this.dateBookedIn = dateBookedIn;
-        this.descriptionOfWork = descriptionOfWork;
-        this.descriptionAfterWork = descriptionAfterWork;
-        this.estimatedTime = estimatedTime;
-        this.dateCompleted = dateCompleted;
-        this.regNo = regNo;
-    }
+//    public JobSheet(Date dateBookedIn, String descriptionOfWork, String descriptionAfterWork, String estimatedTime, Date dateCompleted, String regNo) {
+//        this.dateBookedIn = dateBookedIn;
+//        this.descriptionOfWork = descriptionOfWork;
+//        this.descriptionAfterWork = descriptionAfterWork;
+//        this.estimatedTime = estimatedTime;
+//        this.dateCompleted = dateCompleted;
+//        this.regNo = regNo;
+//    }
 
     
 
@@ -71,7 +71,7 @@ public class JobSheet {
         this.descriptionOfWork = descriptionOfWork;
         this.estimatedTime = estimatedTime;
         this.regNo = regNo;
-    }
+   }
     
     
     
