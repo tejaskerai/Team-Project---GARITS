@@ -28,6 +28,7 @@ public class Garits {
     // Only initialised once the user logs in.
     private String username;
     private String password;
+    private String role;
     
     // Whether or not there are notifications to display once a receptionist
     // logs in.
@@ -186,6 +187,16 @@ public class Garits {
         this.password = password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    
+    
     public boolean isPrimedNotification() {
         return primedNotification;
     }

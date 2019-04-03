@@ -538,9 +538,18 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
 
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
+        DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+        DefaultTableModel model4 = (DefaultTableModel) jTable4.getModel();
+
+        model.setRowCount(0);
+        model2.setRowCount(0);
+        model3.setRowCount(0);
+        model4.setRowCount(0);
         
-                  
-               
+        populateCustomers();
+
 
     }//GEN-LAST:event_refreshActionPerformed
 
