@@ -2,12 +2,14 @@ package com.quickfixfitters.garits.actors;
 
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Employee;
-import java.sql.SQLException;
-import java.util.Iterator;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Criterion;
@@ -176,12 +178,48 @@ public class Admin extends User {
 //        throw new UnsupportedOperationException();
 //    }
     public void backupDB() {
-        // TODO - implement Admin.backupDB
-        throw new UnsupportedOperationException();
+        try{
+            File backup = new File("files/backup.txt");
+            backup.createNewFile();
+            
+            PrintWriter writer = new PrintWriter(backup, "UTF-8");
+            
+            List<Employee> employees = getEmployees();
+            
+            writer.println(employees.size());
+            for (Employee employee : employees){
+                writer.println(employee.getEmployeeNo()+"#"+ employee.getFirstname()+
+                        "#"+employee.getLastname()+"#"+employee.getRole()+"#"+
+                        employee.getUsername()+"#"+employee.getPassword());
+            }
+            
+            writer.close();
+            JOptionPane.showMessageDialog(null, "Database back up succeeded");
+        }catch(IOException e){
+            JOptionPane.showMessageDialog(null, "Database back up failed");
+        }
     }
 
     public void restoreDB() {
-        // TODO - implement Admin.restoreDB
-        throw new UnsupportedOperationException();
+        File backup = new File("files/backup.txt");
+        Admin admin = Admin.getAdmin();
+        
+        try{
+            backup.createNewFile();
+            BufferedReader reader = new BufferedReader(new FileReader(backup));
+            int numberOfEmployees = Integer.parseInt(reader.readLine());
+            String[] parts;
+            String line;
+            
+            for (int i = 0; i < numberOfEmployees; i++){
+                line = reader.readLine();
+                parts = line.split("#");
+                admin.addEmployee(parts[3], parts[1], parts[2], parts[5], parts[5]);
+            }
+            reader.close();
+            JOptionPane.showMessageDialog(null, "Database restore succeeded");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Database restore failed");
+        }
     }
 }

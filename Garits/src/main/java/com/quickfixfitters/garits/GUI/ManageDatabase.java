@@ -7,6 +7,7 @@ package com.quickfixfitters.garits.GUI;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import com.quickfixfitters.garits.actors.Admin;
 
 public class ManageDatabase extends javax.swing.JFrame {
 
@@ -174,12 +175,16 @@ public class ManageDatabase extends javax.swing.JFrame {
 
     // Code for when the backup button is pressed.
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        Admin admin = Admin.getAdmin();
         
+        admin.backupDB();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     // Code for when the restore button is pressed.
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Admin admin = Admin.getAdmin();
         
+        admin.restoreDB();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     // Code for when the my profile button is pressed.

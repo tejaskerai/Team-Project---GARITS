@@ -27,9 +27,6 @@ public class Employee {
     @Column(name = "Password")
     private String password;
 
-    @OneToMany(mappedBy = "employee")
-    private List<Mechanic> mechanics;
-
     public Employee() {
     }
 
