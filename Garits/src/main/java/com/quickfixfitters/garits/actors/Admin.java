@@ -29,6 +29,7 @@ public class Admin extends User {
         return admin;
     }
 
+    // Adds an employee into the database
     public void addEmployee(String role, String forename, String lastname, String password, String Cpassword) {
 
         System.out.println("In Admin class");
@@ -75,11 +76,14 @@ public class Admin extends User {
         }
     }
 
+    // Removes the employee specified by the parameter id from the database.
     public boolean removeUser(int id) {
 
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
+        // Tries to delete the employee specified by the id. If it fails, the
+        // current session is rolled back.
         try {
             session.beginTransaction();
             Employee employee = session.get(Employee.class, id);
@@ -95,6 +99,7 @@ public class Admin extends User {
 
     }
     
+    // Returns a list of all employees in the database.
     public List<Employee> getEmployees() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         try (Session session = sessionFactory.getCurrentSession()) {
@@ -105,7 +110,8 @@ public class Admin extends User {
     }
     
     
-
+    // Returns true if the user specified by the paramters firstname and
+    // lastname exists in the database, returns false otherwise.
     public boolean doesUserExist(String firstname, String lastname) {
 
         //Starting connection with Database
@@ -137,11 +143,15 @@ public class Admin extends User {
         }
     }
     
+    // Attempts to update the user specified by the parameters.
     public void updateUser(int employeeNo, String firstname, String lastname, String role){
         
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
+        // Tries to update the specified employee with the data in the 
+        // parameters, if it fails for any reason, the current transaction
+        // is rolled back.
         try {
             session.beginTransaction();
             Employee employee = session.get(Employee.class, employeeNo);

@@ -42,10 +42,13 @@ public class Franchisee extends User {
         Franchisee.franchisee = franchisee;
     }
     
+    // Removes the part with part code id, from the database.
     public boolean removePart(int id){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
+        // Tries to remove the specified part, rolls back the transaction if it
+        // fails for any reason.
         try {
             session.beginTransaction();
             Part part = session.get(Part.class, id);
@@ -60,6 +63,7 @@ public class Franchisee extends User {
         return false;
     }
     
+    // Updates a part.
     public void updateStock(int id, String partName, String code, String manufacturer, String vehicleType, String price, String threshold, String stockLevel){
         
         float unitPrice = Float.parseFloat(price);
@@ -92,6 +96,8 @@ public class Franchisee extends User {
         }
     }
     
+    // Checks if a customer account is usable and if it is, opens the
+    // view customer account screen.
     public void showCustomerAccount(int id, Garits garits, JFrame frame){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -115,6 +121,7 @@ public class Franchisee extends User {
         }
     }
     
+    // Returns a list of all customers in the database.
     public List<Customer> getCustomers() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         try (Session session = sessionFactory.getCurrentSession()) {
@@ -124,11 +131,13 @@ public class Franchisee extends User {
         }
     }
     
+    // Returns a list of all MOTReminders in the database.
     public List<MOTReminder> getMOTReminders(Session session){
         Criteria criteria = session.createCriteria(MOTReminder.class);
         return (List<MOTReminder>) criteria.list();
     }
     
+    // Tries to update the customer specified by id using the other parameters
     public void updateCustomer(int id, String forename, String surname, 
                                String address, String postcode, int telephone, 
                                String email){
@@ -136,6 +145,7 @@ public class Franchisee extends User {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
+        // Tries to update the customer, rolls back the transaction if it fails
         try {
             session.beginTransaction();
             Customer customer = session.get(Customer.class, id);
@@ -159,10 +169,12 @@ public class Franchisee extends User {
         }
     }
     
+    // Updates the customer account specified by id using other parameters
     public void updateCustomerAccount(String payment, int id){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
+        // Tries to update the account, rolls back changes if any error occur
         try{
             session.beginTransaction();
             CustomerAccount ca = session.get(CustomerAccount.class, id);
@@ -178,11 +190,13 @@ public class Franchisee extends User {
         }
     }
     
+    // Updates the vehicle specified by the regNo using other parameters
     public void updateVehicle(String regNo, String chassisNo, String colour, 
                               String engSerial, String make, String model){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
+        // Tries to update the vehicle, rolls back changes if any error occur
         try{
             session.beginTransaction();
             Vehicle vehicle = session.get(Vehicle.class, regNo);
@@ -203,7 +217,7 @@ public class Franchisee extends User {
         }
     }
     
-    
+    // Adds a new part to the database
     public void addPart(String partName, String code, String manufacturer, String vehicleType, String price, String stockLevel, String threshold){
         
         float unitPrice = Float.parseFloat(price);
@@ -225,12 +239,11 @@ public class Franchisee extends User {
         } finally {
             session.getTransaction().commit();
             session.close();
-        }
-        
-        
+        }   
     }
     
-     public List<Part> getStock() {
+    // Returns the list of all parts in the database
+    public List<Part> getStock() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         try (Session session = sessionFactory.getCurrentSession()) {
             session.beginTransaction();
@@ -239,10 +252,13 @@ public class Franchisee extends User {
         }
     }
     
+    // Removes the customer specified by id
     public boolean removeCustomer(int id) {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
+        // Tries to remove the specified customer. Rolls back any changes if
+        // an error occurs
         try {
             session.beginTransaction();
             Customer customer = session.get(Customer.class, id);
@@ -257,10 +273,13 @@ public class Franchisee extends User {
         return false;
     }
     
+    // Tries to remove the vehicle specified by the parameter regNo.
     public boolean removeVehicle(int id, String regNo){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
+        // Tries to remove the vehicle from the database and from the customer's
+        // list of vehicles. Rolls back changes if error occurs.
         try{
             session.beginTransaction();
             Customer customer = session.get(Customer.class, id);
@@ -276,6 +295,7 @@ public class Franchisee extends User {
         return false;
     }
     
+    // Adds a job to a vehicle.
     public void addJob(Date dateBookedIn, String descriptionOfWork, String estimatedTime, String regNo){
         
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
@@ -358,6 +378,7 @@ public class Franchisee extends User {
         }
     }
 
+    // Creates a new MOTReminder in the database for a vehicle.
     public void createMOTReminder(String vehicleId){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();

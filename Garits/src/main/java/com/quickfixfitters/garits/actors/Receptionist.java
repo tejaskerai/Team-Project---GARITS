@@ -37,8 +37,10 @@ public class Receptionist extends User {
         Receptionist.receptionist = receptionist;
     }
     
+    // Creates the file for an MOT reminder.
     public void generateMOTReminder(MOTReminder reminder, Session session){
         try{
+            // Ensures that the MOT reminder file name is unique.
             String fileName = "files/motReminders/" + reminder.getMotVehicle().getRegNo() + 
                     "---" + dateFormat.format(new Date()) + "---MOT" + ".txt";
             
@@ -81,6 +83,7 @@ public class Receptionist extends User {
         }
     }
     
+    // Prints the address of the customer
     public void printTheirAddress(PrintWriter writer, MOTReminder reminder, Session session){
         writer.println(reminder.getMotVehicle().getCustomer().getForename().charAt(0) + 
                 ". " + reminder.getMotVehicle().getCustomer().getSurname() + ",");
@@ -89,6 +92,7 @@ public class Receptionist extends User {
         writer.println("");
     }
     
+    // Prints the address of the garage.
     public void printOurAddress(PrintWriter writer){
         writer.println("Quick Fix Fitters.,");
         writer.println("19 High St.,");

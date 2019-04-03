@@ -23,6 +23,7 @@ public class Mechanic{
         
     }
     
+    // Returns a list of all jobs in the system.
     public List<JobSheet> getJobs() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         try (Session session = sessionFactory.getCurrentSession()) {

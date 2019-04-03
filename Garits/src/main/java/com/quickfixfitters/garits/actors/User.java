@@ -48,6 +48,7 @@ public class User {
 
     }
 
+    // Checks if the login details provided are valid.
     public boolean loginCheck(String username, String password) {
         //Starting connection with Database
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
@@ -117,6 +118,7 @@ public class User {
 
     }
 
+    // Gets the id of a user from its username.
     public int getID(String username) {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
