@@ -266,6 +266,7 @@ public class NewUsers extends javax.swing.JFrame {
         
         admin.addEmployee(userRole, userForename, userSurname, userPassword, userCpassword);
         
+        garits.backButton(this);
         
     }//GEN-LAST:event_createUserActionPerformed
 

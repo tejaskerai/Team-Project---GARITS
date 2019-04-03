@@ -21,8 +21,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
     public NewCustomerReceptionist(Garits garits) {
         initComponents();
         this.garits = garits;
-        payment.setVisible(false);
-        paymentText.setVisible(false);
+        
     }
 
     /**
@@ -55,9 +54,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         telephone = new javax.swing.JTextPane();
         jScrollPane7 = new javax.swing.JScrollPane();
         email = new javax.swing.JTextPane();
-        payment = new javax.swing.JComboBox<>();
-        paymentText = new javax.swing.JLabel();
-        customerAccountCheck = new javax.swing.JComboBox<>();
+        cust = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -118,17 +115,11 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         email.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
         jScrollPane7.setViewportView(email);
 
-        payment.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        payment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Card", "Cash", "Either" }));
-
-        paymentText.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        paymentText.setText("Payment");
-
-        customerAccountCheck.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        customerAccountCheck.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Yes" }));
-        customerAccountCheck.addItemListener(new java.awt.event.ItemListener() {
+        cust.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        cust.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "No", "Yes" }));
+        cust.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                customerAccountCheckItemStateChanged(evt);
+                custItemStateChanged(evt);
             }
         });
 
@@ -166,10 +157,10 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                             .addComponent(jLabel9)
                             .addComponent(jLabel6)
                             .addComponent(jLabel5)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel3)
                             .addComponent(jLabel2)
-                            .addComponent(paymentText))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel3)))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -178,11 +169,9 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                                 .addComponent(jScrollPane7)
                                 .addComponent(jScrollPane3)
                                 .addComponent(jScrollPane1)
-                                .addComponent(jScrollPane4)
-                                .addComponent(customerAccountCheck, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(payment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(cust, 0, 395, Short.MAX_VALUE)
+                                .addComponent(jScrollPane4))
+                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -197,16 +186,14 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -220,15 +207,11 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(customerAccountCheck, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cust, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(41, 41, 41)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paymentText))
-                .addGap(38, 38, 38)
+                .addGap(39, 39, 39)
                 .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(jLabel10)
                 .addContainerGap())
         );
@@ -304,35 +287,25 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
         String customerSurname = surname.getText().toLowerCase();
         String customerAddress = address.getText().toLowerCase();
         String customerPostcode = postcode.getText().toLowerCase();
-        int customerTelephone = Integer.parseInt(telephone.getText().toLowerCase());
+        String customerTelephone = (telephone.getText().toLowerCase());
         String customerEmail = email.getText().toLowerCase();
-        String customerPayment;
+        String acc = cust.getSelectedItem().toString();
         
-        if (payment.isVisible()){
-            customerPayment = payment.getSelectedItem().toString().toLowerCase();
-        }else{
-            customerPayment = null;
-        }
+        
 
         // Calls the method in the franchisee class that creates a new franchisee object and
         // adds it to the database.
         franchisee.createCustomer(customerForename, customerSurname, customerAddress,
-            customerPostcode, customerTelephone, customerEmail, customerPayment);
+            customerPostcode, customerTelephone, customerEmail, acc);
         garits.backButton(this);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Run when the user changes the drop down menu for create account. If
     // the new item selected is yes, make options for account creation available
     // , otherwise set them to be invisible.
-    private void customerAccountCheckItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_customerAccountCheckItemStateChanged
-        if (customerAccountCheck.getSelectedItem().equals("Yes")){
-            payment.setVisible(true);
-            paymentText.setVisible(true);
-        }else{
-            payment.setVisible(false);
-            paymentText.setVisible(false);
-        }
-    }//GEN-LAST:event_customerAccountCheckItemStateChanged
+    private void custItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_custItemStateChanged
+        
+    }//GEN-LAST:event_custItemStateChanged
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         // TODO add your handling code here:
@@ -345,7 +318,7 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextPane address;
-    private javax.swing.JComboBox<String> customerAccountCheck;
+    private javax.swing.JComboBox<String> cust;
     private javax.swing.JTextPane email;
     private javax.swing.JTextPane forename;
     private javax.swing.JButton jButton1;
@@ -370,8 +343,6 @@ public class NewCustomerReceptionist extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
-    private javax.swing.JComboBox<String> payment;
-    private javax.swing.JLabel paymentText;
     private javax.swing.JTextPane postcode;
     private javax.swing.JTextPane surname;
     private javax.swing.JTextPane telephone;

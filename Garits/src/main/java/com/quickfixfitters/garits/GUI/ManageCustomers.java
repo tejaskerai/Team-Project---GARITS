@@ -471,7 +471,7 @@ public class ManageCustomers extends javax.swing.JFrame {
             String customerSurname = surname.getText();
             String customerAddress = address.getText();
             String customerPostcode = postcode.getText();
-            int customerTelephone = Integer.parseInt(telephone.getText());
+            String customerTelephone = (telephone.getText());
             String customerEmail = email.getText();
 
             franchisee.updateCustomer(customerId, customerForename,
@@ -522,7 +522,6 @@ public class ManageCustomers extends javax.swing.JFrame {
             CustomerAccount ca = session.get(CustomerAccount.class, customerId);
             if (ca.getUsable() == 0){
                 ca.setUsable(1);
-                ca.setPaymentOption("Either");
                 JOptionPane.showMessageDialog(null, "Cusomter account created");
             }else{
                 JOptionPane.showMessageDialog(null, "Customer account already exists");

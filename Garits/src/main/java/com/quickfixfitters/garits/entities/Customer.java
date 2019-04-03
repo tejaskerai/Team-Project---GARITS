@@ -27,7 +27,7 @@ public class Customer {
     private String postcode;
     
     @Column(name = "TelNo")
-    private int telNo;
+    private String telNo;
     
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Vehicle> vehicles;
@@ -40,7 +40,7 @@ public class Customer {
     private CustomerAccount customerAccount;
 
     public Customer(String forename, String surname, String customerAddress,
-            String postcode, int telNo, String email) {
+            String postcode, String telNo, String email) {
         this.forename = forename;
         this.surname = surname;
         this.customerAddress = customerAddress;
@@ -84,11 +84,11 @@ public class Customer {
         this.customerAddress = customerAddress;
     }
 
-    public int getTelNo() {
+    public String getTelNo() {
         return telNo;
     }
 
-    public void setTelNo(int telNo) {
+    public void setTelNo(String telNo) {
         this.telNo = telNo;
     }
 

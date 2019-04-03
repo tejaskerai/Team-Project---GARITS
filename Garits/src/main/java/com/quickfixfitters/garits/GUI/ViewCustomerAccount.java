@@ -22,14 +22,13 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
     Garits garits;
     int id;
     public ViewCustomerAccount(Garits garits, String customerForename, 
-            String customerSurname, String customerPayment, int customerId) {
+            String customerSurname, int customerId) {
         
         initComponents();
         this.garits = garits;
         this.id = customerId;
         forename.setText(customerForename);
         surname.setText(customerSurname);
-        payment.setSelectedItem(customerPayment);
     }
 
     /**
@@ -44,7 +43,6 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         forename = new javax.swing.JTextField();
         surname = new javax.swing.JTextField();
-        payment = new javax.swing.JComboBox<>();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -66,9 +64,6 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
 
         surname.setEditable(false);
         surname.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
-
-        payment.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
-        payment.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cash", "Card", "Either" }));
 
         jButton2.setBackground(new java.awt.Color(183, 183, 183));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
@@ -111,9 +106,8 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
                         .addGap(60, 60, 60)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(forename)
-                                .addComponent(surname)
-                                .addComponent(payment, 0, 230, Short.MAX_VALUE))
+                                .addComponent(forename, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                .addComponent(surname))
                             .addComponent(jButton2)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -132,11 +126,9 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(18, 18, 18)
-                .addComponent(payment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addGap(48, 48, 48)
                 .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 171, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addContainerGap())
         );
@@ -209,10 +201,10 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
     // Updates the customer account
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        String newPayment = payment.getSelectedItem().toString();
+        
         
         Franchisee franchisee = Franchisee.getFranchisee();
-        franchisee.updateCustomerAccount(newPayment, id);
+        franchisee.updateCustomerAccount(id);
         JOptionPane.showMessageDialog(null, "Customer Updated");
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -237,7 +229,6 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JComboBox<String> payment;
     private javax.swing.JTextField surname;
     // End of variables declaration//GEN-END:variables
 }

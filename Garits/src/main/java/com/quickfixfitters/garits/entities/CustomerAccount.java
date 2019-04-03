@@ -11,9 +11,6 @@ public class CustomerAccount {
     @Column(name = "CustomerAccountId", unique = true, nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int customerAccountId;
-
-    @Column(name = "PaymentOption")
-    private String paymentOption;
     
     @Column(name = "Useable")
     private int useable;
@@ -32,8 +29,8 @@ public class CustomerAccount {
         return customerAccountId;
     }
 
-    public CustomerAccount(String paymentOption, int useable) {
-        this.paymentOption = paymentOption;
+    public CustomerAccount(int useable) {
+        
         this.useable = useable;
     }
 
@@ -42,14 +39,6 @@ public class CustomerAccount {
 
     public void setCustomerAccountId(int customerAccountId) {
         this.customerAccountId = customerAccountId;
-    }
-
-    public String getPaymentOption() {
-        return paymentOption;
-    }
-
-    public void setPaymentOption(String paymentOption) {
-        this.paymentOption = paymentOption;
     }
 
     public Customer getCustomer() {
