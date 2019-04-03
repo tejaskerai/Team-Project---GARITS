@@ -1,71 +1,62 @@
 package com.quickfixfitters.garits.entities;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "JobSheet")
-public class JobSheet {
+public class JobSheet implements Serializable {
 
-    @Id
-    @Column(name = "JobNo", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    
     private int jobNo;
+    
+    private Set<JobPart> jobParts = new HashSet<JobPart>();
 
-    @Column(name = "DateBookedIn")
     private Date dateBookedIn;
 
-    @Column(name = "DescriptionOfWork")
     private String descriptionOfWork;
     
-    @Column(name = "DescriptionAfterWork")
     private String descriptionAfterWork;
 
-    @Column(name = "EstimatedTime")
     private String estimatedTime;
+    
+    private String accTime;
 
-    @Column(name = "DateCompleted")
     private Date dateCompleted;
 
-    @Column(name = "RegNo")
     private String regNo;
+    
+    private String RMechanic;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "VehicleId", insertable = false, updatable = false)
     private Vehicle vehicle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MechanicId", insertable = false, updatable = false)
     private Mechanic mechanic;
+    
+    
 
 
     // using this relation
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<JobSheet> jobSheet;
 
     // Using this relation 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Part> part;
+    
+    
+    //Using this more
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<JobPart> getJobParts(){
+        return jobParts;
+    }
 
     
-    @OneToMany(mappedBy = "jobSheet")
-    private List<Invoice> invoices;
-
+    
 //    @OneToMany(mappedBy = "jobSheet")
-//    private List<Part> parts;
-
-//    public JobSheet(Date dateBookedIn, String descriptionOfWork, String descriptionAfterWork, String estimatedTime, Date dateCompleted, String regNo) {
-//        this.dateBookedIn = dateBookedIn;
-//        this.descriptionOfWork = descriptionOfWork;
-//        this.descriptionAfterWork = descriptionAfterWork;
-//        this.estimatedTime = estimatedTime;
-//        this.dateCompleted = dateCompleted;
-//        this.regNo = regNo;
-//    }
-
+//    private List<Invoice> invoices;
     
-
     public JobSheet(Date dateBookedIn, String descriptionOfWork, String estimatedTime, String regNo) {
         this.dateBookedIn = dateBookedIn;
         this.descriptionOfWork = descriptionOfWork;
@@ -74,14 +65,16 @@ public class JobSheet {
    }
     
     
-    
-    
-
     public JobSheet() {
     }
     
-    
+    public void addJobPart(JobPart jobPart){
+        this.jobParts.add(jobPart);
+    }
 
+    @Id
+    @Column(name = "JobNo", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getJobNo() {
         return jobNo;
     }
@@ -90,6 +83,7 @@ public class JobSheet {
         this.jobNo = jobNo;
     }
 
+    @Column(name = "DateBookedIn")
     public Date getDateBookedIn() {
         return dateBookedIn;
     }
@@ -98,6 +92,7 @@ public class JobSheet {
         this.dateBookedIn = dateBookedIn;
     }
 
+    @Column(name = "DescriptionOfWork")
     public String getDescriptionOfWork() {
         return descriptionOfWork;
     }
@@ -106,6 +101,7 @@ public class JobSheet {
         this.descriptionOfWork = descriptionOfWork;
     }
 
+    @Column(name = "DescriptionAfterWork")
     public String getDescriptionAfterWork() {
         return descriptionAfterWork;
     }
@@ -114,6 +110,7 @@ public class JobSheet {
         this.descriptionAfterWork = descriptionAfterWork;
     }
 
+    @Column(name = "EstimatedTime")
     public String getEstimatedTime() {
         return estimatedTime;
     }
@@ -122,6 +119,7 @@ public class JobSheet {
         this.estimatedTime = estimatedTime;
     }
 
+    @Column(name = "DateCompleted")
     public Date getDateCompleted() {
         return dateCompleted;
     }
@@ -130,6 +128,7 @@ public class JobSheet {
         this.dateCompleted = dateCompleted;
     }
 
+    @Column(name = "RegNo")
     public String getRegNo() {
         return regNo;
     }
@@ -137,15 +136,39 @@ public class JobSheet {
     public void setRegNo(String regNo) {
         this.regNo = regNo;
     }
+    
+    @Column(name = "Mechanic")
+    public String getRMechanic() {
+        return RMechanic;
+    }
+    
+    @Column(name = "AccTime")
+    public String getAccTime() {
+        return accTime;
+    }
 
+    public void setAccTime(String accTime) {
+        this.accTime = accTime;
+    }
+    
+    
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "VehicleId", insertable = false, updatable = false)
     public Vehicle getVehicle() {
         return vehicle;
     }
+
+    
+
+    
 
     public void setVehicle(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MechanicId", insertable = false, updatable = false)
     public Mechanic getMechanic() {
         return mechanic;
     }
@@ -154,14 +177,15 @@ public class JobSheet {
         this.mechanic = mechanic;
     }
 
-    public List<Invoice> getInvoices() {
-        return invoices;
-    }
+//    public List<Invoice> getInvoices() {
+//        return invoices;
+//    }
+//
+//    public void setInvoices(List<Invoice> invoices) {
+//        this.invoices = invoices;
+//    }
 
-    public void setInvoices(List<Invoice> invoices) {
-        this.invoices = invoices;
-    }
-
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<JobSheet> getJobSheet() {
         return jobSheet;
     }
@@ -170,6 +194,7 @@ public class JobSheet {
         this.jobSheet = jobSheet;
     }
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     public List<Part> getPart() {
         return part;
     }
@@ -178,6 +203,16 @@ public class JobSheet {
         this.part = part;
     }
 
+    public void setJobParts(Set<JobPart> parts) {
+        this.jobParts = parts;
+    }
+
+    public void setRMechanic(String RMechanic) {
+        this.RMechanic = RMechanic;
+    }
+
+    
+    
     
     
 }

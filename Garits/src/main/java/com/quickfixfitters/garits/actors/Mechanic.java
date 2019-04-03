@@ -34,4 +34,27 @@ public class Mechanic{
     }
     
     
+    public void claimJob(String userName,int jobId){
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+
+        try {
+            session.beginTransaction();
+            JobSheet jobSheet = session.get(JobSheet.class, jobId);
+            jobSheet.setRMechanic(userName);
+           
+            session.update(jobSheet);
+            session.getTransaction().commit();     
+            
+        }
+        catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        finally {
+            session.close();
+        }
+    }
+    
+    
 }

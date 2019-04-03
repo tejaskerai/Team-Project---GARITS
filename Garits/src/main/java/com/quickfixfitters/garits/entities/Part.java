@@ -1,35 +1,30 @@
 package com.quickfixfitters.garits.entities;
 
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Part")
-public class Part {
+public class Part implements Serializable {
 
-    @Id
-    @Column(name = "Id", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     
-    @Column(name = "PartCode")
+    private Set<JobPart> jobParts = new HashSet<JobPart>();
+    
     private String partCode;
     
-    @Column(name = "PartName")
     private String partName;
 
-    @Column(name = "Manufacturer")
     private String manufacturer;
 
-    @Column(name = "VehicleType")
     private String vehicleType;
 
-    @Column(name = "UnitPrice")
     private float unitPrice;
 
-    @Column(name = "LowLevelThreshold")
     private int lowLevelThreshold;
     
-    @Column(name = "StockLevel")
     private int stockLevel;
 
 //    @Column(name = "VariableDiscount", nullable = true)
@@ -39,10 +34,18 @@ public class Part {
 //    private JobSheet jobSheet;
     
     // Using this relation
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private JobSheet jobSheet;
 
+    public void setJobParts(Set<JobPart> jobParts) {
+        this.jobParts = jobParts;
+    }
 
+    // Using this more
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    public Set<JobPart> getJobParts(){
+        return jobParts;
+    }
+    
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="OrderNo", insertable = false, updatable = false)
 //    private StockLevel stockLevel;
@@ -61,6 +64,9 @@ public class Part {
     }
     
 
+    @Id
+    @Column(name = "Id", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -69,6 +75,7 @@ public class Part {
         this.id = id;
     }
 
+    @Column(name = "PartCode")
     public String getPartCode() {
         return partCode;
     }
@@ -77,6 +84,7 @@ public class Part {
         this.partCode = partCode;
     }
 
+    @Column(name = "PartName")
     public String getPartName() {
         return partName;
     }
@@ -85,6 +93,7 @@ public class Part {
         this.partName = partName;
     }
 
+    @Column(name = "Manufacturer")
     public String getManufacturer() {
         return manufacturer;
     }
@@ -93,6 +102,7 @@ public class Part {
         this.manufacturer = manufacturer;
     }
 
+    @Column(name = "VehicleType")
     public String getVehicleType() {
         return vehicleType;
     }
@@ -101,6 +111,7 @@ public class Part {
         this.vehicleType = vehicleType;
     }
 
+    @Column(name = "UnitPrice")
     public float getUnitPrice() {
         return unitPrice;
     }
@@ -109,6 +120,7 @@ public class Part {
         this.unitPrice = unitPrice;
     }
 
+    @Column(name = "LowLevelThreshold")
     public int getLowLevelThreshold() {
         return lowLevelThreshold;
     }
@@ -117,6 +129,7 @@ public class Part {
         this.lowLevelThreshold = lowLevelThreshold;
     }
 
+    @Column(name = "StockLevel")
     public int getStockLevel() {
         return stockLevel;
     }
@@ -125,6 +138,7 @@ public class Part {
         this.stockLevel = stockLevel;
     }
 
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     public JobSheet getJobSheet() {
         return jobSheet;
     }
@@ -140,7 +154,14 @@ public class Part {
 //    public void setVariableDiscount(float variableDiscount) {
 //        this.variableDiscount = variableDiscount;
 //    }
-    
+
+    public void setJobPart(Set<JobPart> parts) {
+        this.jobParts = parts;
+    }
+
+    public void addJobPart(JobPart jobPart){
+        this.jobParts.add(jobPart);
+    }
     
     
 }
