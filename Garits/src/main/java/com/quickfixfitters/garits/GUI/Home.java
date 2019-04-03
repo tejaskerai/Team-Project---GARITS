@@ -244,7 +244,7 @@ public class Home extends javax.swing.JFrame {
             }
         } else {
             // Clear text fields when wrong credentials are entered
-            JOptionPane.showMessageDialog(null, "Inncorrect Credentials");
+            JOptionPane.showMessageDialog(null, "Incorrect Credentials");
             this.username.setText("");
             this.password.setText("");
         }

@@ -34,15 +34,16 @@ public class MyProfile extends javax.swing.JFrame {
 
         jMenu3 = new javax.swing.JMenu();
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         CNewPass = new javax.swing.JPasswordField();
         jLabel3 = new javax.swing.JLabel();
         changePass = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         currentPass = new javax.swing.JPasswordField();
         newPass = new javax.swing.JPasswordField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -54,8 +55,13 @@ public class MyProfile extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
+        CNewPass.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel3.setText("New Password");
 
+        changePass.setBackground(new java.awt.Color(183, 183, 183));
+        changePass.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         changePass.setText("Change Password");
         changePass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,48 +69,71 @@ public class MyProfile extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("BACK");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel8.setText("Current Password");
 
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
         jLabel9.setText("Confirm password");
+
+        currentPass.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        newPass.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/QFFLOGO.png"))); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("My Profile");
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/back1.png"))); // NOI18N
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 418, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2))
-                .addGap(0, 129, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jLabel1))
+                            .addComponent(jLabel2))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(162, 162, 162)
+                .addGap(719, 719, 719)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel9))
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(CNewPass)
-                    .addComponent(newPass)
-                    .addComponent(currentPass))
-                .addGap(129, 129, 129))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(changePass)
-                .addGap(194, 194, 194))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel9))
+                        .addGap(24, 24, 24)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(newPass, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(currentPass, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(CNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(changePass)
+                        .addGap(120, 120, 120)))
+                .addGap(0, 759, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 318, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(currentPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -116,10 +145,11 @@ public class MyProfile extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(CNewPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addGap(65, 65, 65)
                 .addComponent(changePass)
-                .addGap(41, 41, 41)
-                .addComponent(jButton2))
+                .addGap(244, 244, 244)
+                .addComponent(jLabel4)
+                .addContainerGap())
         );
 
         jMenu1.setText("MyProfile");
@@ -152,7 +182,9 @@ public class MyProfile extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,11 +207,6 @@ public class MyProfile extends javax.swing.JFrame {
         user.updatePass(userName, userPass, newUserPass, confirmPass);
     }//GEN-LAST:event_changePassActionPerformed
 
-    // Code that takes the user back one screen.
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        garits.backButton(this);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     // Is executed when the user clickes my profile.
     // This doesn't need to do anything as we are already on this screen. 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
@@ -200,6 +227,11 @@ public class MyProfile extends javax.swing.JFrame {
         garits.logout(this);
     }//GEN-LAST:event_jMenu4MouseClicked
 
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        // TODO add your handling code here:
+        garits.backButton(this);
+    }//GEN-LAST:event_jLabel4MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -208,9 +240,10 @@ public class MyProfile extends javax.swing.JFrame {
     private javax.swing.JPasswordField CNewPass;
     private javax.swing.JButton changePass;
     private javax.swing.JPasswordField currentPass;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JMenu jMenu1;

@@ -111,7 +111,7 @@ public class Franchisee extends User {
                 garits.openNewScreen(frame, new ViewCustomerAccount(garits,
                                                     ca.getCustomer().getForename(),
                                                     ca.getCustomer().getSurname(),
-                                                    ca.getPaymentOption(), id));
+                                                    id));
             }
             session.getTransaction().commit();
         }catch(Exception e){
@@ -139,7 +139,7 @@ public class Franchisee extends User {
     
     // Tries to update the customer specified by id using the other parameters
     public void updateCustomer(int id, String forename, String surname, 
-                               String address, String postcode, int telephone, 
+                               String address, String postcode, String telephone, 
                                String email){
         
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
@@ -170,7 +170,7 @@ public class Franchisee extends User {
     }
     
     // Updates the customer account specified by id using other parameters
-    public void updateCustomerAccount(String payment, int id){
+    public void updateCustomerAccount(int id){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
@@ -179,7 +179,6 @@ public class Franchisee extends User {
             session.beginTransaction();
             CustomerAccount ca = session.get(CustomerAccount.class, id);
             
-            ca.setPaymentOption(payment);
             
             session.update(ca);
             session.getTransaction().commit();
@@ -338,7 +337,7 @@ public class Franchisee extends User {
 
     // Method that creates a new customer and adds it to the database.
     public void createCustomer(String forename, String surname, String address,
-            String postcode, int telephone, String email, String payment) {
+            String postcode, String telephone, String email, String acc) {
         
         // Connecting to the database.
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
@@ -354,10 +353,11 @@ public class Franchisee extends User {
             Customer customer = new Customer(forename, surname, address, postcode, telephone, email);
             // Creates a new customer account
             CustomerAccount customerAccount;
-            if (payment == null){
-                customerAccount = new CustomerAccount(payment, 0);
+            System.out.println(acc);
+            if (acc.compareTo("Yes") == 0){
+                customerAccount = new CustomerAccount(1);
             }else{
-                customerAccount = new CustomerAccount(payment, 1);
+                customerAccount = new CustomerAccount(0);
             }
             // Creates a default discount plan
             DiscountPlan discountPlan = new DiscountPlan();
