@@ -2,8 +2,6 @@ package com.quickfixfitters.garits.reports;
 
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.JobSheet;
-import com.quickfixfitters.garits.entities.Part;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
@@ -12,11 +10,9 @@ import org.hibernate.criterion.Restrictions;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class VehiclesBookedReport {
 

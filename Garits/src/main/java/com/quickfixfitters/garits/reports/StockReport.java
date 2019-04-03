@@ -3,22 +3,16 @@ package com.quickfixfitters.garits.reports;
 
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Part;
-import com.quickfixfitters.garits.entities.StockLevel;
-import org.hibernate.Criteria;
-import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.ProjectionList;
-import org.hibernate.criterion.Projections;
-import org.hibernate.criterion.Restrictions;
-import org.hibernate.loader.custom.sql.SQLQueryParser;
 
-import javax.persistence.*;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -38,38 +32,47 @@ public class StockReport extends Report {
     private static StockReport sReport = null;
 
 
+
     public void generateReport() {
 
-
+        System.out.println("Gen Start");
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
 
         try {
+            System.out.println("Gen Try");
             session.beginTransaction();
-            //  Criteria partCriteria = session.createCriteria(Part.class,"part");
-            //  partCriteria.createCriteria("StockLevel","OrderNo");
-
+            System.out.println("step 1");
             EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+            System.out.println("step 2");
             EntityManager entitymanager = emfactory.createEntityManager();
+            System.out.println("step 3");
             CriteriaBuilder cb = session.getCriteriaBuilder();
+            System.out.println("step 4");
 
             CriteriaQuery<Object> cq = cb.createQuery();
             Root<Part> from = cq.from(Part.class);
 
             //Select Records
-            System.out.println("Select Records");
+            System.out.println("Select Records step 1");
             CriteriaQuery<Object> select = cq.select(from);
-            TypedQuery<Object> q = entitymanager.createQuery(cq);
+            System.out.println("Select Records step 2");
+            TypedQuery<Object> q = entitymanager.createQuery(select);
+            System.out.println("Select Records step 3");
             List<Object> allitems = q.getResultList();
+            System.out.println(q.getResultList());
 
 
             Map<Integer, Object[]> data = new TreeMap<>();
+            System.out.println("mapping Start");
+            data.put(1,new Object[]{"ID","Part Name","Part Code","Manufacturer","Vehicle Type","StockLevel","Low Level Threshold","Unit Price","StockPrice"});
             for (Object o : allitems) {
+
                 Part p = (Part) o;
-                data.put(p.getId(), new Object[]{p.getId(), p.getPartName(), p.getPartCode(),
+                data.put(p.getId()+1, new Object[]{p.getId(), p.getPartName(), p.getPartCode(),
                         p.getManufacturer(), p.getVehicleType(), p.getStockLevel(), p.getLowLevelThreshold(),
-                        p.getUnitPrice()});
+                        Float.toString(p.getUnitPrice()),Float.toString(p.getUnitPrice()*p.getStockLevel())});
             }
             setMappedSReport(data);
 

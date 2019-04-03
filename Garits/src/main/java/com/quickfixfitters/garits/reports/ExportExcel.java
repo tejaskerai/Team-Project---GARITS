@@ -5,15 +5,21 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
 
 public class ExportExcel {
 
+    int date;
+    public ExportExcel() {
+    }
 
     public void exportReport(Map<Integer, Object[]> report)
     {
+        date++;
         // Blank workbook
         XSSFWorkbook workbook = new XSSFWorkbook();
 
@@ -42,7 +48,7 @@ public class ExportExcel {
         }
         try {
             // this Writes the workbook gfgcontribute
-            FileOutputStream out = new FileOutputStream(new File("C:\\Users\\Tadai\\Desktop\\report.xlsx"));
+            FileOutputStream out = new FileOutputStream(new File("files/Report"+ date +".xlsx"));
             workbook.write(out);
             out.close();
             System.out.println("report.xlsx written successfully on disk.");
