@@ -70,6 +70,10 @@ public class PendingJobs extends javax.swing.JFrame {
         claim = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        accTime = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        submitJob = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -211,6 +215,23 @@ public class PendingJobs extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/QFFLOGO.png"))); // NOI18N
 
+        accTime.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("Time spent on job:");
+
+        submitJob.setBackground(new java.awt.Color(183, 183, 183));
+        submitJob.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        submitJob.setText("Submit Job");
+        submitJob.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                submitJobActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel4.setText("minutes");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -221,25 +242,27 @@ public class PendingJobs extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(16, 16, 16)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 612, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(261, 261, 261)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(67, 67, 67)
-                                        .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGap(261, 261, 261)
-                                        .addComponent(claim)))
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(accTime, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel4))
+                                    .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, 494, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(claim))
                                 .addGap(66, 66, 66)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, 344, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(add, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 557, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(submitJob, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -261,18 +284,24 @@ public class PendingJobs extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 286, Short.MAX_VALUE)
                             .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(claim)
-                                .addGap(82, 82, 82))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGap(30, 30, 30)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(desc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(add))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2)))))
+                                    .addComponent(add))))
+                        .addGap(22, 22, 22)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(accTime, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4))
+                        .addGap(18, 18, 18)
+                        .addComponent(submitJob)))
                 .addContainerGap(108, Short.MAX_VALUE))
         );
 
@@ -330,20 +359,24 @@ public class PendingJobs extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    public String checkMech(String mech){
+        
+        
+        if (mech == null || mech.isEmpty()) {
+            return "Inactive";
+        } else {
+            return "Active";
+        }
+    }
+    
+    
     // Fills the jobs table with all non-completed jobs
     private void populateJobs() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Mechanic mechanic = Mechanic.getMechanic();
         List<JobSheet> jobs = mechanic.getJobs();
 
-        JobSheet jobSheet = new JobSheet();
 
-        String status;
-        if (jobSheet.getMechanic() == null) {
-            status = "No mechanic";
-        } else {
-            status = "Allocated";
-        }
 
         // Fills each row with relevent information about the job on that row
         for (JobSheet jobSheets : jobs) {
@@ -352,9 +385,10 @@ public class PendingJobs extends javax.swing.JFrame {
                 jobSheets.getJobNo(),
                 jobSheets.getDateBookedIn(),
                 jobSheets.getEstimatedTime() + " minutes",
-                status
+                checkMech(jobSheets.getRMechanic())
             }
             );
+            System.out.println("mech --> "+jobSheets.getRMechanic());
         }
     }
 
@@ -476,7 +510,7 @@ public class PendingJobs extends javax.swing.JFrame {
                         String newString = jobSheet.getDescriptionAfterWork() + "," + toWrite;
                         jobSheet.setDescriptionAfterWork(newString);
                     }
-
+                    
                     session.update(jobSheet);
                     session.getTransaction().commit();
 
@@ -489,10 +523,11 @@ public class PendingJobs extends javax.swing.JFrame {
                 DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
 
                 model3.insertRow(model3.getRowCount(), new Object[]{desc.getText()});
+                desc.setText("");
             }
 
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Have not selected vehicle");
+            JOptionPane.showMessageDialog(null, "Have not selected job");
         }
 
 
@@ -501,10 +536,22 @@ public class PendingJobs extends javax.swing.JFrame {
     private void claimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claimActionPerformed
         // TODO add your handling code here:
 
-        JobSheet jobSheet = new JobSheet();
+        try{
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
-        // TODO: Assign mechanic to job
-        //jobSheet.set;
+            Mechanic mechanic = Mechanic.getMechanic();
+
+            int row = jTable1.getSelectedRow();
+            int jobId = (Integer) jTable1.getValueAt(row, 0);
+            String userName = garits.getUsername();
+            // Updates the user in the database.
+            mechanic.claimJob(userName, jobId);
+            JOptionPane.showMessageDialog(null, "Job claimed");
+            model.setRowCount(0);
+            populateJobs();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null, "No job selected");
+        }
 
     }//GEN-LAST:event_claimActionPerformed
 
@@ -521,17 +568,56 @@ public class PendingJobs extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jButton2ActionPerformed
 
+     private static java.sql.Date convertUtilToSql(java.util.Date uDate) {
+        java.sql.Date sDate = new java.sql.Date(uDate.getTime());
+        return sDate;
+    }
+    
+    private void submitJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJobActionPerformed
+
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+
+        java.util.Date uDate = new java.util.Date();
+        java.sql.Date sDate = convertUtilToSql(uDate);
+        String time = accTime.getText();
+        if(time.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Time spent on job is empty");
+        }else{
+            try {
+                session.beginTransaction();
+                int selectedRow = jTable1.getSelectedRow();
+                int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+                JobSheet jobSheet = session.get(JobSheet.class, jobNo);
+                jobSheet.setAccTime(time);
+                jobSheet.setDateCompleted(sDate);
+                session.update(jobSheet);
+                session.getTransaction().commit();
+                JOptionPane.showMessageDialog(null, "Job Submitted");
+            } catch (Exception e) {
+                session.getTransaction().rollback();
+            } finally {
+                session.close();
+            }
+        }
+            
+
+    }//GEN-LAST:event_submitJobActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField accTime;
     private javax.swing.JButton add;
     private javax.swing.JButton claim;
     private javax.swing.JTextField desc;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu4;
@@ -552,5 +638,6 @@ public class PendingJobs extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JTable jTable3;
     private javax.swing.JTable jTable4;
+    private javax.swing.JButton submitJob;
     // End of variables declaration//GEN-END:variables
 }
