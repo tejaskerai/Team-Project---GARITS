@@ -6,8 +6,17 @@
 package com.quickfixfitters.garits.GUI;
 
 import com.quickfixfitters.garits.actors.Franchisee;
+import com.quickfixfitters.garits.database.DBConnectivity;
+import com.quickfixfitters.garits.entities.CustomerAccount;
+import com.quickfixfitters.garits.entities.DiscountPlan;
+import com.quickfixfitters.garits.entities.FlexibleBands;
 import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 /**
  *
@@ -21,16 +30,50 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
     //Field of type Garits since we need to access its methods.
     Garits garits;
     int id;
+    Session session;
+    
     public ViewCustomerAccount(Garits garits, String customerForename, 
-            String customerSurname, int customerId) {
+            String customerSurname, int customerId, Session session) {
         
         initComponents();
+        
         this.garits = garits;
         this.id = customerId;
+        this.session = session;
         forename.setText(customerForename);
         surname.setText(customerSurname);
+        populateTable();
     }
 
+    public void populateTable(){       
+        try{
+            CustomerAccount ca = session.get(CustomerAccount.class, id);
+            DiscountPlan ds = ca.getDiscountPlan();
+            if (ds.getVariableDiscount() == 1){
+                discountType.setSelectedIndex(1);
+                jTable1.setVisible(false);
+            }else if (ds.getFixedDiscount() != 0){
+                discountType.setSelectedIndex(0);
+                jTable1.setVisible(false);
+            }else{
+                discountType.setSelectedIndex(2);
+                Set<FlexibleBands> bands = ds.getFlexibleDiscount();
+                DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                for(FlexibleBands band : bands){
+                    model.insertRow(
+                            model.getRowCount(), new Object[] {
+                                band.getBandId(),
+                                band.getMin(),
+                                band.getMax(),
+                                band.getValue()
+                            });
+                }
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Failed to load flexible bands");
+        }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -48,6 +91,15 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        discountType = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        min = new javax.swing.JTextField();
+        max = new javax.swing.JTextField();
+        value = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenu2 = new javax.swing.JMenu();
@@ -89,6 +141,60 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
             }
         });
 
+        discountType.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Fixed", "Variable", "Flexible" }));
+        discountType.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                discountTypeItemStateChanged(evt);
+            }
+        });
+
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel5.setText("Discount plan:");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Min", "Max", "Value"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Float.class, java.lang.Float.class, java.lang.Float.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+
+        jButton1.setText("UPDATE BAND");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("ADD BAND");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -97,39 +203,71 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(758, 758, 758)
+                        .addComponent(jLabel4)
+                        .addGap(700, 700, 700))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
-                        .addGap(60, 60, 60)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton2)
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(forename, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                .addComponent(surname))
-                            .addComponent(jButton2)))
+                                .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(value, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(max, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(min, javax.swing.GroupLayout.Alignment.TRAILING)))
+                        .addGap(29, 29, 29)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel4)))
-                .addContainerGap(744, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(forename, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                            .addComponent(surname)
+                            .addComponent(discountType, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(863, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel3)
-                .addGap(256, 256, 256)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGap(59, 59, 59)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(forename, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addGap(18, 18, 18)
+                .addGap(33, 33, 33)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(48, 48, 48)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
-                .addComponent(jLabel4)
+                    .addComponent(jLabel2)
+                    .addComponent(surname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(discountType, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5)
+                    .addComponent(jButton2))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 39, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(min, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(max, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(value, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel4)))
                 .addContainerGap())
         );
 
@@ -195,40 +333,106 @@ public class ViewCustomerAccount extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        garits.backButton(this);
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        
+        try{
+            session.beginTransaction();
+            
+            int row = jTable1.getSelectedRow();
+            int id = Integer.parseInt(jTable1.getValueAt(row, 0).toString());
+            
+            FlexibleBands bands = session.get(FlexibleBands.class, id);
+            bands.setMin((float) Integer.parseInt(min.getText()));
+            bands.setMax((float) Integer.parseInt(max.getText()));
+            bands.setValue((float) Integer.parseInt(value.getText()));
+            
+            session.save(bands);
+            session.getTransaction().commit();
+            JOptionPane.showMessageDialog(null, "Update succeeded");
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Update band failed");
+        }finally{
+            session.close();
+            model.setRowCount(0);
+            populateTable();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     // Updates the customer account
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        
-        
         Franchisee franchisee = Franchisee.getFranchisee();
-        franchisee.updateCustomerAccount(id);
+        
+        Set<FlexibleBands> bands;
+        bands = new HashSet<FlexibleBands>();
+                
+        if (discountType.getSelectedItem().equals("Fixed")){
+            franchisee.updateCustomerAccount(id, 10, 0, bands);
+        }else if(discountType.getSelectedItem().equals("Variable")){
+            franchisee.updateCustomerAccount(id, 0, 1, bands);
+        }else{
+            franchisee.updateCustomerAccount(id, 0, 0, bands);
+        }
         JOptionPane.showMessageDialog(null, "Customer Updated");
+        garits.backButton(this);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        // TODO add your handling code here:
         garits.backButton(this);
     }//GEN-LAST:event_jLabel4MouseClicked
+
+    private void discountTypeItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_discountTypeItemStateChanged
+        if ((discountType.getSelectedItem().equals("Fixed")) || (discountType.getSelectedItem().equals("Variable"))){
+            jTable1.setVisible(false);
+        }else{
+            jTable1.setVisible(true);
+        }
+    }//GEN-LAST:event_discountTypeItemStateChanged
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        int row = jTable1.getSelectedRow();
+        
+        min.setText(jTable1.getValueAt(row, 1).toString());
+        max.setText(jTable1.getValueAt(row, 2).toString());
+        value.setText(jTable1.getValueAt(row, 3).toString());
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        if (!(discountType.getSelectedItem().equals("Fixed")) && !(discountType.getSelectedItem().equals("Variable"))){
+            garits.openNewScreen(this, new NewBand(garits, id));
+            populateTable();
+        }else{
+            JOptionPane.showMessageDialog(null, "Wrong discount type selected");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> discountType;
     private javax.swing.JTextField forename;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField max;
+    private javax.swing.JTextField min;
     private javax.swing.JTextField surname;
+    private javax.swing.JTextField value;
     // End of variables declaration//GEN-END:variables
 }

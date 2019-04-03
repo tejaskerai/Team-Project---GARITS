@@ -25,15 +25,9 @@ public class DiscountPlan {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "discountPlan")
     private CustomerAccount customerAccount;
 
-    public DiscountPlan(float fixedDiscount, float variableDiscount, 
-            Set<FlexibleBands> flexibleDiscount) {
-        this.fixedDiscount = fixedDiscount;
-        this.variableDiscount = variableDiscount;
-        this.flexibleDiscount = flexibleDiscount;
-    }
-
     public DiscountPlan() {
         this.fixedDiscount = 10;
+        this.variableDiscount = 0;
     }
 
     public float getFixedDiscount() {

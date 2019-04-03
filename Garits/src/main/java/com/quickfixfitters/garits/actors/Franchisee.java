@@ -6,13 +6,14 @@ import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.CustomerAccount;
 import com.quickfixfitters.garits.entities.DiscountPlan;
-import com.quickfixfitters.garits.entities.Employee;
+import com.quickfixfitters.garits.entities.FlexibleBands;
 import com.quickfixfitters.garits.entities.JobSheet;
 import com.quickfixfitters.garits.entities.MOTReminder;
 import com.quickfixfitters.garits.entities.Part;
 import com.quickfixfitters.garits.entities.Vehicle;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.hibernate.Criteria;
@@ -111,7 +112,7 @@ public class Franchisee extends User {
                 garits.openNewScreen(frame, new ViewCustomerAccount(garits,
                                                     ca.getCustomer().getForename(),
                                                     ca.getCustomer().getSurname(),
-                                                    id));
+                                                    id, session));
             }
             session.getTransaction().commit();
         }catch(Exception e){
@@ -170,7 +171,7 @@ public class Franchisee extends User {
     }
     
     // Updates the customer account specified by id using other parameters
-    public void updateCustomerAccount(int id){
+    public void updateCustomerAccount(int id, float fi, float v, Set<FlexibleBands> fl){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
@@ -178,8 +179,12 @@ public class Franchisee extends User {
         try{
             session.beginTransaction();
             CustomerAccount ca = session.get(CustomerAccount.class, id);
+            DiscountPlan d = ca.getDiscountPlan();
+            d.setFixedDiscount(fi);
+            d.setVariableDiscount(v);
+            d.setFlexibleDiscount(fl);
             
-            
+            session.update(d);
             session.update(ca);
             session.getTransaction().commit();
         }catch(Exception e){
