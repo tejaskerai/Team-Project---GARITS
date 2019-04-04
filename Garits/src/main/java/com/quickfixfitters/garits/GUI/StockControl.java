@@ -395,6 +395,13 @@ public class StockControl extends javax.swing.JFrame {
             }
             );
 
+            partName.setText("");
+            code.setText("");
+            manufacturer.setText("");
+            vehicleType.setText("");
+            price.setText("");
+            threshold.setText("");
+            stockLevel.setText("");
         }
     }//GEN-LAST:event_addActionPerformed
 
