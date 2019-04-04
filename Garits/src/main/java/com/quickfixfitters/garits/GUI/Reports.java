@@ -186,7 +186,9 @@ public class Reports extends javax.swing.JFrame {
     private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
         garits.logout(this);
     }//GEN-LAST:event_jMenu6MouseClicked
-
+    /*
+    * Generates Stock Report on click
+    * */
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.sReport = new StockReport();
