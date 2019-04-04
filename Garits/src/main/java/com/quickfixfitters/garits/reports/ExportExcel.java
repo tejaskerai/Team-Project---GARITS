@@ -17,6 +17,9 @@ public class ExportExcel {
     public ExportExcel() {
     }
 
+    /*
+    * Exports Reports in Excel Spreadsheets
+    * */
     public void exportReport(Map<Integer, Object[]> report)
     {
         date++;
@@ -47,8 +50,10 @@ public class ExportExcel {
             }
         }
         try {
+
             // this Writes the workbook gfgcontribute
             FileOutputStream out = new FileOutputStream(new File("files/Report.xlsx"));
+
             workbook.write(out);
             out.close();
             System.out.println("report.xlsx written successfully on disk.");

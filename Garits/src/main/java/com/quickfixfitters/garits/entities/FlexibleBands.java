@@ -46,42 +46,43 @@ public class FlexibleBands {
         this.value = value;
     }
 
+    /*Gets smallest value*/
     public float getMin() {
         return min;
     }
-
+    /* Sets smallest value*/
     public void setMin(float min) {
         this.min = min;
     }
-
+    /* Gets biggest value*/
     public float getMax() {
         return max;
     }
-
+    /*Sets biggest value*/
     public void setMax(float max) {
         this.max = max;
     }
-
+    /*Gets value*/
     public float getValue() {
         return value;
     }
-
+    /*Sets value*/
     public void setValue(float value) {
         this.value = value;
     }
-
+    /*Gets Band ID*/
     public int getBandId() {
         return bandId;
     }
-
+    /*Sets Band ID*/
     public void setBandId(int bandId) {
         this.bandId = bandId;
     }
-
+    /*Gets Discount Plan*/
     public DiscountPlan getDiscountPlan() {
         return discountPlan;
     }
-
+    /*Sets Discount Plan*/
     public void setDiscountPlan(DiscountPlan discountPlan) {
         this.discountPlan = discountPlan;
     }

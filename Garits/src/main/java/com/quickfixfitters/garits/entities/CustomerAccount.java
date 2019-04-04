@@ -25,26 +25,40 @@ public class CustomerAccount {
     @JoinColumn(name = "DiscountPlanId", nullable = false)
     private DiscountPlan discountPlan;
 
+
+    /*
+    *  Gets Customer Account ID
+    * */
     public int getCustomerAccountId() {
         return customerAccountId;
     }
+
 
     public CustomerAccount(int useable) {
         
         this.useable = useable;
     }
 
+    /*
+    * Hibernate constructor
+    * */
     public CustomerAccount() {
     }
-
+    /*
+    * Sets Customer Account ID
+    * */
     public void setCustomerAccountId(int customerAccountId) {
         this.customerAccountId = customerAccountId;
     }
-
+    /*
+    * Gets Customer
+    * */
     public Customer getCustomer() {
         return customer;
     }
-
+    /*
+    * Sets Customer
+    * */
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
@@ -56,18 +70,27 @@ public class CustomerAccount {
 //        this.motReminders = motReminders;
 //    }
 //
+    /*
+    * Gets Discount Plan
+    * */
     public DiscountPlan getDiscountPlan() {
         return discountPlan;
     }
-
+    /*
+    * Sets Discount Plan
+    * */
     public void setDiscountPlan(DiscountPlan discountPlan) {
         this.discountPlan = discountPlan;
     }
-
+    /*
+    * Gets usable
+    * */
     public int getUsable() {
         return useable;
     }
-
+    /*
+    * Sets usable
+    * */
     public void setUsable(int useable) {
         this.useable = useable;
     }

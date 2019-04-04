@@ -502,6 +502,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         garits.logout(this);
     }//GEN-LAST:event_jMenu3MouseClicked
 
+
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();

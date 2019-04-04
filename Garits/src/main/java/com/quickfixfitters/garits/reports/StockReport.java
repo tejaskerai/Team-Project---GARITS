@@ -32,38 +32,53 @@ public class StockReport extends Report {
     private static StockReport sReport = null;
 
 
-
+    /*
+    * Generates stock report
+    * */
     public void generateReport() {
 
+        /*
+        * creates connection with a db
+        * */
         System.out.println("Gen Start");
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
 
         try {
+            /*
+             * creates a projected hibernate list and puts it into java.util.list
+             * */
             System.out.println("Gen Try");
             session.beginTransaction();
-            System.out.println("step 1");
-            EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
-            System.out.println("step 2");
-            EntityManager entitymanager = emfactory.createEntityManager();
-            System.out.println("step 3");
-            CriteriaBuilder cb = session.getCriteriaBuilder();
-            System.out.println("step 4");
 
+
+            /*
+             * creates Entity Manager
+             * */
+            EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("Eclipselink_JPA");
+            EntityManager entitymanager = emfactory.createEntityManager();
+            /*
+            *  creates Criteria Builder
+            * */
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+
+            /*
+             * creates queries
+             * */
             CriteriaQuery<Object> cq = cb.createQuery();
             Root<Part> from = cq.from(Part.class);
 
             //Select Records
-            System.out.println("Select Records step 1");
+
             CriteriaQuery<Object> select = cq.select(from);
-            System.out.println("Select Records step 2");
             TypedQuery<Object> q = entitymanager.createQuery(select);
-            System.out.println("Select Records step 3");
             List<Object> allitems = q.getResultList();
             System.out.println(q.getResultList());
 
-
+            /*
+             * Maps the list so it would be accepted be ExcelExport class
+             * */
             Map<Integer, Object[]> data = new TreeMap<>();
             System.out.println("mapping Start");
             data.put(1,new Object[]{"ID","Part Name","Part Code","Manufacturer","Vehicle Type","StockLevel","Low Level Threshold","Unit Price","StockPrice"});

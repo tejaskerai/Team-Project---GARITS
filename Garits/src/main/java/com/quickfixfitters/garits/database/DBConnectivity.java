@@ -10,7 +10,9 @@ public class DBConnectivity{
     
     
     public static SessionFactory factory;
-    
+    /*
+    * Establishes connection with database
+    * */
     public static synchronized SessionFactory getSessionFactory(){
         if (factory == null){
             factory = new Configuration()

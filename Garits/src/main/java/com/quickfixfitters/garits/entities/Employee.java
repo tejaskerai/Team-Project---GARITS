@@ -27,6 +27,10 @@ public class Employee {
     @Column(name = "Password")
     private String password;
 
+
+    /*
+    * Hibernate Constructor
+    * */
     public Employee() {
     }
 
@@ -38,50 +42,75 @@ public class Employee {
         this.password = password;
     }
 
+    /*
+    * Gets Employee Number
+    * */
     public int getEmployeeNo() {
         return employeeNo;
     }
-
+    /*
+    * Sets Employee Number
+    * */
     public void setEmployeeNo(int employeeNo) {
         this.employeeNo = employeeNo;
     }
-
+    /*
+    * Gets Firstname
+    * */
     public String getFirstname() {
         return firstname;
     }
-
+    /*
+    * Sets Firstname
+    * */
     public void setFirstname(String firstname) {
         this.firstname = firstname;
     }
-
+    /*
+    * Gets Lastname
+    * */
     public String getLastname() {
         return lastname;
     }
-
+    /*
+    * Sets Lastname
+    * */
     public void setLastname(String lastname) {
         this.lastname = lastname;
     }
-
+    /*
+    * Gets Role
+    * */
     public String getRole() {
         return role;
     }
-
+    /*
+    * Sets Role
+    * */
     public void setRole(String role) {
         this.role = role;
     }
-
+    /*
+    * Gets Username
+    * */
     public String getUsername() {
         return username;
     }
-
+    /*
+    * Sets Username
+    * */
     public void setUsername(String username) {
         this.username = username;
     }
-
+    /*
+    * Gets Password
+    * */
     public String getPassword() {
         return password;
     }
-
+    /*
+    * Sets Password
+    * */
     public void setPassword(String password) {
         this.password = password;
     }
