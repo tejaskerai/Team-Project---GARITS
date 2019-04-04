@@ -55,19 +55,6 @@ public class Admin extends User {
                 System.out.println("Row added");
                 JOptionPane.showMessageDialog(null, "User added");
 
-//                // Getting id of newely created record
-//                Criteria criteria = session.createCriteria(Employee.class);
-//                criteria.add(Restrictions.eq("firstname", forename)).uniqueResult();
-//
-//                // Gets the id of newly created record
-//                List<Employee> details = (List<Employee>) criteria.list();
-//                int id = details.get(0).getEmployeeNo();
-//                String stringId = Integer.toString(details.get(0).getEmployeeNo());
-//
-//                // Updates username to have the id added on
-//                employee = session.get(Employee.class, id);
-//                employee.setUsername(forename + stringId);
-
             } else {
                 JOptionPane.showMessageDialog(null, "Passwords do not match");
                 session.getTransaction().commit();
