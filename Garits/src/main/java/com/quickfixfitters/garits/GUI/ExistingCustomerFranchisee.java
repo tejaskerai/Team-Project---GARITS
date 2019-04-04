@@ -33,6 +33,12 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
     public ExistingCustomerFranchisee(Garits garits) {
         initComponents();
         standardJob.setSelected(true);
+        newJob.setSelected(false);
+        jLabel3.setVisible(false);
+        desc.setVisible(false);
+        addDesc.setVisible(false);
+        jLabel4.setVisible(false);
+        eta.setVisible(false);
         populateCustomers();
         this.garits = garits;
     }
@@ -525,6 +531,16 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
     private void standardJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standardJobActionPerformed
         if (standardJob.isSelected()) {
             newJob.setSelected(false);
+            jLabel3.setVisible(false);
+            desc.setVisible(false);
+            addDesc.setVisible(false);
+            jLabel4.setVisible(false);
+            eta.setVisible(false);
+            
+            
+            standardJob.setSelected(true);
+            jLabel2.setVisible(true);
+            sJob.setVisible(true);
         }
     }//GEN-LAST:event_standardJobActionPerformed
 
@@ -532,6 +548,15 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (newJob.isSelected()) {
             standardJob.setSelected(false);
+            jLabel2.setVisible(false);
+            sJob.setVisible(false);
+            
+            newJob.setSelected(true);
+            jLabel3.setVisible(true);
+            desc.setVisible(true);
+            addDesc.setVisible(true);
+            jLabel4.setVisible(true);
+            eta.setVisible(true);
         }
     }//GEN-LAST:event_newJobActionPerformed
 
