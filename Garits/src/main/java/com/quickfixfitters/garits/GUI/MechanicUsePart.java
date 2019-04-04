@@ -29,16 +29,19 @@ public class MechanicUsePart extends javax.swing.JFrame {
 
     public MechanicUsePart(Garits garits, int jobId) {
         initComponents();
+        // Populates stock when entering this screen
         populateStock();
         this.jobId = jobId;
         this.garits = garits;
     }
 
+    // Populate stock method
     private void populateStock() {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         Franchisee franchisee = Franchisee.getFranchisee();
         List<Part> parts = franchisee.getStock();
 
+        // Inserts data into the table
         for (Part part : parts) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -312,6 +315,7 @@ public class MechanicUsePart extends javax.swing.JFrame {
                     int partId = (int) model1.getValueAt(selectedRow, 0);
                     int quant = Integer.parseInt(quantity.getText());
 
+                    // Inserts data into stock and quantity table
                     model2.insertRow(
                             model2.getRowCount(), new Object[]{
                         partName,
@@ -325,6 +329,7 @@ public class MechanicUsePart extends javax.swing.JFrame {
                     int newStock = part.getStockLevel() - quant;
                     part.setStockLevel(newStock);
                     
+                    // Updates parts used for a job and subtracts quantity from the stock of that part
                     JobPart jobPart = new JobPart();
                     jobPart.setJobSheet(jobSheet);
                     jobPart.setPart(part);
