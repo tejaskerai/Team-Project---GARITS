@@ -62,94 +62,94 @@ public class Invoice {
         this.customerAddress = customerAddress;
         this.jobNo = jobNo;
     }
-
+    /*Hibernate Constructor*/
     public Invoice() {
     }
-
+    /*Gets Invoice number*/
     public int getInvoiceNo() {
         return InvoiceNo;
     }
-
+    /*Sets Invoice number*/
     public void setInvoiceNo(int InvoiceNo) {
         this.InvoiceNo = InvoiceNo;
     }
-
+    /*Get quantity*/
     public int getQty() {
         return qty;
     }
-
+    /*Sets quantity*/
     public void setQty(int qty) {
         this.qty = qty;
     }
-
+    /*Gets Item*/
     public String getItem() {
         return item;
     }
-
+    /*Sets Item*/
     public void setItem(String item) {
         this.item = item;
     }
-
+    /*Gets Part number*/
     public int getPartNo() {
         return partNo;
     }
-
+    /*Sets Part number*/
     public void setPartNo(int partNo) {
         this.partNo = partNo;
     }
-
+    /*Gets Unit Cost*/
     public float getUnitCost() {
         return UnitCost;
     }
-
+    /*Sets Unit Cose*/
     public void setUnitCost(float UnitCost) {
         this.UnitCost = UnitCost;
     }
-
+    /*Gets Total price*/
     public float getTotal() {
         return total;
     }
-
+    /*Sets Total price*/
     public void setTotal(float total) {
         this.total = total;
     }
-
+    /*Gets VAT*/
     public float getVat() {
         return vat;
     }
-
+    /*Sets VAT*/
     public void setVat(float vat) {
         this.vat = vat;
     }
-
+    /*Gets Customer Forename*/
     public String getCustomerForename() {
         return customerForename;
     }
-
+    /*Sets Customer Forename*/
     public void setCustomerForename(String customerForename) {
         this.customerForename = customerForename;
     }
-
+    /*Gets Customer Surname*/
     public String getCustomerSurname() {
         return customerSurname;
     }
-
+    /*Sets Customer Surname*/
     public void setCustomerSurname(String customerSurname) {
         this.customerSurname = customerSurname;
     }
-
+    /*Gets Customer Address*/
     public String getCustomerAddress() {
         return customerAddress;
     }
-
-    public void setCustomerAddress(String customerAddress) {
+    /*Set Customer Address*/
+    public void setCustomer1Address(String customerAddress) {
         this.customerAddress = customerAddress;
     }
-
+    /*Gets Job number*/
     public int getJobNo() {
         return jobNo;
     }
-
+    /*Sets Job number*/
     public void setJobNo(int jobNo) {
         this.jobNo = jobNo;
     }
