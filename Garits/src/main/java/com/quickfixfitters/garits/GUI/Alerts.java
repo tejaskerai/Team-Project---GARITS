@@ -64,17 +64,6 @@ public class Alerts extends javax.swing.JFrame {
                         });
             }
         }
-        
-        for (Part p : garits.getReplenishment()){
-            model.insertRow(
-                    model.getRowCount(), new Object[] {
-                        "REPLENISHMENT",
-                        "",
-                        "",
-                        p.getPartCode(),
-                        ""
-                    });
-        }
         session.getTransaction().commit();
 
         session.close();
@@ -82,8 +71,8 @@ public class Alerts extends javax.swing.JFrame {
     }
     
     public void populateStock(){
-//        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
-//        Session session = sessionFactory.getCurrentSession();
+        SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
+        Session session = sessionFactory.getCurrentSession();
         
         // Gets an object of type Franchisee so we can use it's methods
         Franchisee franchisee = Franchisee.getFranchisee();
@@ -91,7 +80,7 @@ public class Alerts extends javax.swing.JFrame {
         
         DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
         
-        List<Part> parts = franchisee.getStock();
+        List<Part> parts = garits.getReplenishment();
         
         
         for (Part part : parts) {
@@ -101,14 +90,13 @@ public class Alerts extends javax.swing.JFrame {
                 part.getPartName(),
                 part.getStockLevel(),
                 part.getLowLevelThreshold(),
-                checkStock(part.getStockLevel(),part.getLowLevelThreshold())
             }
             );
         }
         
-//        
-//        session.getTransaction().commit();
-//        session.close();
+        
+        session.getTransaction().commit();
+        session.close();
         
     }
     
@@ -206,11 +194,11 @@ public class Alerts extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Part ID", "Part name", "Stock Level", "Threshold", "Status"
+                "Part ID", "Part name", "Stock Level", "Threshold"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -231,16 +219,17 @@ public class Alerts extends javax.swing.JFrame {
                     .addComponent(jLabel1))
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(121, 121, 121)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(107, 107, 107)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(53, 53, 53))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(692, 692, 692)
-                .addComponent(jButton3)
-                .addGap(50, 50, 50)
-                .addComponent(jButton2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 696, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(107, 107, 107)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 858, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(692, 692, 692)
+                        .addComponent(jButton3)
+                        .addGap(50, 50, 50)
+                        .addComponent(jButton2)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -342,9 +331,18 @@ public class Alerts extends javax.swing.JFrame {
             
             // Get the type of alert and its Id.
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
-            int row = jTable1.getSelectedRow();
-            String type = (String) jTable1.getValueAt(row, 0);
-            int id = (Integer) jTable1.getValueAt(row, 4);
+            String type = "";
+            int row;
+            int id = 0;
+            String code = "";
+            try{
+                row = jTable1.getSelectedRow();
+                type = (String) jTable1.getValueAt(row, 0);
+                id = (Integer) jTable1.getValueAt(row, 4);
+            }catch(Exception e){
+                row = jTable2.getSelectedRow();
+                code = jTable2.getValueAt(row, 0).toString();
+            }
             
             session.beginTransaction();
             
@@ -358,8 +356,8 @@ public class Alerts extends javax.swing.JFrame {
             }
             
             
-            if (type.equals("REPLENISHMENT")){
-                Part p = session.get(Part.class, jTable1.getValueAt(row, 3).toString());
+            if (!(code.equals(""))){
+                Part p = session.get(Part.class, jTable1.getValueAt(row, 0).toString());
                 receptionist.generateReplenishmentOrder(p);
                 garits.getReplenishment().remove(p);
             }
@@ -372,6 +370,7 @@ public class Alerts extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No alert selected");
         }
         jTable1.clearSelection();
+        jTable2.clearSelection();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
