@@ -1,0 +1,11 @@
+Help page
+
+Navigation 
+- ‘Logout’ signs the user out of their account. 
+- Click on ‘next’ or ‘back’ buttons to navigate through the pages
+
+Entering Login Credentials
+- Username consists of users first name
+
+Changing password
+- User must enter current password then the new password then click save to change password. 

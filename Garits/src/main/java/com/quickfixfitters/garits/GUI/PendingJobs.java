@@ -32,6 +32,9 @@ public class PendingJobs extends javax.swing.JFrame {
 
     public PendingJobs(Garits garits) {
         initComponents();
+        jTable3.setVisible(false);
+        desc.setVisible(false);
+        add.setVisible(false);
         String userRole = garits.getRole();
         System.out.println("role " + userRole);
 //        if (userRole.compareTo("mechanic") == 0){
@@ -39,7 +42,10 @@ public class PendingJobs extends javax.swing.JFrame {
 //        }
         populateJobs();
         this.garits = garits;
-
+        
+        
+        
+        
         System.out.println(garits.getUsername());
         System.out.println(garits.getPassword());
     }
@@ -437,6 +443,10 @@ public class PendingJobs extends javax.swing.JFrame {
         int selectedRow = jTable1.getSelectedRow();
         int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
         System.out.println(jobNo);
+        
+        jTable3.setVisible(false);
+        desc.setVisible(false);
+        add.setVisible(false);
 
         //
         //Starting connection with Database
@@ -563,6 +573,9 @@ public class PendingJobs extends javax.swing.JFrame {
             // Updates the user in the database.
             mechanic.claimJob(userName, jobId);
             JOptionPane.showMessageDialog(null, "Job claimed");
+            jTable3.setVisible(false);
+            desc.setVisible(true);
+            add.setVisible(true);
             model.setRowCount(0);
             populateJobs();
         }catch (Exception e){
@@ -622,11 +635,8 @@ public class PendingJobs extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        try {
-            garits.backButton(this);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "You must log out");
-        }
+        
+        garits.backButton(this);
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
