@@ -321,17 +321,26 @@ public class MechanicUsePart extends javax.swing.JFrame {
 
                     Part part = (Part) session.get(Part.class, partId);
                     JobSheet jobSheet = (JobSheet) session.get(JobSheet.class, jobId);
+                    
+                    int newStock = part.getStockLevel() - quant;
+                    part.setStockLevel(newStock);
+                    
                     JobPart jobPart = new JobPart();
                     jobPart.setJobSheet(jobSheet);
                     jobPart.setPart(part);
                     jobPart.setQuantity(quant);
                     session.save(jobPart);
+                    session.save(part);
                     JOptionPane.showMessageDialog(null, "Part added");
                 } finally {
                     session.getTransaction().commit();
                     session.close();
                 }
                 quantity.setText("");
+                
+                model1.setRowCount(0);
+                populateStock();
+                
             }
 
         } catch (Exception e) {
