@@ -635,8 +635,12 @@ public class PendingJobs extends javax.swing.JFrame {
 
     private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
         // TODO add your handling code here:
-        
-        garits.backButton(this);
+        try {
+            garits.backButton(this);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "You have to log out");
+        }
+
     }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
