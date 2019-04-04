@@ -1,18 +1,15 @@
 package com.quickfixfitters.garits.actors;
 
-import com.quickfixfitters.garits.database.DBConnectivity;
-import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.MOTReminder;
+import com.quickfixfitters.garits.entities.Part;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 
 
 public class Receptionist extends User {
@@ -80,6 +77,28 @@ public class Receptionist extends User {
         }catch(IOException e){
             JOptionPane.showMessageDialog(null, "Printing failed");
             reminder.setPrinted(0);
+        }
+    }
+    
+    //Code that generates a replenishment order
+    public void generateReplenishmentOrder(Part p){
+        try{
+            String filename = "files/replenishmentOrder/"+ p.getPartCode() + 
+                    "---" + dateFormat.format(new Date())+".txt";
+            File newOrder = new File(filename);
+            newOrder.createNewFile();
+            
+            PrintWriter writer = new PrintWriter(filename, "UTF-8");
+            
+            printOurAddress(writer);
+            writer.println(dateFormat.format(new Date()));
+            writer.println();
+            writer.println("Part: "+p.getPartCode());
+            writer.println("Quantity: 10");
+            
+            writer.close();
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Printing failed");
         }
     }
     

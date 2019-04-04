@@ -1,8 +1,10 @@
 package com.quickfixfitters.garits.GUI;
 
+import com.quickfixfitters.garits.actors.Franchisee;
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.MOTReminder;
+import com.quickfixfitters.garits.entities.Part;
 import com.quickfixfitters.garits.entities.Vehicle;
 
 import java.util.ArrayList;
@@ -39,6 +41,7 @@ public class Garits {
     private int mechanicRate = 105;
     private int forepersonRate = 125;
 
+    private ArrayList<Part> replenishment;
     public Garits() {
         
         
@@ -62,13 +65,15 @@ public class Garits {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         
+        Franchisee franchisee = Franchisee.getFranchisee();
+        
         try{
             session.beginTransaction();
             
             // Gets all vehicles
             Criteria criteria = session.createCriteria(Vehicle.class);
             List<Vehicle> vehicles = (List<Vehicle>) criteria.list();
-            
+            List<Part> parts = franchisee.getStock();
             // Checks each vehicle to see if the day when an MOT reminder
             // should be sent has passed. If yes, create the reminder.
             for (Vehicle vehicle : vehicles){
@@ -82,6 +87,14 @@ public class Garits {
                     vehicle.getMotReminders().add(reminder);
                     session.update(vehicle);
                     
+                    this.setPrimedNotification(true);
+                }
+            }
+            
+            replenishment.clear();
+            for (Part p : parts){
+                if (p.getStockLevel() < p.getLowLevelThreshold()){
+                    replenishment.add(p);
                     this.setPrimedNotification(true);
                 }
             }
@@ -203,6 +216,30 @@ public class Garits {
 
     public void setPrimedNotification(boolean primedNotification) {
         this.primedNotification = primedNotification;
+    }
+
+    public int getMechanicRate() {
+        return mechanicRate;
+    }
+
+    public void setMechanicRate(int mechanicRate) {
+        this.mechanicRate = mechanicRate;
+    }
+
+    public int getForepersonRate() {
+        return forepersonRate;
+    }
+
+    public void setForepersonRate(int forepersonRate) {
+        this.forepersonRate = forepersonRate;
+    }
+
+    public ArrayList<Part> getReplenishment() {
+        return replenishment;
+    }
+
+    public void setReplenishment(ArrayList<Part> replenishment) {
+        this.replenishment = replenishment;
     }
     
     

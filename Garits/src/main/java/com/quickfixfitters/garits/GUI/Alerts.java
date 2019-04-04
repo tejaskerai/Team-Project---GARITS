@@ -9,6 +9,7 @@ import com.quickfixfitters.garits.actors.Franchisee;
 import com.quickfixfitters.garits.actors.Receptionist;
 import com.quickfixfitters.garits.database.DBConnectivity;
 import com.quickfixfitters.garits.entities.MOTReminder;
+import com.quickfixfitters.garits.entities.Part;
 import java.io.IOException;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -61,6 +62,17 @@ public class Alerts extends javax.swing.JFrame {
                             motReminder.getMotReminderId()
                         });
             }
+        }
+        
+        for (Part p : garits.getReplenishment()){
+            model.insertRow(
+                    model.getRowCount(), new Object[] {
+                        "REPLENISHMENT",
+                        "",
+                        "",
+                        p.getPartCode(),
+                        ""
+                    });
         }
         session.getTransaction().commit();
         session.close();
@@ -272,6 +284,13 @@ public class Alerts extends javax.swing.JFrame {
                 reminder.setPrinted(1);
                 receptionist.generateMOTReminder(reminder, session);
                 session.update(reminder);
+            }
+            
+            
+            if (type.equals("REPLENISHMENT")){
+                Part p = session.get(Part.class, jTable1.getValueAt(row, 3).toString());
+                receptionist.generateReplenishmentOrder(p);
+                garits.getReplenishment().remove(p);
             }
             
             session.getTransaction().commit();
