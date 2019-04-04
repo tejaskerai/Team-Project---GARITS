@@ -382,6 +382,7 @@ public class StockControl extends javax.swing.JFrame {
                 id = ((int) jTable1.getValueAt(row, 0)) + 1;
             }
 
+            // Inserting data into table
             model.insertRow(
                     model.getRowCount(), new Object[]{
                 id,

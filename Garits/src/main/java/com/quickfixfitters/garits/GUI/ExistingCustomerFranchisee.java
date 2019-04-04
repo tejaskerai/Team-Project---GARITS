@@ -11,7 +11,6 @@ import com.quickfixfitters.garits.entities.Customer;
 import com.quickfixfitters.garits.entities.JobSheet;
 import com.quickfixfitters.garits.entities.Vehicle;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -32,6 +31,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
     public ExistingCustomerFranchisee(Garits garits) {
         initComponents();
+        // Setting default visibility of labels and buttons
         standardJob.setSelected(true);
         newJob.setSelected(false);
         jLabel3.setVisible(false);
@@ -43,7 +43,9 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         this.garits = garits;
     }
 
+    // Method to populate customers
     private void populateCustomers() {
+        // Creates a connection to database
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
@@ -53,6 +55,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         Franchisee franchisee = Franchisee.getFranchisee();
         List<Customer> customers = franchisee.getCustomers();
 
+        // Inserting data into table
         for (Customer customer : customers) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -64,6 +67,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         }
     }
 
+    // Method to populate vehicles tables
     public void populateVehicles() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -77,7 +81,8 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
             Customer c = session.get(Customer.class, customerId);
             List<Vehicle> vehicles = c.getVehicles();
-
+            
+            // Inserting data into table
             for (Vehicle vehicle : vehicles) {
                 model.insertRow(
                         model.getRowCount(), new Object[]{
@@ -96,6 +101,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         }
     }
 
+    // Populate jobs method
     public void populateJobs() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -110,6 +116,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         List<JobSheet> jobSheets = v.getJobSheet();
 
+        // Inserting data into table
         for (JobSheet jobSheet : jobSheets) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -503,6 +510,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu3MouseClicked
 
 
+    // Table mouse clicked method
     private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
 
         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
@@ -515,6 +523,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTable2MouseClicked
 
+    // Table mouse clicked method
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
         // TODO add your handling code here:
         DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
@@ -530,6 +539,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void standardJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_standardJobActionPerformed
+        // Setting visibility according to what job type is selected
         if (standardJob.isSelected()) {
             newJob.setSelected(false);
             jLabel3.setVisible(false);
@@ -546,7 +556,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
     }//GEN-LAST:event_standardJobActionPerformed
 
     private void newJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newJobActionPerformed
-        // TODO add your handling code here:
+        // Setting visibility according to what job type is selected
         if (newJob.isSelected()) {
             standardJob.setSelected(false);
             jLabel2.setVisible(false);
@@ -562,6 +572,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
     }//GEN-LAST:event_newJobActionPerformed
 
 
+    // Refresh button method, repopulates tables
     private void refreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshActionPerformed
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -579,11 +590,11 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
     }//GEN-LAST:event_refreshActionPerformed
 
+    // Add MOT method
     private void addMot() {
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
-        System.out.println("mot func goes here");
         java.util.Date uDate = new java.util.Date();
         java.sql.Date sDate = convertUtilToSql(uDate);
         int selectedRow = jTable2.getSelectedRow();
@@ -591,11 +602,13 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         try {
             session.beginTransaction();
+            // Preset description of MOT
             String motDesc = "Check lamps. Reflectors and electrical equipment,Check steering and suspension,Check brakes,Check tyres and road wheels,Check seat belts and restraint systems,Check body structure and general items,Check drivers view of the road";
             String estimatedTime = "60";
             JobSheet jobSheet = new JobSheet(sDate, motDesc, estimatedTime, vehicleId);
 
             Vehicle v = session.get(Vehicle.class, vehicleId);
+            // Adds and updates job to the vehicle
             v.getJobSheet().add(jobSheet);
             session.update(v);
             DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
@@ -630,10 +643,13 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         try {
             session.beginTransaction();
+            // Preset description of annual service
             String annualDesc = "An engine oil change,An engine oil filter replacement,The checking of lights and tyres exhaust and operation of brakes and steering,Checking hydraulic fluid and coolant levels,Suspensions checks,Testing battery condition";
+            // Prest estimated time
             String estimatedTime = "180";
             JobSheet jobSheet = new JobSheet(sDate, annualDesc, estimatedTime, vehicleId);
             Vehicle v = session.get(Vehicle.class, vehicleId);
+            // Adds job to the vehicle
             v.getJobSheet().add(jobSheet);
             session.update(v);
             DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
@@ -667,10 +683,13 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
 
         try {
             session.beginTransaction();
+            // Preset description for standart job
             String standardDesc = "Fuel filter change,Air filter change,Four standard spark plugs,Wheel balancing & alignment check";
+            // Preset time for the job
             String estimatedTime = "180";
             JobSheet jobSheet = new JobSheet(sDate, standardDesc, estimatedTime, vehicleId);
             Vehicle v = session.get(Vehicle.class, vehicleId);
+            // Adds job the the vehicle
             v.getJobSheet().add(jobSheet);
             session.update(v);
             DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
@@ -701,11 +720,13 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
         if (desc.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Description is empty");
         } else {
+            // Check if there is existing description
             if (model4.getRowCount() == 0) {
                 accDesc = accDesc + toWrite;
             } else {
                 accDesc = accDesc + "," + toWrite;
             }
+            // Adds to the table
             model4.insertRow(model4.getRowCount(), new Object[]{desc.getText()});
             desc.setText("");
         }
@@ -770,9 +791,11 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
                         String description = accDesc;
                         String estimatedTime = eta.getText();
 
+                        // Creates new job sheet for particular vehicle
                         JobSheet jobSheet = new JobSheet(sDate, description, estimatedTime, vehicleId);
 
                         Vehicle v = session.get(Vehicle.class, vehicleId);
+                        // Adds job
                         v.getJobSheet().add(jobSheet);
                         session.update(v);
                         JOptionPane.showMessageDialog(null, "Job added");
@@ -788,6 +811,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
                         }
 
                         System.out.println(jobNo);
+                        // Adds to the table
                         model3.insertRow(model3.getRowCount(), new Object[]{jobNo, estimatedTime});
 
                     } finally {
@@ -803,6 +827,7 @@ public class ExistingCustomerFranchisee extends javax.swing.JFrame {
                 String job = sJob.getSelectedItem().toString().toLowerCase();
                 System.out.println(job);
 
+                // Check to see what is in the combo list
                 if (job.compareTo("annual service") == 0) {
                     addAnnual();
                 } else if (job.compareTo("mot") == 0) {

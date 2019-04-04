@@ -32,6 +32,7 @@ public class StockControlUpdate extends javax.swing.JFrame {
         Franchisee franchisee = Franchisee.getFranchisee();
         List<Part> parts = franchisee.getStock();
 
+        // Inserts data into table
         for (Part part : parts) {
             model.insertRow(
                     model.getRowCount(), new Object[]{
@@ -367,6 +368,7 @@ public class StockControlUpdate extends javax.swing.JFrame {
             int selectedRow = jTable1.getSelectedRow();
             int id = (Integer) jTable1.getValueAt(selectedRow, 0);
 
+            // Call to method in franchisee to update a particular part
             franchisee.updateStock(id, part_name, part_code, part_man, part_vehicleType, part_price, part_threshold, part_stockLevel);
 
             JOptionPane.showMessageDialog(null, "Part Updated");
@@ -392,6 +394,7 @@ public class StockControlUpdate extends javax.swing.JFrame {
 
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
 
+        // Setting text fields to details of the part
         int selectedRow = jTable1.getSelectedRow();
         partName.setText(model.getValueAt(selectedRow, 1).toString());
         code.setText(model.getValueAt(selectedRow, 2).toString());

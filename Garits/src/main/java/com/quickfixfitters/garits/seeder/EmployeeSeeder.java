@@ -24,7 +24,7 @@ public class EmployeeSeeder implements SeederInterface {
 
         try (Session session = sessionFactory.getCurrentSession()) {
             
-            
+            // Hibernate syntax of getting information from database
             Transaction transaction = session.beginTransaction();
             CriteriaBuilder builder = session.getCriteriaBuilder();
             CriteriaQuery<Employee> employeeCriteriaQuery = builder.createQuery(Employee.class);
@@ -36,16 +36,20 @@ public class EmployeeSeeder implements SeederInterface {
 
             Query<Employee> employeeQuery = session.createQuery(employeeCriteriaQuery);
 
+            // Checks if the user already exists
             try {
                 Employee employeeFound = employeeQuery.getSingleResult();
             }
             catch (NoResultException e) {
+                // Creates the employee
                 createEmployee(employee, session);
             }
             transaction.commit();
         }
     }
 
+    
+    // Method to create an admin account when database is set up
     private void createEmployee(Employee employee, Session session) {
         session.save(employee);
     }

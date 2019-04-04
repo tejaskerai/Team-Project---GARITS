@@ -17,10 +17,6 @@ import javax.swing.table.DefaultTableModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-/**
- *
- * @author ccram
- */
 public class Alerts extends javax.swing.JFrame {
 
     /**
@@ -70,6 +66,8 @@ public class Alerts extends javax.swing.JFrame {
 
     }
     
+    
+    // Method to populate stock table
     public void populateStock(){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -82,7 +80,7 @@ public class Alerts extends javax.swing.JFrame {
         
         List<Part> parts = garits.getReplenishment();
         
-        
+        // Inserts data into the table
         for (Part part : parts) {
             model2.insertRow(
                     model2.getRowCount(), new Object[]{

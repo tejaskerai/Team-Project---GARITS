@@ -22,6 +22,7 @@ public class ExistingUsers extends javax.swing.JFrame {
 
     public ExistingUsers(Garits garits) {
         initComponents();
+        // Populates employee when entering the page
         populateEmployees();
         this.garits = garits;
     }

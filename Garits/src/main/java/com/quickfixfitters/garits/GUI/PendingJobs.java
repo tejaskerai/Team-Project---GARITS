@@ -10,17 +10,12 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import com.quickfixfitters.garits.actors.Mechanic;
 import com.quickfixfitters.garits.database.DBConnectivity;
-import com.quickfixfitters.garits.entities.Employee;
 import com.quickfixfitters.garits.entities.JobSheet;
-import java.awt.Font;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
 
 public class PendingJobs extends javax.swing.JFrame {
 
@@ -32,20 +27,8 @@ public class PendingJobs extends javax.swing.JFrame {
 
     public PendingJobs(Garits garits) {
         initComponents();
-        
-        String userRole = garits.getRole();
-        System.out.println("role " + userRole);
-//        if (userRole.compareTo("mechanic") == 0){
-//            jLabel5.setVisible(false);
-//        }
         populateJobs();
         this.garits = garits;
-        
-        
-        
-        
-        System.out.println(garits.getUsername());
-        System.out.println(garits.getPassword());
     }
 
     /**
@@ -395,6 +378,7 @@ public class PendingJobs extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    // Check is mechanic is assigned to a job
     public String checkMech(String mech){
         
         
@@ -452,14 +436,10 @@ public class PendingJobs extends javax.swing.JFrame {
         DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
 
         model4.setRowCount(0);
-        //need to fix
         model3.setRowCount(0);
         int selectedRow = jTable1.getSelectedRow();
         int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
         System.out.println(jobNo);
-        
-
-        //
         //Starting connection with Database
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -572,7 +552,6 @@ public class PendingJobs extends javax.swing.JFrame {
     }//GEN-LAST:event_addActionPerformed
 
     private void claimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_claimActionPerformed
-        // TODO add your handling code here:
 
         try{
             DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
@@ -586,14 +565,13 @@ public class PendingJobs extends javax.swing.JFrame {
             mechanic.claimJob(userName, jobId);
             JOptionPane.showMessageDialog(null, "Job claimed");
             
-//            model.setRowCount(0);
-//            populateJobs();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "No job selected");
         }
 
     }//GEN-LAST:event_claimActionPerformed
 
+    // Button to use parts
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
 
         try {
@@ -612,6 +590,7 @@ public class PendingJobs extends javax.swing.JFrame {
         return sDate;
     }
     
+     // Method to submit job
     private void submitJobActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitJobActionPerformed
 
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
@@ -620,6 +599,7 @@ public class PendingJobs extends javax.swing.JFrame {
         java.util.Date uDate = new java.util.Date();
         java.sql.Date sDate = convertUtilToSql(uDate);
         String time = accTime.getText();
+        // Makes the mechanic enter time spend on job
         if(time.isEmpty()){
             JOptionPane.showMessageDialog(null, "Time spent on job is empty");
         }else{
@@ -627,6 +607,7 @@ public class PendingJobs extends javax.swing.JFrame {
                 session.beginTransaction();
                 int selectedRow = jTable1.getSelectedRow();
                 int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
+                // Completes all the details of the jobsheet, date comepleted, time spend and parts used
                 JobSheet jobSheet = session.get(JobSheet.class, jobNo);
                 jobSheet.setAccTime(time);
                 jobSheet.setDateCompleted(sDate);
@@ -654,8 +635,7 @@ public class PendingJobs extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        
+
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         populateJobs();
