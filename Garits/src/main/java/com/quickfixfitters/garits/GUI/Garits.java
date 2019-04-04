@@ -41,7 +41,7 @@ public class Garits {
     private int mechanicRate = 105;
     private int forepersonRate = 125;
 
-    private ArrayList<Part> replenishment;
+    private ArrayList<Part> replenishment = new ArrayList<Part>();
     public Garits() {
         
         
@@ -73,7 +73,6 @@ public class Garits {
             // Gets all vehicles
             Criteria criteria = session.createCriteria(Vehicle.class);
             List<Vehicle> vehicles = (List<Vehicle>) criteria.list();
-            List<Part> parts = franchisee.getStock();
             // Checks each vehicle to see if the day when an MOT reminder
             // should be sent has passed. If yes, create the reminder.
             for (Vehicle vehicle : vehicles){
@@ -91,6 +90,9 @@ public class Garits {
                 }
             }
             
+            criteria = session.createCriteria(Part.class);
+            List<Part> parts = (List<Part>) criteria.list();
+            
             replenishment.clear();
             for (Part p : parts){
                 if (p.getStockLevel() < p.getLowLevelThreshold()){
@@ -98,7 +100,6 @@ public class Garits {
                     this.setPrimedNotification(true);
                 }
             }
-            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "Checking for new alerts failed");
         }finally{
