@@ -19,7 +19,7 @@ public class Receptionist extends User {
     private String password = "";
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     
-    // Singleton for franchisee
+    // Singleton for receptionist
     public static Receptionist getReceptionist(){
         if (receptionist == null) {
             receptionist = new Receptionist();
@@ -49,6 +49,7 @@ public class Receptionist extends User {
             printOurAddress(writer);
             printTheirAddress(writer, reminder, session);
             
+            // Writing to file in specific format
             writer.println(dateFormat.format(new Date()));
             writer.println("");
             writer.println("Dear " + reminder.getMotVehicle().getCustomer().getForename() + " " +

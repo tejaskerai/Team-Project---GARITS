@@ -11,6 +11,7 @@ public class Mechanic{
     
     private static Mechanic mechanic = null;
     
+    // Singlton design pattern for mechanic
     public static Mechanic getMechanic(){
         
         if(mechanic == null){
@@ -34,16 +35,20 @@ public class Mechanic{
     }
     
     
+    // Claim job method
     public void claimJob(String userName,int jobId){
+        // Creates connection to database
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
 
 
         try {
+            // Begins transaction
             session.beginTransaction();
             JobSheet jobSheet = session.get(JobSheet.class, jobId);
             jobSheet.setRMechanic(userName);
            
+            // Update existing record
             session.update(jobSheet);
             session.getTransaction().commit();     
             
@@ -52,6 +57,7 @@ public class Mechanic{
             session.getTransaction().rollback();
         }
         finally {
+            // Clossing session
             session.close();
         }
     }

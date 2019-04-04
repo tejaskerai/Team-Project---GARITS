@@ -80,6 +80,7 @@ public class User {
 
     }
 
+    // Method to update user password
     public void updatePass(String username, String password, String newPass, String CNewPass) {
 
         int id = getID(username);
@@ -91,6 +92,7 @@ public class User {
             if (newPass.compareTo(CNewPass) == 0) {
                 String newPassword = newPass;
 
+                // Creating connection to database
                 SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
                 Session session = sessionFactory.getCurrentSession();
                 try {
@@ -100,19 +102,22 @@ public class User {
                     // Updating password
                     Employee employee = session.get(Employee.class, id);
                     employee.setPassword(newPassword);
+                    // Updates existing employee
                     session.update(employee);
                     session.getTransaction().commit();
                     JOptionPane.showMessageDialog(null, "Password Updated");
 
                 } finally {
-
+                    // Closing session to database
                     session.close();
                 }
 
             } else {
+                // Pop up if passwords to do not match
                 JOptionPane.showMessageDialog(null, "Passwords do not match");
             }
         } else {
+            // Pop up if login details are 
             JOptionPane.showMessageDialog(null, "Incorrect login details entered");
         }
 
@@ -124,6 +129,7 @@ public class User {
         Session session = sessionFactory.getCurrentSession();
 
         try {
+            // Starts transaction
             session.beginTransaction();
             // Making criteria to get record id
             Criteria criteria = session.createCriteria(Employee.class);
@@ -135,6 +141,7 @@ public class User {
             return id;
 
         } finally {
+            // Commits changes and closes 
             session.getTransaction().commit();
             session.close();
         }

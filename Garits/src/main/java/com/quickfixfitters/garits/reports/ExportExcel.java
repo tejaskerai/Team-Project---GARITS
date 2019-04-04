@@ -48,7 +48,7 @@ public class ExportExcel {
         }
         try {
             // this Writes the workbook gfgcontribute
-            FileOutputStream out = new FileOutputStream(new File("garits/files/Report.xlsx"));
+            FileOutputStream out = new FileOutputStream(new File("files/Report.xlsx"));
             workbook.write(out);
             out.close();
             System.out.println("report.xlsx written successfully on disk.");
