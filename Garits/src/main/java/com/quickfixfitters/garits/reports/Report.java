@@ -43,8 +43,6 @@ public class Report {
 
 
 
-//    private SimpleDateFormat dateFormat
-//            = new SimpleDateFormat("ddMMyy-hhmmss.SSS.pdf");
 
 
     private static Report report = null;
@@ -67,11 +65,16 @@ public class Report {
         this.startDate = startDate;
         this.dateOfReport = dateOfReport;
     }
+    /*
+    * Hibernate constructor
+    * */
     public Report(){
     }
 
     public void archiveReport(){
     }
+
+
 
     public void createReport(List reportList, int colNo) {
 
@@ -82,6 +85,10 @@ public class Report {
 
         exportExcel.exportReport(sReport.getMappedSReport());
     }
+
+    /*
+     * creates a projected hibernate list and puts it into java.util.list
+     * */
     public void createInvoice(int JobID){
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
@@ -126,11 +133,14 @@ public class Report {
 
     }
 
+
     private void invoiceToList(List invToList) {
         this.invToList = invToList;
     }
 
-
+/*
+*  calculates VAT
+* */
     private String calcVAT(String total){
 
         float VAT = Float.parseFloat(total) *0.2f;
@@ -139,6 +149,10 @@ public class Report {
         return String.valueOf(VAT);
     }
 
+    /*
+    * checks who took the job, adjusts hourly rate accordingly,
+    * then calculates total price
+    * */
     private String calcSum(List partCost, int discountType){
 
         if (mechanic.getJobs().contains(jobSheet.getJobNo())) {
@@ -155,6 +169,9 @@ public class Report {
         return total;
     }
 
+    /*
+    * Add VAT to the total sum
+    * */
     private String calcGrandTotal(String sum, String VAT){
 
         float grandTotal = Float.valueOf(sum) + Float.valueOf(VAT);    

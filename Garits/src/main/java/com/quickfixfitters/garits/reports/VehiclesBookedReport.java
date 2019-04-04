@@ -33,10 +33,12 @@ public class VehiclesBookedReport {
             Date dateEnd
 
     )
+
     {
-
+        /*
+        * Set date standard
+        * */
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-YYYY");
-
 
         try {
              dateStart = formatter.parse(dateBookedIn);
@@ -47,12 +49,17 @@ public class VehiclesBookedReport {
             e.printStackTrace();
         }
 
-
+        /*
+        * Establishes connection to database
+        * */
         SessionFactory sessionFactory = DBConnectivity.getSessionFactory();
         Session session = sessionFactory.getCurrentSession();
         try {
             session.beginTransaction();
 
+            /*
+            * creates a Vehicles booked report
+            * */
             List vBR = session.createCriteria(JobSheet.class).
                     setProjection(Projections.projectionList()
                     .add(Projections.groupProperty(jobType))
