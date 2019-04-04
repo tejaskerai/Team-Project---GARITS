@@ -32,7 +32,7 @@ public class PendingJobs extends javax.swing.JFrame {
 
     public PendingJobs(Garits garits) {
         initComponents();
-        jTable3.setVisible(false);
+        
         desc.setVisible(false);
         add.setVisible(false);
         String userRole = garits.getRole();
@@ -444,7 +444,6 @@ public class PendingJobs extends javax.swing.JFrame {
         int jobNo = (Integer) jTable1.getValueAt(selectedRow, 0);
         System.out.println(jobNo);
         
-        jTable3.setVisible(false);
         desc.setVisible(false);
         add.setVisible(false);
 
@@ -537,6 +536,10 @@ public class PendingJobs extends javax.swing.JFrame {
                         jobSheet.setDescriptionAfterWork(newString);
                     }
                     
+                    DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
+
+                    model3.insertRow(model3.getRowCount(), new Object[]{toWrite});
+                    desc.setText("");
                     session.update(jobSheet);
                     session.getTransaction().commit();
 
@@ -546,10 +549,7 @@ public class PendingJobs extends javax.swing.JFrame {
                     session.close();
                 }
 
-                DefaultTableModel model3 = (DefaultTableModel) jTable3.getModel();
-
-                model3.insertRow(model3.getRowCount(), new Object[]{desc.getText()});
-                desc.setText("");
+                
             }
 
         } catch (Exception e) {
@@ -573,11 +573,11 @@ public class PendingJobs extends javax.swing.JFrame {
             // Updates the user in the database.
             mechanic.claimJob(userName, jobId);
             JOptionPane.showMessageDialog(null, "Job claimed");
-            jTable3.setVisible(false);
+            
             desc.setVisible(true);
             add.setVisible(true);
-            model.setRowCount(0);
-            populateJobs();
+//            model.setRowCount(0);
+//            populateJobs();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null, "No job selected");
         }
