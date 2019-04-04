@@ -76,7 +76,7 @@ public class Alerts extends javax.swing.JFrame {
         
         // Gets an object of type Franchisee so we can use it's methods
         Franchisee franchisee = Franchisee.getFranchisee();
-        //session.beginTransaction();
+        session.beginTransaction();
         
         DefaultTableModel model2 = (DefaultTableModel) jTable2.getModel();
         
