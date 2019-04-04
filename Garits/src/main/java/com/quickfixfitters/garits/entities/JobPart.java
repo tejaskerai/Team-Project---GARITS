@@ -36,6 +36,7 @@ public class JobPart{
     @Column(name = "Quantity")
     private int quantity;
 
+    /*Hibername Constructor*/
     public JobPart() {
     }
 
@@ -47,33 +48,33 @@ public class JobPart{
     }
    
     
-    
+    /*Gets Job Sheet*/
     public JobSheet getJobSheet(){
         return jobSheet;
     }
     
     
-
+    /*Gets Job Part ID*/
     public int getJobPartId() {
         return JobPartId;
     }
-
+    /*Sets Job Part ID*/
     public void setJobPartId(int JobPartId) {
         this.JobPartId = JobPartId;
     }
-
+    /*Gets Quantity*/
     public int getQuantity() {
         return quantity;
     }
-
+    /*Sets Quantity*/
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-
+    /*Sets Job Sheet*/
     public void setJobSheet(JobSheet jobSheet) {
         this.jobSheet = jobSheet;
     }
-
+    /*Sets Part*/
     public void setPart(Part part) {
         this.part = part;
     }
